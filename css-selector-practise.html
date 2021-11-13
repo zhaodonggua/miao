@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <title>Document</title>
   <style>
-    .a:hover {
+    /* .a:hover {
       color: red;
     }
 
@@ -15,58 +15,61 @@
 
     .a:focus {
       color: blue;
-    }
+    } */
 
-    :link {
+
+
+    a:link {
       color: pink;
     }
 
-    :visited {
+    a:visited {
       color: orange;
     }
 
-    [href^="mailto:"] {
+    /* 注意顺序，交互写后面 */
+    p.a[tabindex="1"]:focus{
+      color:blue;
+    }
+    p.a[tabindex="1"]:hover{
+      color:red;
+    }
+    p.a[tabindex="1"]:active{
+      color:green;
+    }
+
+    a[href^="mailto:" i] {
       color: blue;
     }
 
-    [href^="MAILTO:"] {
+    a[href^="MAILTO:" i] {
       color: blue;
     }
 
-    [href^="tel:"] {
+    a[href^="tel:" i] {
       color: yellow;
     }
 
-    [href^="aaa."] {
+    a[href^="aaa."] {
       font-size: 30px;
     }
 
-    /* li[class="turn_red"] {
-      color: red;
-    } */
-
-    /* #color_change1>li:not(:nth-of-type(n+26)) {
-      color: red;
-    } */
-
-    /* #color_change1>li:nth-of-type(n+65) {
-      color: green;
-    } */
     .b>ul>li:not(:nth-of-type(n+26)) {
       color: red;
     }
+    .b>ul>li:nth-of-type(n+35) {
+      color: blue;
+    }
+    .b>ul>li:nth-of-type(n+51) {
+      color: black;
+    }
+    /* 第二种办法 */
+    /* div.b li:nth-child(n+35):nth-child(-n+50){
+      color: blue;
+    } */
 
     .b>ul>li:nth-of-type(n+65) {
       color: green;
-    }
-
-
-    /* #color_change2>li:nth-of-type(odd) {
-      color: white;
-    } */
-
-    .prime>ul>li:nth-of-type(odd) {
-      color: white;
     }
 
     .a li:nth-of-type(4) {
@@ -84,6 +87,64 @@
     .a li:nth-of-type(7) {
       color: red;
     }
+    .prime li:nth-child(2){
+      color:black;
+    }
+    .prime li:nth-child(3){
+      color:black;
+    }
+    .prime li:nth-child(5){
+      color:black;
+    }
+
+    body > p:first-child{
+      color:red;
+    }
+
+    p.a.c span:nth-child(1){
+        color:red;
+    }
+
+    p.a.c>span>span:nth-child(1){
+      color:green;
+    }
+
+    p.a.c>span>span:nth-child(2){
+      color:blue;
+    }
+
+
+
+
+    .prime li:nth-child(2n){
+      color:red;
+    }
+    .prime li:nth-child(3n){
+      color:red;
+    }
+    .prime li:nth-child(4n){
+      color:red;
+    }
+    .prime li:nth-child(5n){
+      color:red;
+    }
+    .prime li:nth-child(7n){
+      color:red;
+    }
+    .prime li:nth-child(2){
+      color:black;
+    }
+    .prime li:nth-child(3){
+      color:black;
+    }
+    .prime li:nth-child(5){
+      color:black;
+    }
+
+
+
+
+
   </style>
 </head>
 
@@ -143,7 +204,7 @@
     <p>让25及以内的元素为红色</p>
     <p>让65及以上的元素为绿色</p>
     <p>让35-50的元素为蓝色</p>
-    <ul id="color_change1">
+    <ul>
       <li>01</li>
       <li>02</li>
       <li>03</li>
