@@ -6,77 +6,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
+    body {
+      margin-top: 20px;
+    }
+
     header {
       background-color: red;
+
     }
 
     header p {
-      width: 50%;
-      margin: 10px auto;
+      width: 48%;
+      margin: auto;
+      box-sizing: border-box;
 
     }
 
-    div.f {
-      border: solid black;
-      width: 50%;
-      margin: 10px auto;
-    }
-
-    .a {
-      height: 60px;
+    main {
+      width: 48%;
+      border: 2px solid;
+      margin: 20px auto;
+      /* 加入padding不限制宽度的话，文字右移，宽度变大 */
       padding-left: 10px;
       padding-right: 10px;
+      box-sizing: border-box;
+    }
+
+    main p {
+
       overflow: auto;
-      overflow-x: hidden;
+      height: 60px;
+    }
+
+    main div {
+      background-color: violet;
+      height: 50px;
+    }
+
+    main div:hover {
+      /* 左为负右为正 */
+      /*padding和margin原本都为0，此时margin向左，content就会向左移*/
+      border: 1px solid;
+      margin-left: -10px;
+      margin-right: -10px;
     }
 
     .b {
-      background-color: violet;
-      border: solid rgba(0, 0, 0, 0);
-      margin: 10px 30px;
-      height: 40px;
-    }
-
-    .b:hover {
-      margin: 10px 0px;
-    }
-
-    .d {
-      /* border-top: 0px solid red;
-      border-left: 50px solid rgba(0, 0, 0, 0);
-      border-right: 50px solid rgba(0, 0, 0, 0);
-      border-bottom: 50px solid orange;
-      height: 0px;
-      width: 0px;
-      margin: 50px auto; */
-      /* 居中 */
+      width: 50%;
       margin: auto;
-      border: 50px solid red;
-      border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) orange rgba(0, 0, 0, 0);
-      width: 0px;
+      border: 50px solid;
+      border-color: transparent transparent orange transparent;
       height: 0px;
+      width: 0px;
     }
   </style>
 </head>
 
 <body>
+
   <header>
-    <p>aaaaa</p>
+    <p>aaa</p>
   </header>
-  <div class="f">
-    <p class="a">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Itaque voluptatum mollitia omnis. Aperiam neque, facilis quisquam tempore numquam et.
-      Tempore, repellat. Error quo harum dolores sit beatae? Aliquid, aliquam? Incidunt.</p>
-    <div class="b"></div>
-    <p class="a">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Itaque voluptatum mollitia omnis. Aperiam neque, facilis quisquam tempore numquam et.
-      Tempore, repellat. Error quo harum dolores sit beatae? Aliquid, aliquam? Incidunt.</p>
-  </div>
-  <div class="d">
 
+  <main>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae sapiente voluptas officiis, praesentium, nemo
+      iure cumque nihil,
+      facere hic asperiores dicta commodi magni, voluptates eaque esse atque nesciunt! Cupiditate, modi.</p>
+    <div class="a"></div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      Quos modi accusantium deleniti consequuntur,
+      enim nulla voluptatum qui ducimus esse rem eius eligendi consequatur sint.
+      Sunt ut, est iusto neque numquam.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      Laboriosam animi perspiciatis eos, molestias provident, quae ullam! Obcaecati suscipit optio labore iusto veniam
+      facere, amet officiis, eveniet voluptatibus molestiae, dignissimos dolor!
+    </p>
 
-  </div>
-
+  </main>
+  <div class="b"></div>
 </body>
 
 </html>
