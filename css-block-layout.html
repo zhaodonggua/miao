@@ -44,6 +44,55 @@
       padding-top: 5px;
 
     }
+    ul.cards2 {
+      width: 600px;
+      margin: auto;
+      padding: 0;
+      list-style: none;
+    }
+
+    ul.cards2 li{
+      width: 180px;
+      height: 40px;
+      box-sizing: border-box;
+      border: 3px solid;
+      margin-bottom: 15px;
+      text-align: center;
+      background-color: pink;
+      padding-top: 5px;
+    }
+    ul.cards2 li:nth-child(n+1):nth-child(-n+3){
+        display: inline-block;
+
+    }
+    ul.cards2 li:nth-child(n+2):nth-child(-n+3){
+        margin-left:25px;
+
+    }
+    ul.cards2 li:nth-child(n+4):nth-child(-n+6){
+        display: inline-block;
+    }
+    ul.cards2 li:nth-child(n+5):nth-child(-n+6){
+      margin-left:25px;
+    }
+    ul.cards2 li:nth-child(n+7):nth-child(-n+9){
+        display: inline-block;
+
+    }
+    ul.cards2 li:nth-child(n+8):nth-child(-n+9){
+      margin-left:25px;
+    }
+    ul.cards2 li:nth-child(n+10):nth-child(-n+12){
+        display: inline-block;
+    }
+    ul.cards2 li:nth-child(n+11):nth-child(-n+12){
+      margin-left:25px;
+    }
+   /* div.b li:nth-child(n+35):nth-child(-n+50){
+      color: blue;
+    } */
+
+
 
     ul.cards li:nth-child(n+5) {
       margin-left: 210px;
@@ -59,7 +108,7 @@
 
     ul.links {
       width: 600px;
-      margin: auto;
+      margin: 20px auto;
       padding: 0;
       list-style: none;
       overflow: hidden;
@@ -106,6 +155,21 @@
     <li>产品</li>
     <li>产品</li>
   </ul>
+<ul class="cards2">
+  <li>宽180高40(包含边框)</li>
+  <li>产品</li>
+  <li>产品</li>
+  <li>水平间隙30px</li>
+  <li>产品</li>
+  <li>产品</li>
+  <li>垂直间隙15px</li>
+  <li>产品</li>
+  <li>产品</li>
+  <li>边框宽度3px</li>
+  <li>产品</li>
+  <li>产品</li>
+</ul>
+
   <ul class="links">
     <li>link</li>
     <li>link</li>
