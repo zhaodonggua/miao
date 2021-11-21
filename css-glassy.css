@@ -1,0 +1,43 @@
+
+body {
+  background-attachment: fixed;
+  background-image: url(https://meyerweb.com/eric/css/edge/complexspiral/glassy-bg.jpg);
+  background-repeat: no-repeat;
+}
+
+div {
+  margin: 4em 4em 4em 4em;
+  border: 2px solid rgb(153, 102, 51);
+  background-attachment: fixed;
+  background-image: url(https://meyerweb.com/eric/css/edge/complexspiral/glassy-ripple.jpg);
+  background-repeat: no-repeat;
+}
+
+h1 {
+  /* width: 95%; */
+  /* 不设定宽度和高度，使用div的margin和h1的padding去确定 */
+  background-color: rgb(204, 204, 204);
+  letter-spacing: 0.5em;
+  margin: 20px 5px;
+  padding: 15px 20px 10px;
+  border: 0.5px solid black;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-image: url(https://meyerweb.com/eric/css/edge/complexspiral/glassy-gray.jpg);
+  background-repeat: no-repeat;
+}
+
+p {
+  padding: 0;
+  margin: 0 1em 1em 1em;
+}
+
+h2 {
+  color: white;
+  background-color: rgb(203, 170, 150);
+  padding: 10px;
+  background-attachment: fixed;
+  background-image: url(https://meyerweb.com/eric/css/edge/complexspiral/glassy-tan.jpg);
+  background-repeat: no-repeat;
+}
+
