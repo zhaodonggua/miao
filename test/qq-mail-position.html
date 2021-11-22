@@ -1,0 +1,84 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-size: 0;
+    }
+
+    body {
+      /* 超出部分隐藏 */
+      overflow: hidden;
+    }
+
+    .header {
+      height: 100px;
+      width: 100%;
+      background-color: red;
+      font-size: 16px;
+    }
+
+    .sidebar {
+      overflow: auto;
+      width: 200px;
+      height: calc(100% - 100px);
+      background-color: blue;
+      font-size: 16px;
+    }
+
+    .main {
+      overflow: auto;
+      width: calc(100% - 200px);
+      height: calc(100% - 100px);
+      background-color: green;
+      position: absolute;
+      left: 200px;
+      top: 100px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="header">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo rerum, ab deserunt, alias autem illo voluptatem
+      possimus, doloribus ea eaque aperiam iure dignissimos temporibus accusantium distinctio ullam. Assumenda, nemo
+      corrupti!
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed officiis molestiae enim. Commodi officia expedita
+      repellat voluptatibus error fugit fuga? Quisquam natus dolorum nostrum eligendi quis ullam maxime, ipsam sapiente.
+      Autem doloribus, earum in aliquam sequi non numquam quibusdam quis consequuntur possimus obcaecati quisquam magnam
+      labore, voluptatem odit ducimus optio sed harum a quia! Quam, voluptas? Quia hic provident corporis!
+      Nobis quas optio consequuntur est quae unde debitis odit eaque incidunt laborum, tempora possimus consectetur
+      facilis blanditiis. Voluptatem qui obcaecati debitis, ea enim ipsum magni libero sit laborum. Impedit, nihil.
+    </div>
+    <div class="sidebar">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam laborum eaque nisi quaerat cum facilis libero
+      quibusdam sed, laboriosam assumenda dolor praesentium autem tempora esse beatae velit veniam minima voluptates?
+      Nisi, aliquid accusantium eius ad expedita veritatis consectetur eos consequuntur odio molestiae est omnis iusto
+      recusandae culpa, debitis sint placeat laborum id molestias soluta. Expedita repellat possimus adipisci ipsa
+      quasi.
+      Commodi minus voluptate at. Tenetur sequi saepe, ut minus assumenda obcaecati reiciendis repellendus voluptatibus,
+      quod delectus earum inventore? Sunt et quia maiores aspernatur aut, atque excepturi blanditiis molestias quod
+      consectetur.
+    </div>
+    <div class="main">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur possimus voluptates corrupti repellendus
+      laudantium! Quo similique quia laborum quis, tempore sequi modi sed excepturi consequuntur aut quibusdam
+      voluptatum, consectetur amet.
+      Esse iste recusandae doloribus porro illum eaque veniam aliquid beatae eligendi et, quo sit adipisci blanditiis
+      animi vitae molestiae cum dolore rem. Ipsam cum voluptas doloribus voluptates! Quos, quam reiciendis.
+      Explicabo quisquam aliquam cum dolorem ut quasi nihil deleniti, fugit libero rerum officia cumque recusandae
+      placeat a iusto alias adipisci, amet ducimus? Assumenda facilis tempora ex maxime excepturi. Vero, modi.
+    </div>
+  </main>
+</body>
+
+</html>
