@@ -6,134 +6,78 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    * {
-      font-size: 0px;
+    *{
+      font-size: 16px;
       padding: 0px;
       margin: 0px;
       box-sizing: border-box;
-    }
 
-    .leftbar {
-      width: 200px;
-      height: 100%;
-      background-color: #eaeef3;
-      border-right: 1px solid;
+    }
+    /* 设定好父辈的position:relative,然后子元素position:absolute */
+    /* 设定好right , left,top 和bottom,让元素自己定宽和高 */
+    div{
+      width:300px;
+      height: 200px;
       position: relative;
     }
-
-    .leftbar h1 {
-      font-size: 24px;
-      position: absolute;
-      top: 20px;
-      left: 40px;
-    }
-
-    .leftbar p {
-      width: 200px;
-      position: relative;
-      top: 100px;
-      height: calc(100% - 100px);
-      overflow: auto;
-      font-size: 16px;
-    }
-
-
-    .main {
-      width: calc(100% - 600px);
+    aside{
+      width: 60px;
       height: 100%;
-      border: 1px solid;
       position: absolute;
-      left: 200px;
+      background-color: blanchedalmond;
+    }
+    aside.left{
+      left: 0;
+      background-color: red;
+    }
+
+    aside.right1{
+      right:0;
+      background-color: blueviolet;
+    }
+    aside.right2{
+      right:60px;
+      background-color: chocolate;
+    }
+    main{
+      background-color: yellow;
+      position: absolute;
+      left: 60px;
+      right: 120px;
+      top:40px;
+    }
+    header{
+      position: absolute;
       top: 0;
-      /* bottom: 0px; */
+      height: 40px;
+      left: 60px;
+      right: 120px;
+      background-color: black;
     }
-
-    .rightbar1 {
-      width: 200px;
-      height: 100%;
-      background-color: #eaeef3;
-      border-right: 1px solid;
+    main{
       position: absolute;
-      right: 200px;
+      top:40px ;
       bottom: 0;
-
+      left: 60px;
+      right: 120px;
+      background-color: yellow;
     }
 
-    .rightbar2 {
-      width: 200px;
-      height: 100%;
-      background-color: #eaeef3;
-      border-right: 1px solid;
-      position: absolute;
-      /* 不能用左边定，因为main用的是100%，缩小宽度main会变宽，
-      会导致超出右边的bar */
-      /* left:1080px; */
-      right: 0;
-      bottom: 0;
-
-    }
-
-    .word {
-      height: 72px;
-      /* width: 100%; */
-      border-bottom: 1px solid;
-      font-size: 16px;
-    }
-
-    .explanation {
-      /* width: 100%; */
-      height: calc(100% - 72px);
-      border-top: 1px solid;
-      font-size: 16px;
-    }
-
-    p {
-      font-size: 16px;
-    }
   </style>
 </head>
 
+
 <body>
-  <div class="leftbar">
-    <h1>OALD Se7en</h1>
-
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, minus. Modi cum culpa excepturi cupiditate tempora
-      beatae, facere dolores ratione quo amet minus sint. Possimus id cum consequuntur est soluta.
-      Veritatis voluptatibus suscipit facere animi alias quo ipsa nesciunt distinctio molestiae quasi. Illo cum tempora
-      temporibus distinctio similique amet officia laudantium laboriosam aspernatur autem aut facere, sit accusantium
-      nobis rem.
-      Nostrum, nemo animi voluptatem rem maxime fuga reiciendis in doloribus ipsum provident sit, voluptas veritatis
-      corrupti incidunt eaque sint? Doloremque molestiae tempora, iste hic sunt culpa fugiat quia laudantium
-      consequatur.
-    <p>
+  <div>
+    <aside class="left"></aside>
+    <header></header>
+    <main></main>
+    <aside class="right1"></aside>
+    <aside class="right2"></aside>
+  
+  
+  
   </div>
-
-
-  <div class="main">
-    <div class="word">
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores laudantium illum, doloremque explicabo veniam
-      ducimus cupiditate inventore porro animi temporibus at excepturi totam ab magnam, ex dicta, corrupti maxime rerum?
-    </div>
-    <div class="explanation">
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit facere fugit reprehenderit eligendi! Ullam,
-      assumenda repudiandae voluptatum aliquid totam delectus velit saepe repellat odit laborum, quibusdam quas, rem
-      minus veritatis!
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor neque voluptatum modi qui similique deserunt porro
-      est nulla, odio, vero quod ipsum iste doloremque ut impedit officia, illum id quia?
-      Modi nisi fuga quae aspernatur, eum odit rem dolor. Nostrum suscipit quo delectus esse tempore, facilis rem culpa,
-      id numquam quam cum ex expedita dolorem autem sed. Assumenda, exercitationem nemo?
-      Veritatis vel, deleniti dignissimos recusandae sunt dicta dolorem porro dolor omnis ex aperiam unde at. Laudantium
-      distinctio a ut qui quibusdam nam odit tempora similique ducimus, aliquid saepe, sint dolorem.
-    </div>
-  </div>
-  <div class="rightbar1">
-    <p>111</p>
-  </div>
-  <div class="rightbar2">
-    <p>111</p>
-  </div>
-
 
 </body>
 

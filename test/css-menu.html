@@ -1,104 +1,57 @@
-<!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    * {
-      padding: 0;
-      margin: 0;
+    *{
+
+  box-shadow: inset 0 0 1px red;
+}
+    *{
       font-size: 0px;
+      padding: 0px;
+      margin: 0px;
       box-sizing: border-box;
-    }
-
-    div {
-      display: inline-block;
-    }
-
-
-
-    .list1,
-    .list2,
-    .list3,
-    .list4 {
-      visibility: hidden;
       list-style: none;
     }
 
-
-    div:hover .list1 {
-      visibility: visible;
-    }
-
-    div:hover .list3 {
-      visibility: visible;
-    }
-
-
-    .a:hover .list2 {
-      visibility: visible;
-    }
-
-    .b:hover .list4 {
-      visibility: visible;
-    }
-
-    .list2 {
-      position: relative;
-      left: 80px;
-      bottom: 20px
-    }
-
-    .list4 {
-      position: relative;
-      left: 40px;
-      bottom: 20px
-    }
-
-    li,
-    span,
-    div {
+    ul,li{
       font-size: 16px;
     }
+    .main-menu ul{
+      display: none;
+      position: absolute;
+    }
+    .main-menu>li:hover>ul{
+      display: block;
+    }
+    li:hover > ul{
+      display: block;
+    }
+    ul ul ul{
+      left: 100%;
+      top: 50%;
+    }
+
   </style>
 </head>
-
 <body>
-
-  <div>
-    <span>文件</span>
-    <ul class="list1">
-      <li>打开</li>
-      <li>保存</li>
-      <div class="a">最近文件:
-        <ul class="list2">
-          <li>1111111111111111111</li>
-          <li>2222222222222222222</li>
-          <li>3333333333333333333</li>
+  <ul class="main-menu">
+    <li>文件
+      <ul>
+        <li>新建文件
+        </li>
+        <li>保存
+          <ul>
+            <li>111</li>
+            <li>222</li>
+          </ul>
+        </li>
         </ul>
-      </div>
-    </ul>
+    </li>
 
-  </div>
-  <div>
-    <span>编辑</span>
-    <ul class="list3">
-      <li>撤销</li>
-      <li>恢复</li>
-      <div class="b">查找:
-        <ul class="list4">
-          <li>111111111111111111</li>
-          <li>222222222222222222</li>
-          <li>333333333333333333</li>
-        </ul>
-      </div>
-    </ul>
-  </div>
-
-
+  </ul>
 </body>
-
 </html>
