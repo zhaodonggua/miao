@@ -1,0 +1,71 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    #label1 {
+      display: inline-block;
+      width: 800px;
+      height: 200px;
+      border-radius: 100px;
+      border: 2px solid;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition: 3s;
+    }
+
+    #label2 {
+      display: inline-block;
+      width: 200px;
+      height: 200px;
+      border-radius: 100px;
+      border: 2px solid;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: white;
+      transition: 3s;
+    }
+
+    #green {
+      display: inline-block;
+      width: 200px;
+      height: 200px;
+      border-radius: 100px;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      background-color: green;
+      transition: 3s;
+    }
+
+    #outer:checked+#label1+#green {
+      width: 800px;
+      background-color: green;
+    }
+
+    #outer:checked+#label1+#green+#label2 {
+      left: 600px;
+      transition: 3s;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="checkbox" name="" id="outer" hidden>
+  <label for="outer" id="label1"></label>
+  <label for="outer" id="green"></label>
+  <label for="outer" id="label2"></label>
+
+
+</body>
+
+</html>
