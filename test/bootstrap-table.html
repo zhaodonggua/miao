@@ -4,22 +4,73 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <head>
-  
-    <style type="text/less">
-      table{
-            border-collapse: collapse;
-  
-            &.table-hover>tbody>tr:hover{
-              background-color: rgb(236,236,236);
-             }
 
-          &.table-bordered  td,tr{
-            border:1px solid;
-                  }
-          &.table-striped>tbody>tr:nth-child(2n+1){
-            background-color: rgb(242, 242, 242);
-          }
+  <head>
+
+    <style type="text/less">
+        table{
+            width:100%;
+            border-collapse:collapse;
+            /* text-align:left; */
+            tr{
+              border-bottom: #DEE2E6 1px solid;
+            }
+            thead{
+              border-bottom: 2px solid #212529;
+            }
+            tr,th{
+              text-align: left;
+              padding:8px,8px;
+            }
+
+            &.table-striped tbody tr:nth-child(2n+1){
+            background-color: #f2f2f2;
+             }
+            &.table-hover>tbody>tr:hover
+            {
+                background-color: #ECECEC;
+            }
+            &.table-bordered {
+              td,th{
+                border:1px solid #DEE2E6;
+              }
+            }
+            &.table-borderless{
+                thead,tr{
+                  border: none;
+                }
+            }
+            &.table-sm{
+              th,td{
+                padding: 0.25em;
+              }
+            }
+
+
+            &.table-dark {
+              background-color:#212529;
+              color: white;
+              thead{
+                border-bottom-color: white;
+              }
+              tr{
+                border-bottom-color: #373B3E;
+              }
+
+              &.table-striped{
+                tbody tr:nth-child(odd){
+                  background-color: #323539;
+                }
+              }
+              /* ?? */
+              &.table-hover{
+                tbody tr:hover{
+                  background-color:white;
+                }
+              }
+            }
+
+
 
       }
 
@@ -27,7 +78,7 @@
   </style>
   </head>
 <body>
-<table class="table table-hover table-bordered table-sm table-dark table-striped ">
+<table class="table table-hover table-bordered table-sm table-dark table-striped table-borderless">
   <thead>
     <tr>
       <th scope="col">#</th>
