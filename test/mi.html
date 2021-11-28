@@ -1,0 +1,112 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小米官网</title>
+  <style type="text/less">
+
+    body,
+    html {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .top_bar {
+      height: 40px;
+      width: 100%;
+      background-color: rgb(51, 51, 51);
+    .container{
+        width: 1226px;
+        margin-right:auto;
+        margin-left:333px;
+      ul{
+        padding: 0px;
+        margin:0px;
+        list-style: none;
+        display:inline-block;
+
+        li{
+          font-size: 12px;
+          display:inline-block;
+          color:rgb(176, 176, 176) ;
+        }
+        li:nth-child(2n){
+          color: rgb(66,66,66);
+          margin-left:2px;
+          margin-right: 2px;
+        }
+        li:nth-child(1){
+          /* 为什么可以把整块拉下来？ */
+          margin-top: 12px;
+        }
+        li:nth-child(25){
+          margin-right: 145px;
+        }
+      }
+    }
+    }
+    /* 不要用ul套div */
+    .top_bar>div.container>ul.cart{
+        height: 40px;
+        color: black;
+        margin-left: 27px;
+        /* 块对齐，文字居中 */
+        line-height: 40px;
+        text-align: center;
+        background-color: white;
+
+      }
+
+
+  </style>
+</head>
+
+<body>
+  <div class="top_bar">
+    <div class="container">
+      <ul class="left">
+        <li>小米商城</li>
+        <li>|</li>
+        <li>MIUI</li>
+        <li>|</li>
+        <li>IOT</li>
+        <li>|</li>
+        <li>云服务</li>
+        <li>|</li>
+        <li>天星科技</li>
+        <li>|</li>
+        <li>有品</li>
+        <li>|</li>
+        <li>小爱开放平台</li>
+        <li>|</li>
+        <li>企业团购</li>
+        <li>|</li>
+        <li>资质证照</li>
+        <li>|</li>
+        <li>协议规则</li>
+        <li>|</li>
+        <li>下载app</li>
+        <li>|</li>
+        <li>智能生活</li>
+        <li>|</li>
+        <li>Select Location</li>
+      </ul>
+      <ul class="right">
+        <li>登录</li>
+        <li>|</li>
+        <li>注册</li>
+        <li>|</li>
+        <li>消息通知</li>
+      </ul>
+      <ul class="cart">
+        购物车
+      </ul>
+    </div>
+  </div>
+</body>
+<script src="less.min.js"></script>
+
+</html>

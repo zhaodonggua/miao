@@ -9,20 +9,39 @@
 <style>
   dt,
   dd {
-    border: 1px solid;
-    float: left;
+  float: left;
+  }
+  .clear{clear: both;}/*新增空元素用于清除浮动*/
+  dt,dd{
+    margin:0;
+  }
+  dd{
+    margin-left: 20px;
+  }
+  dt{
+    font-weight: bold;
   }
 </style>
 
 <body>
+
   <dl>
-    <dt>老师</dt>
-    <dd>谢然</dd>
-    <dt>学生</dt>
-    <dd>张三</dd>
-    <dd>李四</dd>
-    <dd>王五</dd>
+    <dt>电影名称</dt>
+    <dd>长津湖</dd>
+    <dd class="clear"></dd>
   </dl>
+<dl>
+  <dt>主演名单</dt>
+  <dd>汤唯</dd>
+  <dd>梁朝伟</dd>
+  <dd class="clear"></dd>
+</dl>
+<dl>
+  <dt>上映时间</dt>
+  <dd>2021/11/26</dd>
+  <dd class="clear"></dd>
+</dl>
+
 </body>
 
 </html>
