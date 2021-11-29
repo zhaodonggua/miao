@@ -7,19 +7,21 @@
   <title>小米官网</title>
   <style type="text/less">
 
+* {
+    box-shadow: inset 0 0 1px red;
+  }
     body,
     html {
       padding: 0;
       margin: 0;
       box-sizing: border-box;
+      background-color: rgb(245, 245, 245);
     }
-
     .top_bar {
       height: 40px;
       width: 100%;
       background-color: rgb(51, 51, 51);
     .container{
-        width: 1226px;
         margin-right:auto;
         margin-left:333px;
       ul{
@@ -59,6 +61,106 @@
         background-color: white;
 
       }
+      /* flex布局部分 */
+      .title{
+        display: flex;
+        width: 1226px;
+        margin-right: auto;
+        margin-left:333px;
+        font: 14px/1.5 Helvetica Neue,Helvetica,Arial,Microsoft Yahei,Hiragino Sans GB,Heiti SC,WenQuanYi Micro Hei,sans-serif;
+        color:#333;
+        h2:nth-child(1){
+          flex-grow:1;
+        }
+      }
+      .flex{
+        display: flex;
+        flex-wrap:wrap;
+        flex-direction:column;
+        width: 1226px;
+        height: 614px;
+        margin-right:auto;
+        margin-left:333px;
+        /* 设定间隙 */
+
+
+        justify-content:space-between;
+        align-content: space-between;
+        .pic1{
+          width:234px;
+          height:614px;
+          background-image: url(pic/2.webp);
+          background-repeat: no-repeat;
+          background-color:white;
+        }
+        div:nth-child(n+2){
+          width:234px;
+          height:300px;
+          text-align: center;
+          background-color:white;
+
+        }
+        .pic2{
+        width: 160px;
+        height: 160px;
+        margin: auto;
+        background-image: url(pic/3.webp);
+        background-size: cover;
+
+      }
+      .pic3{
+        width: 160px;
+        height: 160px;
+        margin: auto;
+        background-image: url(pic/4.webp);
+        background-size: cover;
+      }
+      .pic4{
+        width: 160px;
+        height: 160px;
+        margin: auto;
+        background-image: url(pic/5.webp);
+        background-size: cover;
+      }
+      .pic5{
+        width: 160px;
+        height: 160px;
+        margin: auto;
+        background-image: url(pic/6.webp);
+        background-size: cover;
+      }
+      .pic6{
+        width: 160px;
+        height: 160px;
+        margin: auto;
+        background-image: url(pic/7.webp);
+        background-size: cover;
+      }
+      .pic7{
+        width: 160px;
+        height: 160px;
+        margin: auto;
+        background-image: url(pic/8.webp);
+        background-size: cover;
+      }
+      .pic8{
+        width: 160px;
+        height: 160px;
+        margin: auto;
+        background-image: url(pic/9.webp);
+        background-size: cover;
+      }
+      .pic9{
+        width: 160px;
+        height: 160px;
+        margin: auto;
+        background-image: url(pic/10.webp);
+        background-size: cover;
+      }
+
+
+      }
+
 
 
   </style>
@@ -106,6 +208,64 @@
       </ul>
     </div>
   </div>
+  <div class="title">
+    <h2>手机</h2>
+    <h2>查看更多</h2>
+  </div>
+  <div class="flex">
+  
+    <div class="pic1"></div>
+    <div>
+      <div class="pic2"></div>
+      <h3>Redmi Note 11 Pro系列</h3>
+      <p>Redmi Note 11 Pro 系列</p>
+      <p>1799元起</p>
+    </div>
+  
+    <div>
+      <div class="pic3"></div>
+      <h3>Redmi Note 11 Pro系列</h3>
+      <p>Redmi Note 11 Pro 系列</p>
+      <p>1799元起</p>
+    </div>
+    <div>
+      <div class="pic4"></div>
+      <h3>Redmi Note 11 Pro系列</h3>
+      <p>Redmi Note 11 Pro 系列</p>
+      <p>1799元起</p>
+    </div>
+    <div>
+      <div class="pic5"></div>
+      <h3>Redmi Note 11 Pro系列</h3>
+      <p>Redmi Note 11 Pro 系列</p>
+      <p>1799元起</p>
+    </div>
+    <div>
+      <div class="pic6"></div>
+      <h3>Redmi Note 11 Pro系列</h3>
+      <p>Redmi Note 11 Pro 系列</p>
+      <p>1799元起</p>
+    </div>
+    <div>
+      <div class="pic7"></div>
+      <h3>Redmi Note 11 Pro系列</h3>
+      <p>Redmi Note 11 Pro 系列</p>
+      <p>1799元起</p>
+    </div>
+    <div>
+      <div class="pic8"></div>
+      <h3>Redmi Note 11 Pro系列</h3>
+      <p>Redmi Note 11 Pro 系列</p>
+      <p>1799元起</p>
+    </div>
+    <div>
+      <div class="pic9"></div>
+      <h3>Redmi Note 11 Pro系列</h3>
+      <p>Redmi Note 11 Pro 系列</p>
+      <p>1799元起</p>
+    </div>
+
+</div>
 </body>
 <script src="less.min.js"></script>
 
