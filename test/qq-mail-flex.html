@@ -23,24 +23,25 @@
       flex-wrap: wrap;
       width: 100%;
       height: 100%;
+      align-content: flex-start;
     }
 
     .top_bar {
       width: 100%;
-      height: 15%;
+      height: 50px;
       background-color: red;
     }
 
     .side_bar {
-      height: 85%;
-      width: 15%;
+      width: 100px;
+      height: calc(100% - 50px);
       background-color: green;
       overflow-y: auto;
     }
 
     .main {
-      height: 85%;
-      width: 85%;
+      flex-grow: 1;
+      width: 0;
       background-color: yellow;
       overflow-y: auto;
     }
@@ -50,35 +51,9 @@
 <body>
 
   <div class="content">
-    <div class="top_bar">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam libero facere quia nemo
-      beatae nostrum aspernatur impedit asperiores, saepe ex dignissimos, dolores dolor laudantium. Ut quasi architecto
-      iure ea aliquid.
-      Laborum, nihil deleniti ipsa ab vero officia! Reprehenderit doloremque expedita odio quae cumque repellendus
-      eligendi distinctio nostrum a libero eaque repudiandae praesentium, consequatur laborum dolores maxime ipsam unde
-      soluta quidem.
-      Obcaecati perferendis vel omnis adipisci ipsum nulla reiciendis atque nam dolores. Accusamus laboriosam illum
-      error ad consequuntur consequatur pariatur, voluptatibus, inventore quaerat cupiditate dolore! Eaque illo neque
-      quos tempora obcaecati?</div>
-    <div class="side_bar">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, qui eveniet. Ut voluptates odit
-      quo numquam quos quaerat aliquam, repellat enim, sed natus reiciendis eligendi quasi laudantium, corporis dicta
-      voluptate!
-      Accusantium fuga nostrum quod eaque voluptatem illo voluptatibus ducimus animi, facere soluta atque esse eius
-      recusandae ab nisi nulla sequi laborum placeat aperiam incidunt obcaecati eos ipsa. Alias, nisi cum?
-      Sint eaque asperiores vero dolorum provident sed repellendus eos enim quasi ab non ut temporibus nisi, commodi
-      modi porro, iste expedita consectetur. Pariatur ea sunt nostrum. Mollitia ex nam corrupti.
-      Et, voluptatibus! Similique architecto maiores qui atque quia, provident ipsum placeat! Ea neque quisquam facilis
-      cum, excepturi facere et obcaecati odit consequuntur totam, consectetur voluptatem sequi impedit eligendi libero
-      deserunt.</div>
-    <div class="main">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eligendi inventore excepturi
-      laborum? Perspiciatis tempore dolore iste ullam quo voluptate, expedita ad perferendis, nisi similique esse enim
-      amet officiis repudiandae.
-      Itaque excepturi quas minus velit esse eaque suscipit maxime vero, veritatis atque quibusdam ex? Nulla odit rem,
-      voluptas, ipsum laborum facilis at placeat asperiores voluptatum et dignissimos, possimus quod! Aperiam.
-      Suscipit, ab animi pariatur vero placeat fugit necessitatibus magni ipsam voluptatem dolor officia maiores quas
-      voluptatum cumque nam minima architecto adipisci quasi possimus ipsa at omnis. Quisquam minima reiciendis
-      voluptatum.
-      Error, nam blanditiis? Placeat harum eaque ipsam vel perferendis. Natus quis alias consequuntur quasi odit
-      assumenda laudantium modi obcaecati dolorem ratione deserunt molestiae quod illum, sapiente iusto fugit esse illo.
+    <div class="top_bar"></div>
+    <div class="side_bar"></div>
+    <div class="main">
     </div>
   </div>
 

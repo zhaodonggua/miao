@@ -1,0 +1,441 @@
+* {
+box-shadow: inset 0 0 2px red;
+}
+body,
+html {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: rgb(245, 245, 245);
+}
+.top_bar {
+  height: 40px;
+  width: 100%;
+  background-color: rgb(51, 51, 51);
+.container{
+  width: 1226px;
+    margin:auto;
+  ul{
+    padding: 0px;
+    margin:0px;
+    list-style: none;
+    display:inline-block;
+
+    li{
+      font-size: 12px;
+      display:inline-block;
+      color:rgb(176, 176, 176) ;
+    }
+    li:nth-child(2n){
+      color: rgb(66,66,66);
+      margin-left:2px;
+      margin-right: 2px;
+    }
+    li:nth-child(1){
+      /* 为什么可以把整块拉下来？ */
+      margin-top: 12px;
+    }
+    li:nth-child(25){
+      margin-right: 145px;
+    }
+  }
+}
+}
+/* 不要用ul套div */
+.top_bar>div.container>ul.cart{
+    height: 40px;
+    color: black;
+    margin-left: 27px;
+    /* 块对齐，文字居中 */
+    line-height: 40px;
+    text-align: center;
+    background-color: white;
+
+  }
+// header nav和logo部分
+
+.site_header{
+  width: 100%;
+  height: 100px;
+  position: relative;
+
+  div.container{
+  width: 1226px;
+  height: 100px;
+  margin: auto;
+  display: flex;
+  div.header_logo{
+    // 图标居中
+    height: 100px;
+    display: flex;
+    width: 56px;
+    img{
+      margin: auto;
+      width: 56px;
+      height: 56px;
+    }
+    }
+    ul.header_nav{
+
+      list-style: none;
+      float: left;
+      margin:auto 140px ;
+      >li{
+        display: inline-block;
+        margin:10px;
+      }
+      >li:nth-child(1):hover>.below_list1{
+        height: 230px;
+        transition: 0.5s;
+        >li{
+          transition:0.5s ;
+          display: block;
+        }
+
+
+      }
+      .below_list1{
+        z-index: 9999;
+        position: absolute;
+        top: 100px;
+        left: 0;
+        // ???为什么不是li的宽度
+        width: 100%;
+        background-color: #fff;
+        list-style: none;
+        float: left;
+        display: flex;
+        justify-content: center;
+        height: 0px;
+        overflow: hidden;
+        transition: 0.5s;
+        >li{
+          margin: 20px 20px;
+          display: none;
+          div.title{
+            margin-top: 20px;
+            text-align: center;
+          }
+          div.price{
+            margin-top: 10px;
+            text-align: center;
+          }
+        }
+      }
+
+
+    }
+  }
+}
+
+
+
+
+
+  /* slider部分 */
+  .slider {
+  width: 1226px;
+  height: 460px;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  input{
+    display: none;
+    &:nth-child(1):checked ~ .slides .slide:nth-child(1),
+    &:nth-child(2):checked ~ .slides .slide:nth-child(2),
+    &:nth-child(3):checked ~ .slides .slide:nth-child(3),
+    &:nth-child(4):checked ~ .slides .slide:nth-child(4){
+      display: block;
+    }
+    &:nth-child(2):checked ~ .indicators label:nth-child(2),
+    &:nth-child(1):checked ~ .indicators label:nth-child(1),
+    &:nth-child(3):checked ~ .indicators label:nth-child(3),
+    &:nth-child(4):checked ~ .indicators label:nth-child(4){
+      background-color: white;
+    }
+    &:nth-child(1):checked ~ .slides slide:nth-child(1) label,
+    &:nth-child(2):checked ~ .slides slide:nth-child(2) label,
+    &:nth-child(3):checked ~ .slides slide:nth-child(3) label,
+    &:nth-child(4):checked ~ .slides slide:nth-child(4) label{
+      z-index: 2;
+    }
+  }
+  // 子元素根据父级定位，不会因为祖先为relative而定位于祖先元素
+    .slide{
+      width: 100%;
+      height:100%;
+      position: absolute;
+      display: none;
+      label{
+        width:40px;
+        height:70px;
+        line-height:70px;
+        border:1px solid;
+        position:absolute;
+        display:block;
+        top:0;
+        bottom:0;
+        margin:auto;
+        &.prev{
+          left: 236;
+        }
+        &.next{
+          right: 0;
+        }
+      }
+      img{
+        width: 100%;
+        height: 100%;
+      }
+
+    }
+    .indicators{
+
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      label{
+        width: 20px;
+        height:20px;
+        border-radius:999px;
+        display: inline-block;
+      }
+
+    }
+
+
+  }
+
+
+/* 作为菜单和slider的父级元素,设置position:relative */
+.outer{
+
+  width: 1226px;
+  height: 460px;
+  margin: 100px auto 100px;
+  position: relative;
+  .left_menu{
+    position:absolute;
+    left: 0;
+    margin: 0;
+    z-index: 999;
+    padding: 30px 0 30px;
+    box-sizing: border-box;
+    height: 460px;
+    width: 236px;
+
+    list-style: none;
+    background-color:rgb(145,150,161);
+    color:white;
+    >li{
+    box-sizing: border-box;
+    width: 236px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 40px;
+
+    .inner1{
+      padding: 0;
+      list-style: none;
+      position: absolute;
+      z-index: 1000;
+      left: 236px;
+      top: 0px;
+      // ?????为什么默认为40px?
+      // ul默认padding区域
+      width:990px;
+      height: 460px;
+      color:black;
+      background-color: white;
+      visibility: hidden;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      >li{
+        display:inline-block;
+        // float: left;
+        width: 222.5px;
+        height: 76px;
+        // 为什么没用?基线？
+        //父元素决定line-height
+        line-height: 76px;
+        padding-left: 25px;
+        img{
+          // 行内替换元素，需要加行高才能用vertical-align
+          //子元素定位
+          vertical-align: middle;
+          width: 40px;
+          height: 40px;
+
+        }
+
+        // line-height: 40px;
+        // padding: 18px 20px;
+
+      }
+
+
+
+    }
+  }
+  >li:nth-child(1):hover>ul.inner1{
+       visibility: visible;
+
+  }
+}
+}
+
+
+
+
+.home_hero>.container{
+  width: 1226px;
+  height: 170px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  >ul.span4{
+    margin:0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    width: 234px;
+    height: 170px;
+    padding: 0;
+    text-align: center;
+    background-color: #5f5750;
+
+    // 伪元素该怎么弄？
+    li{
+      width: 78px;
+      height: 85px;
+      //利用Line-height调低文字位置
+      line-height: 130px;
+      position: relative;
+
+      img{
+        position: absolute;
+        left: 30px;
+        top: 24px;
+        width:24px;
+        height: 24px;
+      }
+      span{
+        // 为什么没有用？
+        vertical-align: top;
+        color: rgb(195, 192, 189);
+      }
+
+
+
+    }
+  }
+div.span4_pic{
+  img{
+    width: 316px;
+    height: 170px;
+  }
+}
+
+}
+
+div.home_brick_box{
+  div.container{
+    width: 1226px;
+    height: 614px;
+    margin: 100px auto 200px;
+
+    .box-bd{
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content:space-around;
+      // align-content: space-between;
+      width: 1240px;
+      height: 628px;
+      text-align: center;
+      div{
+        padding-top: 10px;
+      }
+      div.big{
+        height: 614px;
+        width: 234px;
+        background-color: white;
+        img{
+          height: 614px;
+          width: 234px;
+        }
+      }
+      div:nth-child(n+2){
+        height: 300px;
+        width: 234px;
+        background-color: white;
+        img{
+          height: 160px;
+          width: 160px;
+        }
+      }
+
+    }
+
+  }
+}
+
+
+div.home_brick_box2{
+  div.container{
+    width: 1226px;
+    height: 628px;
+    margin: auto;
+    ul.box-bd{
+      width: 1226px;
+      height: 628px;
+      list-style: none;
+      padding: 0;
+
+      // flex属性
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content:space-around;
+      li{
+        background-color: white;
+        text-align: center;
+        padding-top: 10px;
+      }
+        li:nth-child(1){
+          width:234px;
+          height:624px;
+          img{
+            width: 234px;
+            height: 624px;
+          }
+        }
+        li:nth-child(n+2){
+          width:234px ;
+          height:300px ;
+          img{
+            height: 160px;
+            width: 160px;
+          }
+        }
+        li:last-child{
+          display: flex;
+          flex-direction: column;
+          background-color: transparent;
+
+          div:first-child{
+            margin-top: -10px;
+            background-color: white;
+            width: 234px;
+            height: 143px;
+              div.brick_item{
+
+              }
+          }
+
+        }
+    }
+  }
+}
