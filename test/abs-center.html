@@ -1,0 +1,158 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 行高居中 */
+    div.a {
+      height: 400px;
+      border: 1px solid;
+    }
+
+    div.a-inner {
+      line-height: 400px;
+
+    }
+
+    /* 定位居中 */
+    div.b {
+      height: 400px;
+      position: relative;
+      border: 1px solid;
+    }
+
+    div.b-inner {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 100px;
+      height: 100px;
+      border: 1px solid;
+    }
+
+    /* 使用flex定位 */
+    div.c {
+      height: 400px;
+      border: 1px solid;
+      display: flex;
+
+    }
+
+    div.c-inner1 {
+      width: 100px;
+      height: 100px;
+      border: 1px solid;
+      margin: auto;
+    }
+
+    div.c-inner2 {
+      width: 100px;
+      height: 100px;
+      border: 1px solid;
+      margin: auto;
+    }
+
+    /* 使用flex定位2 */
+
+    div.d {
+      height: 400px;
+      border: 1px solid;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    div.d-inner1 {
+      height: 100px;
+      width: 100px;
+      border: 1px solid;
+    }
+
+    div.d-inner2 {
+      width: 100px;
+      height: 100px;
+      border: 1px solid;
+    }
+
+    /* 使用transform */
+    div.e {
+      height: 400px;
+      width: 400px;
+      border: 1px solid;
+      position: relative;
+    }
+
+    div.e-inner1 {
+      width: 100px;
+      height: 100px;
+      border: 1px solid;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* 使用table-cell */
+    div.f {
+      height: 400px;
+      width: 1000px;
+      border: 1px solid;
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    div.f-inner {
+
+      width: 200px;
+      height: 200px;
+      border: 1px solid;
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="a">
+    <div class="a-inner">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt, officia aliquam
+      exercitationem id, sint laboriosam deserunt at nemo nihil dolore, numquam aspernatur perspiciatis ut quo. Sequi.
+    </div>
+  </div>
+
+
+  <div class="b">
+    <div class="b-inner">
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Distinctio nostrum tempora, quae ipsum, commodi maxime
+
+    </div>
+  </div>
+
+  <div class="c">
+    <div class="c-inner1">
+      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    </div>
+    <div class="c-inner2">
+      bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+    </div>
+  </div>
+  <div class="d">
+    <div class="d-inner1"></div>
+    <div class="d-inner2"></div>
+  </div>
+  <div class="e">
+    <div class="e-inner1"></div>
+  </div>
+
+  <div class="f">
+    <div class="f-inner">
+
+    </div>
+  </div>
+</body>
+
+</html>
