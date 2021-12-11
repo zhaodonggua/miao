@@ -7,11 +7,9 @@
   <title>Document</title>
   <link rel="stylesheet" href="mi-style.css">
   <style>
-    @charset "UTF-8";
-
     body {
       margin: 0;
-      font: 14px/1.5 Helvetica Neue, Helvetica, Arial, Microsoft Yahei, Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
+      font: 9.3333333333px Helvetica Neue, Helvetica, Arial, Microsoft Yahei, Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
     }
 
     ul {
@@ -54,8 +52,8 @@
 
     .site-nav nav a {
       color: #b0b0b0;
-      /*  inline-block增加点击范围 */
       display: inline-block;
+      /* inline-block增加点击范围 */
       line-height: 40px;
     }
 
@@ -121,12 +119,19 @@
       float: left;
       margin-top: 25px;
       margin-right: 185px;
+      width: 50px;
+      height: 50px;
     }
 
     .product-nav .product-nav-inner .logo-link img {
       width: 50px;
       height: 50px;
       display: block;
+    }
+
+    .product-nav .product-nav-inner .logo-link img:active {
+      width: 40px;
+      height: 40px;
     }
 
     .product-nav .product-nav-inner .product-menu {
@@ -261,7 +266,7 @@
       box-sizing: border-box;
       width: 234px;
       height: 460px;
-      background: rgba(105, 101, 101, 0.6);
+      background: rgba(105, 101, 101, .6);
       display: flex;
       flex-direction: column;
       padding: 20px 0px;
@@ -269,7 +274,7 @@
       left: 0;
       z-index: 99;
       border: 1px solid;
-      font-size: 14px;
+      font-size: 16px;
     }
 
     .outer .left-menu>li {
@@ -277,12 +282,20 @@
       line-height: 42px;
       width: 234px;
       height: 42px;
-      padding-left: 40px;
       color: white;
+      padding-left: 42px;
     }
 
     .outer .left-menu>li:hover .sub-menu {
       width: 993px;
+    }
+
+    .outer .left-menu>li em {
+      float: right;
+      font-size: 16px;
+      line-height: 16px;
+      color: #e0e0e0;
+      margin: 12px 20px;
     }
 
     .outer .left-menu>li .sub-menu {
@@ -321,7 +334,7 @@
     }
 
     .outer .left-menu>li:hover {
-      background: #ff6700;
+      background: rgba(255, 103, 0, );
     }
 
     /* slider部分 */
@@ -414,7 +427,7 @@
       height: 6px;
       border-radius: 999px;
       border: 2px solid #fff;
-      border-color: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, .3);
       background-color: grey;
       display: inline-block;
       cursor: pointer;
@@ -428,18 +441,17 @@
       width: 1226px;
       height: 170px;
       margin: auto;
-      display: flex;
-      justify-content: space-between;
     }
 
     .home_hero>.container>ul.span4 {
+      float: left;
       margin: 0;
+      padding: 0;
       list-style: none;
       display: flex;
       flex-wrap: wrap;
       width: 234px;
       height: 170px;
-      padding: 0;
       text-align: center;
       background-color: #5f5750;
       color: #c3c0bd;
@@ -486,14 +498,15 @@
     }
 
     .home_hero>.container div.span4_pic {
-      cursor: pointer;
+      float: left;
+      margin-left: 14px;
       transition: 0.5s;
-      transform: translate(0, 0);
+      cursor: pointer;
     }
 
     .home_hero>.container div.span4_pic:hover {
-      transform: translate(0, -2px);
-      box-shadow: 0 5px 5px #665e57;
+      transform: translate3d(0, -2px, 0);
+      box-shadow: 0 15px 30px #000;
     }
 
     .home_hero>.container div.span4_pic img {
@@ -503,13 +516,13 @@
 
     div.page-main {
       padding-bottom: 10px;
-      padding-top: 30px;
-      background-color: whitesmoke;
+      padding-top: 20px;
+      background-color: #f5f5f5;
     }
 
     div.page-main .banner-box {
       width: 1226px;
-      margin: auto;
+      margin: 22px auto;
     }
 
     div.page-main .banner-box img {
@@ -533,11 +546,14 @@
       font-size: 22px;
       font-weight: 200;
       line-height: 58px;
-      color: #333;
     }
 
     div.page-main div.container div.box-hd h3.more {
       float: right;
+    }
+
+    div.page-main div.container div.box-hd h3.more a:hover>i {
+      background-color: #ff6700;
     }
 
     div.page-main div.container div.box-hd h3.more i {
@@ -567,11 +583,41 @@
     }
 
     div.page-main div.container .box-bd div {
-      padding-top: 10px;
+      transition: 1s;
+      cursor: pointer;
+    }
+
+    div.page-main div.container .box-bd div:hover {
+      transform: translate3d(0, -2px, 0);
+      box-shadow: 0 15px 30px #000;
+    }
+
+    div.page-main div.container .box-bd div h3 {
+      margin: 0 10px 2px;
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 14px;
+      font-weight: 400;
+      color: #333;
+    }
+
+    div.page-main div.container .box-bd div p:nth-of-type(1) {
+      margin: 0 10px 10px;
+      height: 18px;
+      font-size: 12px;
+      color: #b0b0b0;
+    }
+
+    div.page-main div.container .box-bd div p:nth-of-type(2) {
+      margin: 0 10px 14px;
+      text-align: center;
+      color: #ff6700;
     }
 
     div.page-main div.container .box-bd div.big {
-      height: 614px;
+      height: 628px;
       width: 234px;
       background-color: white;
     }
@@ -629,18 +675,26 @@
 
     div.page-main .section2 .container2 input:nth-of-type(1):hover~.indicators2 label:nth-of-type(1) {
       color: #ff6700;
+      border-bottom: 2px solid #ff6700;
     }
 
     div.page-main .section2 .container2 input:nth-of-type(2):hover~.indicators2 label:nth-of-type(2) {
       color: #ff6700;
+      border-bottom: 2px solid #ff6700;
     }
 
     div.page-main .section2 .container2 input:nth-of-type(1):checked~.indicators2 label:nth-of-type(1) {
       color: #ff6700;
+      border-bottom: 2px solid #ff6700;
     }
 
     div.page-main .section2 .container2 input:nth-of-type(2):checked~.indicators2 label:nth-of-type(2) {
       color: #ff6700;
+      border-bottom: 2px solid #ff6700;
+    }
+
+    div.page-main .section2 .container2 .indicators2 label {
+      height: 40px;
     }
 
     div.page-main .section2 .container2 .indicators2 label:nth-child(1) {
@@ -686,6 +740,39 @@
 
     div.page-main .section2 .container2 div.box-bd2 div {
       padding-top: 10px;
+    }
+
+    div.page-main .section2 .container2 div.box-bd2 div h3 {
+      margin: 0 10px 2px;
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 14px;
+      font-weight: 400;
+      color: #333;
+    }
+
+    div.page-main .section2 .container2 div.box-bd2 div p:nth-of-type(1) {
+      margin: 0 10px 10px;
+      height: 18px;
+      font-size: 12px;
+      color: #b0b0b0;
+    }
+
+    div.page-main .section2 .container2 div.box-bd2 div p:nth-of-type(2) {
+      margin: 0 10px 14px;
+      text-align: center;
+      color: #ff6700;
+    }
+
+    div.page-main .section2 .container2 div.box-bd2 div {
+      cursor: pointer;
+    }
+
+    div.page-main .section2 .container2 div.box-bd2 div:hover {
+      transform: translate3d(0, -2px, 0);
+      box-shadow: 0 15px 30px #000;
     }
 
     div.page-main .section2 .container2 div.box-bd2 div.big {
@@ -766,115 +853,55 @@
     }
 
     div.section3 .container3 input:nth-of-type(1):hover~.boxes .box-bd:nth-of-type(1) {
-      visibility: visible;
-    }
-
-    div.section3 .container3 input:nth-of-type(1):hover~.boxes .box-bd:nth-of-type(1)~.box-bd:nth-of-type(2) {
-      visibility: hidden;
-    }
-
-    div.section3 .container3 input:nth-of-type(1):hover~.boxes .box-bd:nth-of-type(1)~.box-bd:nth-of-type(3) {
-      visibility: hidden;
-    }
-
-    div.section3 .container3 input:nth-of-type(1):hover~.boxes .box-bd:nth-of-type(1)~.box-bd:nth-of-type(4) {
-      visibility: hidden;
+      z-index: 4;
     }
 
     div.section3 .container3 input:nth-of-type(2):hover~.boxes .box-bd:nth-of-type(2) {
-      visibility: visible;
-    }
-
-    div.section3 .container3 input:nth-of-type(2):hover~.boxes .box-bd:nth-of-type(2)~.box-bd:nth-of-type(1) {
-      visibility: hidden;
-    }
-
-    div.section3 .container3 input:nth-of-type(2):hover~.boxes .box-bd:nth-of-type(2)~.box-bd:nth-of-type(3) {
-      visibility: hidden;
-    }
-
-    div.section3 .container3 input:nth-of-type(2):hover~.boxes .box-bd:nth-of-type(2)~.box-bd:nth-of-type(4) {
-      visibility: hidden;
+      z-index: 4;
     }
 
     div.section3 .container3 input:nth-of-type(3):hover~.boxes .box-bd:nth-of-type(3) {
-      visibility: visible;
-    }
-
-    div.section3 .container3 input:nth-of-type(3):hover~.boxes .box-bd:nth-of-type(3)~.box-bd:nth-of-type(1) {
-      visibility: hidden;
-    }
-
-    div.section3 .container3 input:nth-of-type(3):hover~.boxes .box-bd:nth-of-type(3)~.box-bd:nth-of-type(2) {
-      visibility: hidden;
-    }
-
-    div.section3 .container3 input:nth-of-type(3):hover~.boxes .box-bd:nth-of-type(3)~.box-bd:nth-of-type(4) {
-      visibility: hidden;
+      z-index: 4;
     }
 
     div.section3 .container3 input:nth-of-type(4):hover~.boxes .box-bd:nth-of-type(4) {
-      visibility: visible;
-    }
-
-    div.section3 .container3 input:nth-of-type(4):hover~.boxes .box-bd:nth-of-type(4)~.box-bd:nth-of-type(1) {
-      visibility: hidden;
-    }
-
-    div.section3 .container3 input:nth-of-type(4):hover~.boxes .box-bd:nth-of-type(4)~.box-bd:nth-of-type(2) {
-      visibility: hidden;
-    }
-
-    div.section3 .container3 input:nth-of-type(4):hover~.boxes .box-bd:nth-of-type(4)~.box-bd:nth-of-type(3) {
-      visibility: hidden;
+      z-index: 4;
     }
 
     div.section3 .container3 input:nth-of-type(1):checked~.boxes .box-bd:nth-of-type(1) {
-      visibility: visible;
+      z-index: 3;
     }
 
     div.section3 .container3 input:nth-of-type(2):checked~.boxes .box-bd:nth-of-type(2) {
-      visibility: visible;
+      z-index: 3;
     }
 
     div.section3 .container3 input:nth-of-type(3):checked~.boxes .box-bd:nth-of-type(3) {
-      visibility: visible;
+      z-index: 3;
     }
 
-    div.section3 .container3 input:nth-of-type(4):checked~.boxes .box-bd:nth-of-type(4) {
-      visibility: visible;
+    div.section3 .container3 input:nth-of-type(4):checked~div.boxes .box-bd:nth-of-type(4) {
+      z-index: 3;
     }
 
-    div.section3 .container3 input:nth-of-type(1):checked~.indicators3 label:nth-of-type(1) {
-      color: #ff6700;
-    }
-
-    div.section3 .container3 input:nth-of-type(2):checked~.indicators3 label:nth-of-type(2) {
-      color: #ff6700;
-    }
-
-    div.section3 .container3 input:nth-of-type(3):checked~.indicators3 label:nth-of-type(3) {
-      color: #ff6700;
-    }
-
+    div.section3 .container3 input:nth-of-type(1):checked~.indicators3 label:nth-of-type(1),
+    div.section3 .container3 input:nth-of-type(2):checked~.indicators3 label:nth-of-type(2),
+    div.section3 .container3 input:nth-of-type(3):checked~.indicators3 label:nth-of-type(3),
     div.section3 .container3 input:nth-of-type(4):checked~.indicators3 label:nth-of-type(4) {
       color: #ff6700;
+      border-bottom: 2px solid #ff6700;
     }
 
-    div.section3 .container3 input:nth-of-type(1):hover~.indicators3 label:nth-of-type(1) {
-      color: #ff6700;
-    }
-
-    div.section3 .container3 input:nth-of-type(2):hover~.indicators3 label:nth-of-type(2) {
-      color: #ff6700;
-    }
-
-    div.section3 .container3 input:nth-of-type(3):hover~.indicators3 label:nth-of-type(3) {
-      color: #ff6700;
-    }
-
+    div.section3 .container3 input:nth-of-type(1):hover~.indicators3 label:nth-of-type(1),
+    div.section3 .container3 input:nth-of-type(2):hover~.indicators3 label:nth-of-type(2),
+    div.section3 .container3 input:nth-of-type(3):hover~.indicators3 label:nth-of-type(3),
     div.section3 .container3 input:nth-of-type(4):hover~.indicators3 label:nth-of-type(4) {
       color: #ff6700;
+      border-bottom: 2px solid #ff6700;
+    }
+
+    div.section3 .container3 .indicators3 label {
+      height: 40px;
     }
 
     div.section3 .container3 .indicators3 label:nth-child(1) {
@@ -925,7 +952,6 @@
     }
 
     div.section3 .container3 .box-bd {
-      visibility: hidden;
       width: 1226px;
       height: 628px;
       display: flex;
@@ -933,6 +959,8 @@
       justify-content: space-between;
       align-content: space-between;
       position: absolute;
+      z-index: 2;
+      background-color: white;
     }
 
     div.section3 .container3 .box-bd>div {
@@ -941,6 +969,37 @@
       background-color: white;
       text-align: center;
       padding-top: 10px;
+      cursor: pointer;
+      transition: 0.5s;
+    }
+
+    div.section3 .container3 .box-bd>div:hover {
+      transform: translate3d(0, -2px, 0);
+      box-shadow: 0 15px 30px #000;
+    }
+
+    div.section3 .container3 .box-bd>div h3 {
+      margin: 0 10px 2px;
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 14px;
+      font-weight: 400;
+      color: #333;
+    }
+
+    div.section3 .container3 .box-bd>div p:nth-of-type(1) {
+      margin: 0 10px 10px;
+      height: 18px;
+      font-size: 12px;
+      color: #b0b0b0;
+    }
+
+    div.section3 .container3 .box-bd>div p:nth-of-type(2) {
+      margin: 0 10px 14px;
+      text-align: center;
+      color: #ff6700;
     }
 
     div.section3 .container3 .box-bd>div img {
@@ -1042,10 +1101,31 @@
 
     div.section-video div.container4 div.box-hd h2.title {
       float: left;
+      line-height: 28px;
     }
 
     div.section-video div.container4 div.box-hd h3.title {
       float: right;
+      line-height: 28px;
+    }
+
+    div.section-video div.container4 div.box-hd h3.title a:hover>i {
+      background-color: #ff6700;
+    }
+
+    div.section-video div.container4 div.box-hd h3.title i {
+      width: 12px;
+      height: 12px;
+      padding: 4px;
+      margin-left: 8px;
+      border-radius: 16px;
+      font-size: 12px;
+      line-height: 12px;
+      background: #b0b0b0;
+      color: #fff;
+      vertical-align: 1px;
+      -webkit-transition: all 0.4s;
+      transition: all 0.4s;
     }
 
     div.section-video div.container4 input {
@@ -1080,9 +1160,22 @@
     }
 
     div.section-video div.container4 div.video-list div.video-play {
+      position: relative;
       width: 296px;
       height: 285px;
       text-align: center;
+      cursor: pointer;
+      transition: all 0.2s linear;
+    }
+
+    div.section-video div.container4 div.video-list div.video-play:hover {
+      box-shadow: 0 15px 30px #000;
+      transform: translate3d(0, -2px, 0);
+    }
+
+    div.section-video div.container4 div.video-list div.video-play:hover>i.iconfont-play {
+      background-color: #ff6700;
+      border-color: #ff6700;
     }
 
     div.section-video div.container4 div.video-list div.video-play img {
@@ -1095,10 +1188,26 @@
       font-size: 14px;
       font-weight: 400;
     }
+
+    div.section-video div.container4 div.video-list div.video-play i.iconfont-play {
+      font-size: 30px;
+      line-height: 20px;
+      position: absolute;
+      left: 20px;
+      bottom: 115px;
+      width: 32px;
+      height: 20px;
+      border: 2px solid #fff;
+      border-radius: 12px;
+      background-color: #424242;
+      background-color: rgba(0, 0, 0, .6);
+      color: #fff;
+    }
   </style>
 </head>
 
 <body>
+
   <div class="page-content">
     <!-- header里面分为2部分 -->
     <header>
@@ -1388,9 +1497,13 @@
     <div class="outer">
       <ul class="left-menu">
         <li>手机
+          <em class="iconfont-arrow-right-big">
+
+          </em>
           <ul class="sub-menu">
             <li><img src="pic/right1.webp" alt="">
               <span>1 Note11 Pro 系列</span>
+
             </li>
             <li><img src="pic/right2.webp" alt="">
               <span>Note11 Pro 系列</span>
@@ -1464,6 +1577,9 @@
           </ul>
         </li>
         <li>电视
+          <em class="iconfont-arrow-right-big">
+
+          </em>
           <ul class="sub-menu">
             <li><img src="pic/right1.webp" alt="">
               <span>2 Note11 Pro 系列</span>
@@ -1540,6 +1656,9 @@
           </ul>
         </li>
         <li>笔记本 平板
+          <em class="iconfont-arrow-right-big">
+
+          </em>
           <ul class="sub-menu">
             <li><img src="pic/right1.webp" alt="">
               <span>3 Note11 Pro 系列</span>
@@ -1612,6 +1731,9 @@
           </ul>
         </li>
         <li>家电
+          <em class="iconfont-arrow-right-big">
+
+          </em>
           <ul class="sub-menu">
             <li><img src="pic/right1.webp" alt="">
               <span>4 Note11 Pro 系列</span>
@@ -1688,6 +1810,9 @@
           </ul>
         </li>
         <li>出行 穿戴
+          <em class="iconfont-arrow-right-big">
+
+          </em>
           <ul class="sub-menu">
             <li><img src="pic/right1.webp" alt="">
               <span>5 Note11 Pro 系列</span>
@@ -1743,6 +1868,9 @@
           </ul>
         </li>
         <li>智能 路由器
+          <em class="iconfont-arrow-right-big">
+
+          </em>
           <ul class="sub-menu">
             <li><img src="pic/right1.webp" alt="">
               <span>6 Note11 Pro 系列</span>
@@ -1819,6 +1947,9 @@
           </ul>
         </li>
         <li>电源 配件
+          <em class="iconfont-arrow-right-big">
+
+          </em>
           <ul class="sub-menu">
             <li><img src="pic/right1.webp" alt="">
               <span>7Note11 Pro 系列</span>
@@ -1895,6 +2026,9 @@
           </ul>
         </li>
         <li>健康 儿童
+          <em class="iconfont-arrow-right-big">
+
+          </em>
           <ul class="sub-menu">
             <li><img src="pic/right1.webp" alt="">
               <span>8 Note11 Pro 系列</span>
@@ -1971,6 +2105,9 @@
           </ul>
         </li>
         <li>耳机 音箱
+          <em class="iconfont-arrow-right-big">
+
+          </em>
           <ul class="sub-menu">
             <li><img src="pic/right1.webp" alt="">
               <span>9 Note11 Pro 系列</span>
@@ -2047,7 +2184,9 @@
           </ul>
         </li>
         <li>生活 箱包
+          <em class="iconfont-arrow-right-big">
 
+          </em>
           <ul class="sub-menu">
             <li><img src="pic/right1.webp" alt="">
               <span>10 Note11 Pro 系列</span>
@@ -2213,9 +2352,11 @@
         <!-- 第一行 -->
         <div class="box-hd">
           <h2 class="title">手机</h2>
-          <h3 class="more"><a href="#">查看更多
+          <h3 class="more">
+            <a href="#">查看更多
               <i class="iconfont iconfont-arrow-right-big"></i>
-            </a></h3>
+            </a>
+          </h3>
         </div>
         <!-- 第二行 -->
         <div class="box-bd">
@@ -2534,7 +2675,7 @@
 
         <div class="box-hd">
           <h2 class="title">
-            家电
+            生活电器
           </h2>
         </div>
 
@@ -2779,17 +2920,1065 @@
 
       </div>
     </div>
+    <div class="banner-box">
+      <div class="banner-pic">
+        <a href="#"><img src="pic/banner-box/40260ae3e69b47ec4883ce83b852caf9.webp" alt=""></a>
+      </div>
+    </div>
+    <div class="section3">
+      <div class="container3">
+
+        <input type="radio" name="container5" id="container5-1" checked>
+        <input type="radio" name="container5" id="container5-2">
+        <input type="radio" name="container5" id="container5-3">
+        <input type="radio" name="container5" id="container5-4">
+        <div class="indicators3">
+          <label for="container5-1">净水器</label>
+          <label for="container5-2">烟灶</label>
+          <label for="container5-3">电饭煲</label>
+          <label for="container5-4">微蒸烤</label>
+        </div>
+
+        <div class="box-hd">
+          <h2 class="title">
+            厨房电器
+          </h2>
+        </div>
+
+        <div class="boxes">
+          <div class="box-bd">
+            <div> <img src="pic/section5/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section5/2.webp" alt="">
+              <h3>1小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section5/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section5/4.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section5/5.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section5/6.webp" alt="">
+
+            </div>
+            <div> <img src="pic/section5/7.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section5/8.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section5/9.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div class="last-item">
+              <div class="last-top">
+                <img src="pic/section5/10.webp" alt="">
+                <h3>米家电烤箱</h3>
+                <p>3699元</p>
+              </div>
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>热门</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-bd">
+            <div> <img src="pic/section3/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section3/2.webp" alt="">
+              <h3>2小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/4.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/5.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+
+            <div> <img src="pic/section3/6.webp" alt="">
+
+            </div>
+
+
+            <div class="last-item">
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>电视影音</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+
+
+          </div>
+          <div class="box-bd">
+            <div> <img src="pic/section3/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section3/2.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/4.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/5.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/6.webp" alt="">
+
+            </div>
+            <div> <img src="pic/section3/7.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/8.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section5/1.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div class="last-item">
+              <div class="last-top">
+                <img src="pic/section3/11.webp" alt="">
+                <h3>超大屏电视</h3>
+                <p>7777元</p>
+              </div>
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>电视影音</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-bd">
+            <div> <img src="pic/section3/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section3/2.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/4.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/5.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/6.webp" alt="">
+
+            </div>
+            <div> <img src="pic/section3/7.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/8.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/9.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div class="last-item">
+              <div class="last-top">
+                <img src="pic/section3/11.webp" alt="">
+                <h3>超大屏电视</h3>
+                <p>7777元</p>
+              </div>
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>电视影音</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- 智能家居 -->
+    <div class="section3">
+      <div class="container3">
+
+        <input type="radio" name="container6" id="container6-1" checked>
+        <input type="radio" name="container6" id="container6-2">
+        <input type="radio" name="container6" id="container6-3">
+        <input type="radio" name="container6" id="container6-4">
+        <div class="indicators3">
+          <!-- 右2 -->
+          <label for="container6-1">路由器</label>
+          <!-- 右1 -->
+          <label for="container6-2">智能设备</label>
+          <!-- 右3 -->
+          <label for="container6-3">门锁</label>
+          <!-- 右4 -->
+          <label for="container6-4">小爱音箱</label>
+        </div>
+
+        <div class="box-hd">
+          <h2 class="title">
+            智能家居
+          </h2>
+        </div>
+
+        <div class="boxes">
+
+          <div class="box-bd">
+            <div> <img src="pic/section3/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section3/2.webp" alt="">
+              <h3>2小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/4.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/5.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+
+            <div> <img src="pic/section3/6.webp" alt="">
+
+            </div>
+
+
+            <div class="last-item">
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>电视影音</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+
+
+          </div>
+          <div class="box-bd">
+            <div> <img src="pic/section3/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section3/2.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/4.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/5.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/6.webp" alt="">
+
+            </div>
+            <div> <img src="pic/section3/7.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/8.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section5/1.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div class="last-item">
+              <div class="last-top">
+                <img src="pic/section3/11.webp" alt="">
+                <h3>超大屏电视</h3>
+                <p>7777元</p>
+              </div>
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>电视影音</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-bd">
+            <div> <img src="pic/section3/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section3/2.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/4.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/5.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/6.webp" alt="">
+
+            </div>
+            <div> <img src="pic/section3/7.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/8.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/9.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div class="last-item">
+              <div class="last-top">
+                <img src="pic/section3/11.webp" alt="">
+                <h3>超大屏电视</h3>
+                <p>7777元</p>
+              </div>
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>电视影音</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-bd">
+            <div> <img src="pic/section6/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section6/2.webp" alt="">
+              <h3>1小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/4.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/5.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/6.webp" alt="">
+
+            </div>
+            <div> <img src="pic/section6/7.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/8.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/9.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div class="last-item">
+              <div class="last-top">
+                <img src="pic/section6/10.webp" alt="">
+                <h3>米家电烤箱</h3>
+                <p>3699元</p>
+              </div>
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>小爱音箱</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- 平衡车 -->
+    <div class="section3">
+      <div class="container3">
+
+        <input type="radio" name="container7" id="container7-1" checked>
+        <input type="radio" name="container7" id="container7-2">
+        <input type="radio" name="container7" id="container7-3">
+        <input type="radio" name="container7" id="container7-4">
+        <div class="indicators3">
+          <!-- 右2 -->
+          <label for="container7-1">箱包配饰</label>
+          <!-- 右1 -->
+          <label for="container7-2">出行工具</label>
+          <!-- 右3 -->
+          <label for="container7-3">运动健身</label>
+          <!-- 右4 -->
+          <label for="container7-4">平衡车/滑板车</label>
+        </div>
+
+        <div class="box-hd">
+          <h2 class="title">
+            运动出行
+          </h2>
+        </div>
+
+        <div class="boxes">
+
+
+          <div class="box-bd">
+            <div> <img src="pic/section3/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section3/2.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/4.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/5.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/6.webp" alt="">
+
+            </div>
+            <div> <img src="pic/section3/7.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/8.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section5/1.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div class="last-item">
+              <div class="last-top">
+                <img src="pic/section3/11.webp" alt="">
+                <h3>超大屏电视</h3>
+                <p>7777元</p>
+              </div>
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>电视影音</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-bd">
+            <div> <img src="pic/section3/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section3/2.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/4.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/5.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/6.webp" alt="">
+
+            </div>
+            <div> <img src="pic/section3/7.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/8.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/9.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div class="last-item">
+              <div class="last-top">
+                <img src="pic/section3/11.webp" alt="">
+                <h3>超大屏电视</h3>
+                <p>7777元</p>
+              </div>
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>电视影音</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-bd">
+            <div> <img src="pic/section6/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section6/2.webp" alt="">
+              <h3>1小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/4.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/5.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/6.webp" alt="">
+
+            </div>
+            <div> <img src="pic/section6/7.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/8.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/9.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div class="last-item">
+              <div class="last-top">
+                <img src="pic/section6/10.webp" alt="">
+                <h3>米家电烤箱</h3>
+                <p>3699元</p>
+              </div>
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>小爱音箱</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-bd">
+            <div> <img src="pic/section7/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section7/2.jpg" alt="">
+              <h3>2小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section7/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section7/4.png" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section7/5.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+
+            <div>
+              <img src="pic/section7/6.webp" alt="">
+            </div>
+            <div>
+              <img src="pic/section7/7.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div>
+              <img src="pic/section7/8.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div>
+              <img src="pic/section7/9.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+
+
+            <div class="last-item">
+
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>平衡车/滑板车</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
 
 
 
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="banner-box">
+      <div class="banner-pic">
+        <a href="#"><img src="pic/banner-box/88e35cffc82cd98cd53172460067af17.webp" alt=""></a>
+      </div>
+    </div>
+    <!-- 日用百货 -->
+    <div class="section3">
+      <div class="container3">
+
+        <input type="radio" name="container8" id="container8-1" checked>
+        <input type="radio" name="container8" id="container8-2">
+        <input type="radio" name="container8" id="container8-3">
+        <input type="radio" name="container8" id="container8-4">
+        <div class="indicators3">
+          <!-- 右2 -->
+          <label for="container8-1">儿童用品</label>
+          <!-- 右1 -->
+          <label for="container8-2">家居床品</label>
+          <!-- 右3 -->
+          <label for="container8-3">电源/线材</label>
+          <!-- 右4 -->
+          <label for="container8-4">个护健康</label>
+        </div>
+
+        <div class="box-hd">
+          <h2 class="title">
+            日用百货
+          </h2>
+        </div>
+
+        <div class="boxes">
+          <div class="box-bd">
+            <div> <img src="pic/section8/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section8/2.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section8/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section8/4.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section8/5.jpg" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section8/6.webp" alt="">
+
+            </div>
+            <div> <img src="pic/section8/7.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section8/8.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section8/9.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div class="last-item">
+              <div class="last-top">
+                <img src="pic/section8/10.webp" alt="">
+                <h3>木星黎明</h3>
+                <p>179元</p>
+              </div>
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>儿童用品</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-bd">
+            <div> <img src="pic/section3/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section3/2.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/4.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/5.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/6.webp" alt="">
+
+            </div>
+            <div> <img src="pic/section3/7.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/8.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section3/9.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div class="last-item">
+              <div class="last-top">
+                <img src="pic/section3/11.webp" alt="">
+                <h3>超大屏电视</h3>
+                <p>7777元</p>
+              </div>
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>电视影音</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-bd">
+            <div> <img src="pic/section6/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section6/2.webp" alt="">
+              <h3>1小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/4.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/5.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/6.webp" alt="">
+
+            </div>
+            <div> <img src="pic/section6/7.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/8.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section6/9.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div class="last-item">
+              <div class="last-top">
+                <img src="pic/section6/10.webp" alt="">
+                <h3>米家电烤箱</h3>
+                <p>3699元</p>
+              </div>
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>小爱音箱</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-bd">
+            <div> <img src="pic/section7/1.webp" alt="">
+            </div>
+
+            <div> <img src="pic/section7/2.jpg" alt="">
+              <h3>2小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section7/3.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section7/4.png" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div> <img src="pic/section7/5.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+
+            <div>
+              <img src="pic/section7/6.webp" alt="">
+            </div>
+            <div>
+              <img src="pic/section7/7.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div>
+              <img src="pic/section7/8.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+            <div>
+              <img src="pic/section7/9.webp" alt="">
+              <h3>小米电视4A 70英寸</h3>
+              <p>大屏更享受</p>
+              <p>3699元</p>
+            </div>
+
+
+            <div class="last-item">
+
+              <div class="last-bottom">
+                <span>浏览更多</span>
+                <br>
+                <small>平衡车/滑板车</small>
+                <div class="figure">
+                  <i class="iconfont iconfont-circle-arrow-right">
+                  </i>
+                </div>
+              </div>
+            </div>
 
 
 
+          </div>
+        </div>
 
-
-
-
-
+      </div>
+    </div>
+    <!-- 视频部分 -->
     <div class="section-video">
       <div class="container4">
         <div class="box-hd">
@@ -2797,7 +3986,9 @@
             视频
           </h2>
           <h3 class="title">
-            <a href="#">查看全部</a>
+            <a href="#">查看全部
+              <i class="iconfont iconfont-arrow-right-big"></i>
+            </a>
           </h3>
         </div>
 
@@ -2818,6 +4009,9 @@
                 src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e74c4ff741bcdfc5b28a48a43e4edc6d.jpg?thumb=1&w=222&h=135&f=webp&q=90"
                 alt="">
               <h3>2021春季发布会第一场</h3>
+              <i class="iconfont-play">
+
+              </i>
             </div>
           </label>
           <label for="v2">
@@ -2826,6 +4020,9 @@
                 src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/101b19aca4bb489bcef0f503e44ec866.jpg?thumb=1&w=222&h=135&f=webp&q=90"
                 alt="">
               <h3>Redmi 10X系列发布会</h3>
+              <i class="iconfont-play">
+
+              </i>
             </div>
           </label>
           <label for="v3">
@@ -2834,6 +4031,9 @@
                 src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/96563e75833ba4563bd469dd28203b09.jpg?thumb=1&w=222&h=135&f=webp&q=90"
                 alt="">
               <h3>小米10 青春版发布会</h3>
+              <i class="iconfont-play">
+
+              </i>
             </div>
           </label>
           <label for="v4">
@@ -2842,6 +4042,9 @@
                 src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2fd26bb99b723337a2f8eaba84f7d5bb.jpg?thumb=1&w=222&h=135&f=webp&q=90"
                 alt="">
               <h3>小米10 8K手机拍大片</h3>
+              <i class="iconfont-play">
+
+              </i>
             </div>
           </label>
         </div>
