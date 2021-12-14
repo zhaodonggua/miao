@@ -36,7 +36,7 @@
     var a = prompt("please input a") - 0;
     var b = prompt("please input b") - 0;
     prompt(((b / a) * 100).toFixed(3) + "%");
-    console.log(((b / a) * 100).toFixed(3) + "%"));
+    console.log(((b / a) * 100).toFixed(3) + "%");
 </script>
 <script id="ch0103/07">
     var x = prompt("please input x") - 0;
@@ -56,7 +56,9 @@
 <script id="ch0103/09">
     var r = prompt("please input r") - 0;
     prompt((2 * r).toFixed(4) + "   " + (2 * 3.14159 * r).toFixed(4) + "   " + (3.14159 * r ** 2).toFixed(4));
-    console.log((2 * r).toFixed(4) + "   " + (2 * 3.14159 * r).toFixed(4) + "   " + (3.14159 * r ** 2).toFixed(4));
+    console.log((2 * r).toFixed(4));
+    console.log((2 * 3.14159 * r).toFixed(4));
+    console.log((3.14159 * r ** 2).toFixed(4));
 
 </script>
 <script id="ch0103/10">
@@ -79,10 +81,11 @@
 </script>
 <script id="ch0103/13">
     var a = prompt("please input a") - 0;
-    var b = a / 100 + '';
+    var b = parseInt(a / 100) + '';
     var c = parseInt((a % 100) / 10) + '';
-    var d = a % 10 + '';
-    console.log(parseInt(d + c + b));
+    var d = parseInt(a % 10) + '';
+    console.log(d + c + b);
+
 </script>
 <script id="ch0103/14">
     var h = prompt("please input h") - 0;
