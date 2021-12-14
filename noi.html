@@ -1,72 +1,141 @@
-<script type="xxx">
+<script id="ch0103/01">
     var a = prompt("please input a") - 0;
     var b = prompt("please input b") - 0;
     prompt(a + b);
+    console.log(a + b);
 </script>
-<script type="xxx">
+<script id="ch0103/02">
     var a = prompt("please input a") - 0;
     var b = prompt("please input b") - 0;
     var c = prompt("please input c") - 0;
     prompt((a + b) * c);
+    console.log((a + b) * c);
 </script>
-<script type="xxx">
+<script id="ch0103/03">
     var a = prompt("please input a") - 0;
     var b = prompt("please input b") - 0;
     var c = prompt("please input c") - 0;
     prompt(parseInt((a + b) / c));
+    console.log(parseInt((a + b) / c))
 </script>
-<script type="xxx">
+<script id="ch0103/04">
     var a = prompt("please input a") - 0;
     var b = prompt("please input b") - 0;
     prompt(parseInt(a / b));
     prompt(a % b);
+    console.log(parseInt(a / b), a % b);
 </script>
-<script type="xxx">
+<script id="ch0103/05">
     var a = prompt("please input a") - 0;
     var b = prompt("please input b") - 0;
     prompt((a / b).toFixed(9));
+    console.log((a / b).toFixed(9));
 </script>
 
-<script type="xxx">
+<script id="ch0103/06">
     var a = prompt("please input a") - 0;
     var b = prompt("please input b") - 0;
     prompt(((b / a) * 100).toFixed(3) + "%");
-    </script>
-<script type="xxx">
+    console.log(((b / a) * 100).toFixed(3) + "%"));
+</script>
+<script id="ch0103/07">
     var x = prompt("please input x") - 0;
     var a = prompt("please input a") - 0;
     var b = prompt("please input b") - 0;
     var c = prompt("please input c") - 0;
     var d = prompt("please input d") - 0;
     prompt((a * x ** 3 + b * x ** 2 + c * x + d).toFixed(7));
+    console.log((a * x ** 3 + b * x ** 2 + c * x + d).toFixed(7));
 </script>
-<script type="xxx">
+<script id="ch0103/08">
     var F = prompt("Please input F") - 0;
     var C = (5 * (F - 32) / 9).toFixed(5);
     prompt(C);
+    console.log(C);
 </script>
-<script type="xxx">
+<script id="ch0103/09">
     var r = prompt("please input r") - 0;
     prompt((2 * r).toFixed(4) + "   " + (2 * 3.14159 * r).toFixed(4) + "   " + (3.14159 * r ** 2).toFixed(4));
+    console.log((2 * r).toFixed(4) + "   " + (2 * 3.14159 * r).toFixed(4) + "   " + (3.14159 * r ** 2).toFixed(4));
+
 </script>
-<script type="xxx">
+<script id="ch0103/10">
     var r1 = prompt("please input r1") - 0;
     var r2 = prompt("please input r2") - 0;
     prompt((1 / (1 / r1 + 1 / r2)).toFixed(2));
+    console.log((1 / (1 / r1 + 1 / r2)).toFixed(2));
+
 </script>
-<script type="x">
+<script id="ch0103/11">
     var a = prompt("please input a") - 0;
     var b = prompt("please input b") - 0;
     prompt((a % b).toFixed(4));
-</script>
-<script type="x">
-    var r = prompt("please input r") - 0;
-    prompt((4 / 3 * 3.14 * r ** 3).toFixed(2));
+    console.log((a % b).toFixed(4));
 </script>
 <script id="ch0103/12">
+    var r = prompt("please input r") - 0;
+    prompt((4 / 3 * 3.14 * r ** 3).toFixed(2));
+    console.log((4 / 3 * 3.14 * r ** 3).toFixed(2));
+</script>
+<script id="ch0103/13">
     var a = prompt("please input a") - 0;
-    //126
-    var b = a / 100;
-    var c = parseInt((a % 100) / 10);
+    var b = a / 100 + '';
+    var c = parseInt((a % 100) / 10) + '';
+    var d = a % 10 + '';
+    console.log(parseInt(d + c + b));
+</script>
+<script id="ch0103/14">
+    var h = prompt("please input h") - 0;
+    var r = prompt("please input r") - 0;
+    var volume = 3.14159 * r ** 2 * h;
+    var number = Math.ceil(20000 / volume);
+    prompt(number);
+    console.log(number);
 
+</script>
+<script id="ch0103/15">
+    var n = prompt("please input n") - 0;
+    var x = prompt("please input x") - 0;
+    var y = prompt("please input y") - 0;
+    prompt(n - Math.ceil(y / x));
+    console.log(n - Math.ceil(y / x));
+</script>
+<script id="ch0103/16">
+    var x1 = prompt("x1:");
+    var y1 = prompt("y1:");
+    var x2 = prompt("x2:");
+    var y2 = prompt("y2:");
+    prompt(Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2).toFixed(3));
+    console.log(Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2).toFixed(3));
+</script>
+<script id="ch0103/17">
+    var x1 = prompt("x1:") - 0;
+    var y1 = prompt("y1:") - 0;
+    var x2 = prompt("x2:") - 0;
+    var y2 = prompt("y2:") - 0;
+    var x3 = prompt("x3:") - 0;
+    var y3 = prompt("y3:") - 0;
+    var L1 = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+    var L2 = Math.sqrt((x3 - x1) ** 2 + (y3 - y1) ** 2);
+    prompt((0.5 * L1 * L2).toFixed(2));
+    console.log((0.5 * L1 * L2).toFixed(2));
+</script>
+<script id="ch0103/18">
+    var a1 = prompt("a1:") - 0;
+    var a2 = prompt("a2:") - 0;
+    var n = prompt("n:") - 0;
+    var distance = a2 - a1;
+    prompt(a1 + (n - 1) * distance);
+    console.log(a1 + (n - 1) * distance);
+</script>
+<script id="ch0103/19">
+    var A = prompt("A:") - 0;
+    var B = prompt("B:") - 0;
+    prompt(A * B);
+    console.log(A * B);
+</script>
+<script id="ch0103/20">
+    var n = prompt("n:") - 0;
+    prompt(2 ** n);
+    console.log(2 ** n);
 </script>
