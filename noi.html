@@ -329,15 +329,19 @@
     else {
         var result1 = Math.abs(b ** 2 - 4 * a * c);
         var result2 = Math.sqrt(result1);
-        var x1 = String((result2 / (2 * a)).toFixed(5));
-        var x2 = (-b / (2 * a)).toFixed(5)
 
-        var y1 = String((-result2 / (2 * a)).toFixed(5));
-        var y2 = (-b / (2 * a)).toFixed(5)
+
+        var x1 = (result2 / (2 * a)).toFixed(5);
+        var x2 = (-b / (2 * a)).toFixed(5);
+
+        var y1 = (-result2 / (2 * a)).toFixed(5);
+        var y2 = (-b / (2 * a)).toFixed(5);
 
         console.log("x1=" + x2 + "+" + x1 + "i");
-        console.log("x2=" + y2 + y1 + "i");
+        console.log("x2=" + y2 + "" + y1 + "i");
     }
+
+
 </script>
 <script id="ch0104/21">
     var n = Number(prompt("n:"));
