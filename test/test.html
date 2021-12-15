@@ -1,139 +1,200 @@
-<html lang="en">
+<script>
+  var N = Number(prompt("N:"));
+  if (N > 0) console.log("positive");
+  else if (N == 0) console.log("zero");
+  else console.log("negative");
+</script>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style type="text/less">
-    * {
-      background-color: rgba(0, 0, 0, 0.08);
-      box-shadow: inset 0 0 1px red;
+<script>
+  var N = Number(prompt("N:"));
+  if (N >= 0) console.log(N);
+  else console.log(-N);
+</script>
+<script>
+  var N = Number(prompt("N:"));
+  if (N % 2 == 0) console.log("even");
+  else console.log("odd");
+</script>
+<script>
+  var c = String(prompt("c:"));
+  var N = c.charCodeAt(0);
+  if (N % 2 == 0) console.log("No");
+  else console.log("Yes");
+</script>
+<script>
+  var a = Number(prompt("a:"));
+  var b = Number(prompt("b:"));
+  if (a > b) console.log(">");
+  else if (a == b) console.log("=");
+  else console.log("<");
+</script>
+<script>
+  var N = Number(prompt("N:"));
+  if (N >= 10 && N <= 99) console.log(1);
+  else console.log(0); 
+</script>
+<script>
+  var N1 = Number(prompt("N1:"));
+  var N2 = Number(prompt("N2:"));
+  if (N1 >= 10 || N2 >= 20) console.log(1);
+  else console.log(0);
+</script>
+<script>
+  var N = Number(prompt("N:"));
+  if (N % 3 == 0 && N % 5 == 0) console.log("YES");
+  else console.log("NO");
+</script>
+<script>
+  var N = Number(prompt("N:"));
+  if (N % 3 == 0 && N % 5 == 0 && N % 7 == 0) console.log(3, 5, 7);
+  else if (N % 3 == 0 && N % 5 == 0) console.log(3, 5);
+  else if (N % 3 == 0 && N % 7 == 0) console.log(3, 7);
+  else if (N % 5 == 0 && N % 7 == 0) console.log(5, 7);
+  else if (N % 3 == 0) console.log(3);
+  else if (N % 5 == 0) console.log(5);
+  else if (N % 7 == 0) console.log(7);
+  else console.log('n');
+</script>
+<script>
+  var G1 = Number(prompt("G1:"));
+  var G2 = Number(prompt("G2:"));
+  if (G1 < 60 && G2 < 60) console.log(0);
+  else if (G1 >= 60 && G2 < 60) console.log(1);
+  else if (G1 < 60 && G2 >= 60) console.log(1);
+  else console.log(0);
+</script>
+<script>
+  var N = Number(prompt("N:"));
+  if (N == 1 || N == 3 || N == 5) console.log("NO");
+  else console.log("YES");
+</script>
+<script>
+  var N = Number(prompt("N:"));
+  var t1 = 27 + 23 + N / 3;
+  var t2 = N / 1.2;
+  if (t1 > t2) console.log("Walk");
+  else if (t1 < t2) console.log("Bike");
+  else console.log("All");
+</script>
+<script>
+  var x = Number(prompt("x:"));
+  if (x >= 0 && x < 5) console.log(-x + 2.5);
+  else if (x >= 5 && x < 10) console.log(2 - 1.5 * (x - 3) ** 2);
+  else if (x >= 10 && x < 20) console.log(x * 0.5 - 1.5);
+</script>
+<script>
+  var w = Number(prompt("w:"));
+  var a = String(prompt("a:"));
+  if (a == "y") {
+    if (w <= 1000) console.log(8 + 5);
+    else if (w > 1000) {
+      console.log(5 + 8 + 4 * Math.ceil((w - 1000) / 500));
     }
-
-    .slider {
-      width: 300px;
-      height: 200px;
-      position: relative;
-      input {
-        display: none;
-        &:nth-child(1):checked ~ .slides .slide:nth-child(1) img,
-        &:nth-child(2):checked ~ .slides .slide:nth-child(2) img,
-        &:nth-child(3):checked ~ .slides .slide:nth-child(3) img,
-        &:nth-child(4):checked ~ .slides .slide:nth-child(4) img{
-         opacity: 1;
-        }
-        &:nth-child(1):checked ~ .indicators .label:nth-child(1),
-        &:nth-child(2):checked ~ .indicators .label:nth-child(2),
-        &:nth-child(3):checked ~ .indicators .label:nth-child(3),
-        &:nth-child(4):checked ~ .indicators .label:nth-child(4){
-          background-color: white;
-        }
-        &:nth-child(1):checked ~ .slides .slide:nth-child(1) label,
-        &:nth-child(2):checked ~ .slides .slide:nth-child(2) label,
-        &:nth-child(3):checked ~ .slides .slide:nth-child(3) label,
-        &:nth-child(4):checked ~ .slides .slide:nth-child(4) label{
-         z-index: 5 ;
-         display: block;
-        }
-      }
-
-
-
-      .slides {
-        width: 100%;
-        height: 100%;
-        .slide {
-          height: 100%;
-          width: 100%;
-          position: absolute;
-          label {
-            position: absolute;
-            line-height: 70px;
-            top:0;
-            bottom:0;
-            margin: auto;
-            height: 70px;
-            display: none;
-            &:first-child {
-              left: 0;
-            }
-
-            &:nth-child(2) {
-              right: 0;
-            }
-          }
-
-          img {
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-          }
-
-        }
-      }
-      .indicators{
-        position: absolute;
-        bottom: 0px;
-        right: 0px;
-        label{
-          width: 5px;
-          height:5px;
-          border:2px solid;
-          display:inline-block;
-          border-radius:999px;
-          cursor: pointer;
-          &:hover{
-            background-color: white;
-
-          }
-        }
-      }
-
+  }
+  else if (a == "n") {
+    if (w <= 1000) console.log(8);
+    else if (w > 1000) {
+      console.log(8 + 4 * Math.ceil((w - 1000) / 500));
     }
-  </style>
-</head>
+  }
+</script>
+<script>
+  var x = Number(prompt("x:"));
+  var y = Number(prompt("y:"));
+  var z = Number(prompt("z:"));
+  if (x > y) {
+    if (x > z) console.log(x);
+    else if (x < z) console.log(z);
+  }
+  else if (x < y) {
+    if (y > z) console.log(y);
+    else if (y < z) console.log(z);
+  }
 
-<body>
-  <div class="slider">
-    <input type="radio" name="slider1" id="i1">
-    <input type="radio" name="slider1" id="i2">
-    <input type="radio" name="slider1" id="i3">
-    <input type="radio" name="slider1" id="i4">
-    <div class="slides">
-      <!-- 每一个画面包括一个图片和两个按钮 -->
-      <div class="slide">
-        <label for="i4">prev</label>
-        <label for="i2">next</label>
-        <img src="https://www.bmw.com.cn/content/dam/bmw/marketCN/bmw_com_cn/model_card/2_series_coupe_2021.png" alt="">
-      </div>
-      <div class="slide">
-        <label for="i1">prev</label>
-        <label for="i3">next</label>
-        <img src="https://www.bmw.com.cn/content/dam/bmw/marketCN/bmw_com_cn/model_card/2_series_convertible.png"
-          alt="">
-      </div>
-      <div class="slide">
-        <label for="i2">prev</label>
-        <label for="i4">next</label>
-        <img src="https://www.bmw.com.cn/content/dam/bmw/marketCN/bmw_com_cn/model_card/2_series_gran_coupe.png" alt="">
-      </div>
-      <div class="slide">
-        <label for="i3">prev</label>
-        <label for="i1">next</label>
-        <img src="https://www.bmw.com.cn/content/dam/bmw/marketCN/bmw_com_cn/model_card/2_series_gran_tourer.png"
-          alt="">
-      </div>
-    </div>
-    <div class="indicators">
-      <label for="i1"></label>
-      <label for="i2"></label>
-      <label for="i3"></label>
-      <label for="i4"></label>
-    </div>
-  </div>
+</script>
+<script>
+  var x = Number(prompt("x:"));
+  var y = Number(prompt("y:"));
+  var z = Number(prompt("z:"));
+  if (x + y > z && x + z > y && y + z > x) {
+    if (Math.abs(x - y) < z && Math.abs(x - z) < y && Math.abs(y - z) < x) {
+      console.log("Yes");
+    }
+    else {
+      console.log("No");
+    }
+  }
+  else {
+    console.log("No");
+  }
 
-</body>
-<script src="less.min.js"></script>
+</script>
+<script type="x">
+  var year = Number(prompt("Year:"));
+  if (year % 4 == 0 && year % 100 == 0 && year % 400 != 0) {
+    console.log("Y")
+  }
+  else console.log("N");
+</script>
+<script>
+  var x = Number(prompt("x:"));
+  var y = Number(prompt("y:"));
+  if (x >= -1 && x <= 1) {
+    if (y >= -1 && y <= 1) {
+      console.log("yes")
+    }
+    else console.log("no");
+  }
+  else console.log("no");
+</script>
+<script type="x">
+  var x = Number(prompt("x:"));
+  var y = Number(prompt("y:"));
+  var z = prompt("z:");
+  if (y == 0) console.log("Divided by zero!")
+  else if (z != '+' && z != '-' && z != '*' && z != '/') console.log("Invalid operator!");
+  else {
+    if (z == '+') console.log(x + y);
+    else if (z == '-') console.log(x - y);
+    else if (z == '*') console.log(x * y);
+    else if (z == '/') console.log(x / y);
+  }
+</script>
+<script>
+  var a = Number(prompt("a:"));
+  var b = Number(prompt("b:"));
+  var c = Number(prompt("c:"));
+  var d = b ** 2 - 4 * a * c;
+  if (d > 0) {
+    var result = Math.sqrt(d)
+    var x1 = (-b + result) / (2 * a);
+    var x2 = (-b - result) / (2 * a);
+    console.log("x1=" + x1);
+    console.log("x2=" + x2);
+  }
+  else if (d == 0) {
+    var result = Math.sqrt(d);
+    var x1;
+    var x2;
+    x1 = -b / (2 * a);
+    console.log("x1=x2" + x1);
+  }
+  else {
+    var result1 = Math.abs(b ** 2 - 4 * a * c);
+    var result2 = Math.sqrt(result1);
+    var x1 = String((result2 / (2 * a)).toFixed(5));
+    var x2 = (-b / (2 * a)).toFixed(5)
 
-</html>
+    var y1 = String((-result2 / (2 * a)).toFixed(5));
+    var y2 = (-b / (2 * a)).toFixed(5)
+
+    console.log("x1=" + x2 + "+" + x1 + "i");
+    console.log("x2=" + y2 + y1 + "i");
+  }
+</script>
+<script>
+  var n = Number(prompt("n:"));
+  var x = Number(prompt("x:"));
+  var y = Number(prompt("y:"));
+  console.log(n - Math.ceil(y / x));
+</script>
