@@ -163,9 +163,11 @@
 <script id="ch0104/04">
     var c = String(prompt("c:"));
     var N = c.charCodeAt(0);
-    if (N % 2 == 0) console.log("No");
-    else console.log("Yes");
+    if (N % 2 == 0) console.log("NO");
+    else console.log("YES");
 </script>
+
+
 <script id="ch0104/05">
     var a = Number(prompt("a:"));
     var b = Number(prompt("b:"));
@@ -223,9 +225,9 @@
 </script>
 <script id="ch0104/13">
     var x = Number(prompt("x:"));
-    if (x >= 0 && x < 5) console.log(-x + 2.5);
-    else if (x >= 5 && x < 10) console.log(2 - 1.5 * (x - 3) ** 2);
-    else if (x >= 10 && x < 20) console.log(x * 0.5 - 1.5);
+    if (x >= 0 && x < 5) console.log((-x + 2.5).toFixed(3));
+    else if (x >= 5 && x < 10) console.log((2 - 1.5 * (x - 3) ** 2).toFixed(3));
+    else if (x >= 10 && x < 20) console.log((x * 0.5 - 1.5).toFixed(3));
 </script>
 <script id="ch0104/14">
     var w = Number(prompt("w:"));
@@ -263,14 +265,14 @@
     var z = Number(prompt("z:"));
     if (x + y > z && x + z > y && y + z > x) {
         if (Math.abs(x - y) < z && Math.abs(x - z) < y && Math.abs(y - z) < x) {
-            console.log("Yes");
+            console.log("yes");
         }
         else {
-            console.log("No");
+            console.log("no");
         }
     }
     else {
-        console.log("No");
+        console.log("no");
     }
 
 </script>
