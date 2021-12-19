@@ -369,6 +369,7 @@
         sum += salary;
         n++;
     }
+    sum = sum / 12
     console.log("$" + sum.toFixed(2));
 </script>
 <script id="ch0105/03">
@@ -391,14 +392,15 @@
 </script>
 <script id="ch0105/04">
     var n = Number(prompt("1<=n<=10000"));
-    var average;
-    var sum;
+    var average = 0;
+    var sum = 0;
     for (let i = 0; i < n; i++) {
         var value = Number(prompt("value?"))
         sum += value;
     }
     average = (sum / n).toFixed(5);
     console.log(sum + " " + average);
+
 </script>
 <script id="ch0105/05">
     var max = 0;
@@ -738,7 +740,6 @@
     }
 </script>
 <script id="ch0105/29">
-    debugger
     var n = Number(prompt("n:"));
     var number_cal = 0;
     var number_res = "";
@@ -757,10 +758,10 @@
     }
     number_res = Number(number_res)
     if (flag == "positive") {
-        console.log(-number_res)
+        console.log(number_res)
     }
     else if (flag == "negative") {
-        console.log(number_res)
+        console.log(-number_res)
     }
 
 </script>
@@ -779,9 +780,9 @@
         }
     }
     if (k_origin % 19 == 0 && counter == m) {
-        console.log("Yes")
+        console.log("YES")
     } else {
-        console.log("No")
+        console.log("NO")
     }
 
 </script>
@@ -800,21 +801,19 @@
         if (status == -1) {
             result = result + String(i) + ","
         }
-
     }
-    console.log(result)
+    console.log(result.substr(0, result.length - 1))
 </script>
 <script id="ch0105/32">
-    debugger
+
     var p = 1;
     var q = 2;
-
     var n = Number(prompt("n:"));
     var sum = 0;
     for (let i = 0; i < n; i++) {
-        sum += q / p;
-        p = q;
-        q = q + p;
+        sum += (p + q / q)
+        q = p + q
+        p = q
     }
     console.log(sum.toFixed(4));
 
@@ -961,7 +960,8 @@ M N X
         for (let k = 0; k < w; k++) {
             if (number == 0 && (i == 0 || i == h - 1)) { line += pic }
             else if (number == 0 && (k == 0 || k == w - 1)) { line += pic }
-            else (line += " ")
+            else if (number == 1) line += pic
+            else line += " "
         }
         line += "\n"
     }
