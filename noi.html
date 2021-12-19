@@ -870,20 +870,22 @@
 
 </script>
 <script id="ch0105/37">
-    var M = prompt("M:");
-    var N = prompt("N:");
-    var X = prompt("X:");
 
-    while (M >= N) {
-        X = Math.ceil(M / N);
+    var M = Number(prompt("M:"));
+    var N = Number(prompt("N:"));
+    var X = Number(prompt("X:"));
+    //关键在于能否补满M
+    while (X * N > M) {
 
+        X = X - Math.ceil(M / N)
+        N = N + Math.floor(M / N)
 
     }
-
+    console.log(N)
 </script>
 体力最大M 初始为0
 战斗力为N 一个战斗期内 作战N天，战力+1
-战斗期结束，能量元素补满能量M
+战斗期结束，能量为0，能量元素补满能量M
 每个元素补充当前战斗力的能量
 
 M N X
@@ -898,7 +900,8 @@ M N X
 0（5） 6 4
 
 
-<script 38>
+<script id="ch0105/38">
+
 
 </script>
 <script id="ch0105/39">
