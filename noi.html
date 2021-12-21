@@ -1139,7 +1139,7 @@ M N X
 <script id="prime">
     var n = Number(prompt("n:"))
     var isPrime = true
-    for (var i = 2; i <= Math.ceil(n / 2) + 1; i++) {
+    for (var i = 2; i <= Math.ceil(n / 2); i++) {
         if (n % i == 0) {
             isPrime = false
         }
@@ -1165,7 +1165,9 @@ M N X
     }
 
 </script>
-<script>
+<script id="itoa">
+    var n = Number(prompt("n:"))
+    console.log(n.toFixed(0))
 
 </script>
 
@@ -1189,13 +1191,10 @@ M N X
 
 <script id="sqrt">
     var n = Number(prompt("n:"))
-
-
-    function sqrt(n) {
-        var start = 0, mid, last = n
-        var dif = 0.001
-        while (last - start)
-
+    n = n * 1000000
+    var i = 1;
+    while (i * i < n) {
+        i++
     }
-
+    console.log((i / 1000).toFixed(3))
 </script>
