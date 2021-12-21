@@ -1061,12 +1061,12 @@ M N X
         sum += num ** 3
         n = (n - num) / 10
     }
-    if (sum == n_origin) console.log("YES");
+    if (sum == n_origin) console.log("Yes");
     else console.log("No")
 </script>
 <script id="narcissistics">
     var result = ""
-    for (var n = 0; n < 10000; n++) {
+    for (var n = 2; n < 10000; n++) {
         var n_origin = n
         var sum = 0
         var k = n
@@ -1093,7 +1093,7 @@ M N X
         r = r * 10 + d
     }
     if (r == n_origin) console.log("YES")
-    else console.log("No")
+    else console.log("NO")
 </script>
 
 <script id="weekday">
@@ -1125,7 +1125,7 @@ M N X
 </script>
 
 <script id="complete-numbers">
-    var n = 0
+    var n = 2
     while (n < 1000) {
         var sum = 1
         for (var i = 2; i < parseInt(n / 2) + 1; i++) {
@@ -1141,32 +1141,20 @@ M N X
 </script>
 <script id="prime">
     var n = Number(prompt("n:"))
-    for (var i = 2; i < parseInt(n / 2) + 1; i++) {
+    var isPrime = true
+    for (var i = 2; i <= Math.ceil(n / 2); i++) {
         if (n % i == 0) {
-            console.log("No")
-            break
-        }
-        if (i == parseInt(n / 2)) {
-            console.log("Yes")
-            break
+            isPrime = false
         }
     }
+    if (n == 1) isPrime = false
+    if (isPrime) console.log("YES")
+    else console.log("NO")
 </script>
 <script id="primes">
     var n = 2
     while (n < 100) {
-        var isPrime = true
-        for (var i = 2; i < parseInt(n / 2) + 1; i++) {
-            if (n % i == 0) {
-                isPrime = false
-                break
-            }
-            if (isPrime) {
-                console.log(n)
-                break
-            }
-        }
-        n++
+
     }
 
 </script>
@@ -1199,7 +1187,7 @@ M N X
     function sqrt(n) {
         var start = 0, mid, last = n
         var dif = 0.001
-
+        while (last - start)
 
     }
 
