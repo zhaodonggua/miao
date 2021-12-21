@@ -1,13 +1,58 @@
 <script>
-    debugger
-    var num = Number(prompt("num:"));
-    var ge = num % 10;
-    console.log(ge)
-    var shi = ((num % 1000) % 100 - num % 10) / 10;
-    console.log(shi)
-    var bai = parseInt((num % 1000) / 100)
-    console.log(bai)
-    var qian = parseInt(num / 1000)
-    console.log(qian)
+    var a = 10
+    var f1 = function () {
+        var x = "inside f1"
+        console.log(a)
+    }
+    f1();
 
+
+</script>
+<script>
+    function factorial(n) {
+        var sum = 0;
+        for (var i = 1; i <= n; i++) {
+            var num = 1;
+            for (var j = 1; j <= i; j++) {
+                num = num * j
+            }
+            sum += num
+        }
+        return sum;
+    }
+</script>
+<script>
+    function isPrime(n) {
+        for (var i = 2; i < parseInt(n / 2); i++) {
+            if (n % i == 0) {
+                return false
+            }
+        }
+        return true;
+    }
+</script>
+<script>
+    function qiao7(n) {
+        if (n % 7 == 0) return true;
+        while (n > 0) {
+            var digit = n % 10;
+            if (digit == 7) return true;
+            n = (n - digit) / 10
+        }
+        return false;
+
+    }
+</script>
+<script>
+    function fibb(n) {
+        var n1 = 1
+        var n2 = 1
+        var num = 0
+        for (var i = 0; i < n; i++) {
+            num = n1 + n2
+            n1 = n2
+            n2 = num
+        }
+        return num;
+    }
 </script>

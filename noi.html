@@ -1,4 +1,4 @@
-<!-- <script id="ch0103/01">
+<script id="ch0103/01">
     debugger
     var a = prompt("please input a") - 0;
     var b = prompt("please input b") - 0;
@@ -201,6 +201,8 @@
     else if (N % 5 == 0) console.log(5);
     else if (N % 7 == 0) console.log(7);
     else console.log('n');
+
+
 </script>
 <script id="ch0104/10">
     var G1 = Number(prompt("G1:"));
@@ -209,12 +211,18 @@
     else if (G1 >= 60 && G2 < 60) console.log(1);
     else if (G1 < 60 && G2 >= 60) console.log(1);
     else console.log(0);
+
 </script>
 <script id="ch0104/11">
     var N = Number(prompt("N:"));
     if (N == 1 || N == 3 || N == 5) console.log("NO");
     else console.log("YES");
 </script>
+
+
+
+
+
 <script id="ch0104/12">
     var N = Number(prompt("N:"));
     var t1 = 27 + 23 + N / 3;
@@ -294,6 +302,10 @@
     }
     else console.log("no");
 </script>
+
+
+
+
 <script id="ch0104/19">
     var x = Number(prompt("x:"));
     var y = Number(prompt("y:"));
@@ -571,6 +583,8 @@
         else if (result_new - result < -0.05) console.log("worse");
         else console.log("same");
     }
+
+
 </script>
 
 <script id="ch0105/19">
@@ -626,6 +640,7 @@
             console.log("-" + i);
             break;
         }
+        // save_ming += save_ming - save_ming % 100
         while (save_ming > 100) {
             save_ming -= 100;
             save_mother += 100;
@@ -756,6 +771,7 @@
         n = (n - number_cal) / 10
         number_res += String(number_cal);
     }
+
     number_res = Number(number_res)
     if (flag == "positive") {
         console.log(number_res)
@@ -811,9 +827,11 @@
     var n = Number(prompt("n:"));
     var sum = 0;
     for (let i = 0; i < n; i++) {
-        sum += (p + q / q)
-        q = p + q
-        p = q
+        sum += (q / p)
+        var q_next = p + q
+        var p_next = q
+        p = p_next
+        q = q_next
     }
     console.log(sum.toFixed(4));
 
@@ -858,6 +876,12 @@
         sum += (1 / num)
     }
     console.log(sum.toFixed(10))
+
+    // var sum = 0, f = 1
+    // for (var i = 1; i <= n; i++) {
+    //     f *= i
+    //     sum += f
+    // }
 </script>
 <script id="ch0105/36">
     var x = prompt("x:");
@@ -901,7 +925,14 @@ M N X
 
 
 <script id="ch0105/38">
-
+    var m = Number(prompt("n:"))
+    for (var i = 0; i < m; i++) {
+        var n = Number(prompt("n:"))
+        for (var j = n; j >= 0; j--) {
+            var c = Number(prompt("c:"))
+            console.log(c * j)
+        }
+    }
 
 </script>
 <script id="ch0105/39">
@@ -966,7 +997,7 @@ M N X
             else if (number == 1) line += pic
             else line += " "
         }
-        line += "\n"
+        if (i < h - 1) line += "\n";
     }
     console.log(line)
 </script>
@@ -994,15 +1025,15 @@ M N X
     var count = 0
     for (let i = 2; i <= 10000; i++) {
         //循环时默认为质数
-        var flag = "ZhiShu"
+        var isPrime = true
         for (let x = 2; x < parseInt(i / 2) + 1; x++) {
             if (i % x == 0) {
                 //判断i为合数
-                flag = "HeShu"
+                isPrime = false
                 break
             }
         }
-        if (flag == "ZhiShu") ++count;
+        if (isPrime) ++count;
         if (count == 10) {
             console.log(i)
             break
@@ -1020,4 +1051,156 @@ M N X
         }
     }
     console.log(sum)
+</script>
+<script id="narcissistic">
+    var n = Number(prompt("n:"))
+    var sum = 0
+    var n_origin = n
+    while (n > 0) {
+        var num = n % 10
+        sum += num ** 3
+        n = (n - num) / 10
+    }
+    if (sum == n_origin) console.log("YES");
+    else console.log("No")
+</script>
+<script id="narcissistics">
+    var result = ""
+    for (var n = 0; n < 10000; n++) {
+        var n_origin = n
+        var sum = 0
+        var k = n
+        while (k > 0) {
+            var num = k % 10
+            sum += num ** 3
+            k = (k - num) / 10
+        }
+        if (sum == n_origin) result += String(n_origin) + " "
+
+    }
+    console.log(result)
+</script>
+
+
+
+<script id="palindrom">
+    var n = Number(prompt("n:"))
+    var n_origin = n
+    var r = 0
+    while (n > 0) {
+        var d = n % 10
+        n = (n - d) / 10
+        r = r * 10 + d
+    }
+    if (r == n_origin) console.log("YES")
+    else console.log("No")
+</script>
+
+<script id="weekday">
+    var year = Number(prompt("year"))
+    var month = Number(prompt("month"))
+    var day = 0
+    var day_sum = 0
+    for (var i = 1; i <= month; i++) {
+        if (month == 1) {
+            day_sum = 1
+            break;
+        }
+    }
+</script>
+<script id="complete-number">
+    var n = Number(prompt("n:"))
+    var sum = 1
+    for (var i = 2; i < parseInt(n / 2) + 1; i++) {
+        if (n % i == 0) {
+            sum += i;
+        }
+    }
+    if (sum == n) {
+        console.log("YES")
+    }
+    else {
+        console.log("NO")
+    }
+</script>
+
+<script id="complete-numbers">
+    var n = 0
+    while (n < 1000) {
+        var sum = 1
+        for (var i = 2; i < parseInt(n / 2) + 1; i++) {
+            if (n % i == 0) {
+                sum += i;
+            }
+        }
+        if (sum == n) {
+            console.log(n)
+        }
+        n++
+    }
+</script>
+<script id="prime">
+    var n = Number(prompt("n:"))
+    for (var i = 2; i < parseInt(n / 2) + 1; i++) {
+        if (n % i == 0) {
+            console.log("No")
+            break
+        }
+        if (i == parseInt(n / 2)) {
+            console.log("Yes")
+            break
+        }
+    }
+</script>
+<script id="primes">
+    var n = 2
+    while (n < 100) {
+        var isPrime = true
+        for (var i = 2; i < parseInt(n / 2) + 1; i++) {
+            if (n % i == 0) {
+                isPrime = false
+                break
+            }
+            if (isPrime) {
+                console.log(n)
+                break
+            }
+        }
+        n++
+    }
+
+</script>
+<script>
+
+</script>
+
+<script id="lcf&lcm">
+    var n1 = Number(prompt("n1:"))
+    var n2 = Number(prompt("n2:"))
+    var max_gongyue = 1
+    var min_gongbei = n1 * n2
+    for (var i = 1; i <= n1; i++) {
+        if (n1 % i == 0 && n2 % i == 0) {
+            if (i > max_gongyue) max_gongyue = i;
+        }
+    }
+    for (var j = n1; j <= n1 * n2; j++) {
+        if (j % n1 == 0 && j % n2 == 0) {
+            if (j < min_gongbei) min_gongbei = j;
+        }
+    }
+    console.log(max_gongyue, min_gongbei)
+</script>
+
+<script id="sqrt">
+    var n = Number(prompt("n:"))
+
+
+    function sqrt(n) {
+        var start = 0, mid, last = n
+        var dif = 0.001
+
+
+    }
+
 </script>
