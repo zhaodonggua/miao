@@ -1061,8 +1061,8 @@ M N X
         sum += num ** 3
         n = (n - num) / 10
     }
-    if (sum == n_origin) console.log("Yes");
-    else console.log("No")
+    if (sum == n_origin) console.log("YES");
+    else console.log("NO")
 </script>
 <script id="narcissistics">
     var result = ""
@@ -1075,13 +1075,9 @@ M N X
             sum += num ** 3
             k = (k - num) / 10
         }
-        if (sum == n_origin) result += String(n_origin) + " "
-
+        if (sum == n_origin) console.log(result)
     }
-    console.log(result)
 </script>
-
-
 
 <script id="palindrom">
     var n = Number(prompt("n:"))
@@ -1154,7 +1150,15 @@ M N X
 <script id="primes">
     var n = 2
     while (n < 100) {
-
+        var flag = true
+        for (var i = 2; i <= Math.ceil(n / 2) + 1; i++) {
+            if (n % i == 0) {
+                flag = false
+                break
+            }
+        }
+        if (flag) console.log(n)
+        n++
     }
 
 </script>
