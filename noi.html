@@ -1063,6 +1063,7 @@ M N X
     }
     if (sum == n_origin) console.log("YES");
     else console.log("NO")
+
 </script>
 <script id="narcissistics">
     var result = ""
@@ -1075,7 +1076,7 @@ M N X
             sum += num ** 3
             k = (k - num) / 10
         }
-        if (sum == n_origin) console.log(result)
+        if (sum == n_origin) console.log(sum)
     }
 </script>
 
@@ -1138,7 +1139,7 @@ M N X
 <script id="prime">
     var n = Number(prompt("n:"))
     var isPrime = true
-    for (var i = 2; i <= Math.ceil(n / 2); i++) {
+    for (var i = 2; i <= Math.ceil(n / 2) + 1; i++) {
         if (n % i == 0) {
             isPrime = false
         }
@@ -1146,12 +1147,13 @@ M N X
     if (n == 1) isPrime = false
     if (isPrime) console.log("YES")
     else console.log("NO")
+
 </script>
 <script id="primes">
     var n = 2
     while (n < 100) {
         var flag = true
-        for (var i = 2; i <= Math.ceil(n / 2) + 1; i++) {
+        for (var i = 2; i <= Math.ceil(n / 2); i++) {
             if (n % i == 0) {
                 flag = false
                 break
