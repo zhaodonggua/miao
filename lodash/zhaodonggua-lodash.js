@@ -7,9 +7,8 @@ var zhaodonggua = {
             arr[i] = new Array()
             //内部数组个数
             for (let j = 0; j < size; j++) {
-                let num = i * size + j
-                if (array[num] == undefined) break;
-                arr[i].push(array[num])
+                if (array.length) arr[i].push(array.shift());
+                else break;
             }
         }
         return arr
@@ -41,5 +40,43 @@ var zhaodonggua = {
         }
         return res
     },
+    difference: function difference(array1, array2) {
+        let res = []
+        for (let i = 0; i < array1.length; i++) {
+            let flag = false
+            for (let j = 0; j < array2.length; j++) {
+                if (array1[i] == array2[j]) flag = true
+            }
+            if (!flag) res.push(array1[i])
+        }
+        return res
+
+    },
+    fill: function fill(array, value, start = 0, end = array.length) {
+        for (let i = start; i < end; i++) {
+            array[i] = value;
+        }
+        return array
+    },
+    flatten: function flatten(array) {
+        let res = []
+        for (let i = 0; i < array.length; i++) {
+            //如果不是数组
+            if (!Array.isArray(array[i])) res.push(array[i]);
+            else {
+                for (let j = 0; j < array[i].length; j++) {
+                    res.push(array[i][j])
+                }
+            }
+        }
+        console.log(res[2])
+        return res
+    },
+    flattenDepth: function flattenDepth(array, depth = 1) {
+
+    },
+
+
+
 
 }
