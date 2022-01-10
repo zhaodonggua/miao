@@ -22,5 +22,24 @@ var zhaodonggua = {
         }
         return res
     },
+    drop: function drop(array, n = 1) {
+        let length = array.length
+        let res = []
+        if (n > length) return res;
+        for (let i = n; i < length; i++) {
+            res.push(array[i])
+        }
+        return res
+
+    },
+    dropRight: function dropRight(array, n = 1) {
+        let length = array.length
+        let res = []
+        if (n > length) return res;
+        for (let i = 0; i < length - n; i++) {
+            res.push(array[i])
+        }
+        return res
+    },
 
 }
