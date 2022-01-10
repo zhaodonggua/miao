@@ -1,5 +1,5 @@
 var zhaodonggua = {
-    chunk: function (array, size) {
+    chunk: function chunk(array, size) {
         let arr = []
         let length = Math.ceil(array.length / size)
         //外围数组个数
