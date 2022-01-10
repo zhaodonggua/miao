@@ -75,7 +75,7 @@ var zhaodonggua = {
         console.log(res[2])
         return res
     },
-    flattenDepth: function flattenDeep(array) {
+    flattenDeep: function flattenDeep(array) {
         let res = []
         function deep(array) {
             for (let key of array) {
