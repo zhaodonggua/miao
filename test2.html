@@ -9,6 +9,10 @@
 
 </script>
 <script>
+    debugger
+    var c = prompt()
+    console.log(factorial(c))
+
     function factorial(n) {
         var sum = 0;
         for (var i = 1; i <= n; i++) {
@@ -55,4 +59,237 @@
         }
         return num;
     }
+</script>
+<script>
+    var count = 0
+    var n = Number(prompt("n:"))
+    while (n > 0) {
+        n = n - n % 10
+        count++
+    }
+    console.log(count)
+</script>
+<script>
+    var a = sqrt(5)
+    console.log(a)
+    function sqrt(n) {
+        var left = 0
+        var right = n
+        do {
+            var mid = (left + right) / 2
+            if (mid * mid < n) {
+                left = mid
+            } else if (mid * mid > n) {
+                right = mid
+            } else {
+                return mid
+            }
+        } while (Math.abs(mid * mid - n > 0.0000001))
+
+
+    }
+</script>
+<script>
+    //某年某月多少天
+    function getMonthDay(month) {
+        switch (month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12: return 31;
+            case 2:
+                if (isLeapYear(year)) {
+                    return 29;
+                } else {
+                    return 28;
+                }
+            default: return 30;
+        }
+    }
+
+    function isLeapYear(n) {
+        //400的倍数，4的倍数但不是100的倍数
+        //例如：2020年 有 505 - 20 + 5个闰年
+        if (n % 400 == 0) return true;
+        if (n % 100 == 0) return false;
+        if (n % 4 == 0) return true;
+        return false;
+    }
+
+    function weekday(year, month) {
+        var day = 0
+        for (var i = 1; i < year; i++) {
+            if (isLeapYear(i)) {
+                day += 366
+            } else {
+                day += 365
+            }
+
+        }
+        for (var i = 1; i < month; i++) {
+            day += getMonthDay(year, i)
+        }
+        day = (day + 1) % 7
+        return day
+
+
+    }
+</script>
+<script>
+    debugger
+    var a = sqrt(5)
+    console.log(a)
+    function sqrt(n) {
+        var left = 0
+        var right = n
+        do {
+            var mid = (left + right) / 2
+            if (mid * mid > n) {
+                right = mid
+            } else if (mid * mid < n) {
+                left = mid
+            } else {
+                return mid
+            }
+        } while (Math.abs(mid * mid - n) > 0.0000001)
+        return mid;
+    }
+
+</script>
+<script>
+    debugger
+    console.log(weekday(2021, 12))
+
+    function weekday(year, month) {
+        var day = 0;
+        for (var i = 1; i < year; i++) {
+            if (isLeapYear(i)) day += 366;
+            else day += 365;
+        }
+        for (var j = 1; j < month; j++) {
+            day += getMonthDay(year, j);
+        }
+        day = (day + 1) % 7
+        return day
+    }
+    function isLeapYear(year) {
+        if (year % 400 == 0) return true;
+        if (year % 100 == 0) return false;
+        if (year % 4 == 0) return true;
+        return false;
+    }
+    function getMonthDay(year, month) {
+        switch (month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                return 31;
+            case 2:
+                if (isLeapYear(year)) return 29;
+                else {
+                    return 28;
+                }
+            default: return 30;
+        }
+    }
+
+</script>
+<script>
+    // 输入年份与月份，输出这个月的第一天是周几（视具体设定，周一可以用1或0表示）
+
+    // 判断是否是闰年
+    function isLeapYear(n) {
+        if (n % 400 == 0) {
+            return true
+        }
+        if (n % 100 == 0) {
+            return false
+        }
+        if (n % 4 == 0) {
+            return true
+        }
+        return false
+    }
+
+    // 获取某年某月有多少天
+    function getMonthDay(year, month) {
+        switch (month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                return 31
+            case 2:
+                if (isLeapYear(year)) {
+                    return 29
+                } else {
+                    return 28
+                }
+            default:
+                return 30
+        }
+    }
+
+    function weekday(year, month) {
+        //判断年
+        let y = year - 1
+        let day = (y) * 365 + Math.floor((y) / 4) + Math.floor((y) / 100) + Math.floor((y) / 400)
+        // 一个公式替代下面的循环，最多只跑11次
+
+        /* let day = 0
+        for (let y = 1; y < year; y++) {
+          if (isLeapYear(y)) {
+            day += 366
+          } else {
+            day += 365
+          }
+        } */
+
+        //判断月
+        for (let m = 0; m < month; m++) {
+            day += getMonthDay(year, m)
+        }
+
+        // 公元1年1月1日是星期六
+        day = (day + 1) % 7
+        return day
+    }
+</script>
+
+<script>
+
+    var a = []
+    var n = Number(prompt("n:"))
+    for (var i = 1; i < n; i++) {
+        var number = Number(prompt("n:"))
+        a.push(number)
+    }
+    for (var i = n - 1; i >= 0; i--) {
+        console.log(a[i])
+    }
+</script>
+<script>
+    var Pointer = 0
+    var nonIndex = 0
+    for (var i = 0; i < nums.length; i++) {
+        if (nums[nonIndex] != 0) {
+            nums[i] = nums[nonIndex]
+            nonIndex++
+        }
+    }
+    for (var i = nonIndex; i < nums.length; i++) {
+        num[i] = 0
+    }
+
+
 </script>

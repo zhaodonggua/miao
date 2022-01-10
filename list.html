@@ -1,0 +1,72 @@
+<script>
+    //创建链表
+    //因为每一个node都是一个地址，所以拿到中间一个，
+    //就可以顺着拿到接下来所有node
+        function arrayToList(array) {
+            if (array.length == 0) return null;
+            //创建链表第一个
+            let head = {
+                val: array[0],
+                next: null
+            }
+            let prev = head
+            for (let i = 1; i < array.length; i++) {
+                //创建新节点
+                let node = {
+                    val: array[i],
+                    next: null
+                }
+                prev.next = node
+                prev = node
+              
+            }
+            return head.next
+        }
+        arrayToList([1,2,3,4,5])
+</script>
+<script>
+    //从后往前创建链表
+   function arrayToList2(array){
+       let prev = null
+    for(let i = array.length-1;i>=0;i--){
+        let node={
+            val:array[i],
+            next:null
+        }
+        node.next = prev
+        prev = node
+    }
+    return prev
+   } 
+    arrayToList2([1,2,3,4])
+
+</script>
+<script>
+    function arrayToList5(array,start = 0){
+        if(start == array.length) return null;
+        let head={
+            val:array[start],
+            next:null
+        }            
+        let tail = arrayToList5(array,start+1)
+        head.next = tail
+        return head
+    }
+    arrayToList5([1,2,3,4,5])
+
+</script>
+<script>
+    function listToArray(head){
+        if(head == null){return []}
+        let result = []
+        while(head){
+            result.push(head.val)
+            head= head.next
+        }
+        return result
+    }
+</script>
+<script>
+
+    
+</script>

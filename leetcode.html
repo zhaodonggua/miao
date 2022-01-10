@@ -1,0 +1,352 @@
+<script>
+    debugger;
+    var moveZeroes = function (nums) {
+        var nonIndex = 0
+        for (var i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                nums[nonIndex] = nums[i]
+                nonIndex++
+            }
+        }
+        for (var i = nonIndex; i < nums.length; i++) {
+            nums[i] = 0
+        }
+    };
+</script>
+<script>
+    var findMaxConsecutiveOnes = function (nums) {
+        var count = 0
+        var max = 0
+        for (var i = 0; i < nums.length; i++) {
+            if (nums[i] == 1) count++;
+            else count = 0;
+            if (count > max) max = count;
+        }
+        return max;
+    };
+</script>
+<script>
+    var reverse = function (x) {
+        var num = 0
+
+        while (x > 0 || x < 0) {
+
+            var digit = x % 10;
+            x = (x - digit) / 10;
+            num = 10 * num + digit
+        }
+        if (num > 2 ** 31 - 1) return 0;
+        if (num < -(2 ** 31)) return 0;
+        return num
+    };
+    var num = num.toString()
+</script>
+<script>
+    /**
+     * @param {number} n
+     * @return {string[]}
+     */
+    var fizzBuzz = function (n) {
+        var answer = []
+        for (var i = 0; i < n; i++) {
+            var num = i + 1
+
+            if (num % 3 == 0 && num % 5 == 0) {
+                answer.push("FizzBuzz");
+                continue;
+            }
+
+            if (num % 3 == 0) {
+                answer.push("Fizz");
+                continue;
+            }
+
+            if (num % 5 == 0) {
+                answer.push("Buzz")
+                continue;
+            }
+
+            num = String(num)
+            answer.push(num)
+
+
+        }
+        return answer;
+
+    };
+</script>
+<script>
+    /**
+     * @param {number[]} nums
+     * @param {number} target
+     * @return {number[]}
+     */
+    var twoSum = function (nums, target) {
+        for (var i = 0; i < nums.length; i++) {
+            for (var j = i + 1; j < nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    var answer = []
+                    answer.push(i)
+                    answer.push(j)
+                    return answer;
+                }
+            }
+        }
+    };
+</script>
+
+<script>
+    //不行，为什么？
+    /**
+     * @param {number[]} digits
+     * @return {number[]}
+*/
+
+    var plusOne = function (digits) {
+        var sum = 0
+        var new_digits = []
+        for (var i = 0; i < digits.length; i++) {
+            sum = sum * 10 + digits[i]
+        }
+        sum += 1
+
+        while (sum > 0) {
+            digit = sum % 10;
+            sum = (sum - digit) / 10
+            new_digits.unshift(digit)
+        }
+        return new_digits
+
+    };
+</script>
+<script>
+    /**
+     * @param {number[]} numbers
+     * @param {number} target
+     * @return {number[]}
+     */
+    debugger;
+
+    var twoSum = function (numbers, target) {
+        var index1 = 0
+        var index2 = 0
+        var answer = []
+        for (var i = 0; i < numbers.length; i++) {
+            for (var j = i + 1; j < numbers.length; j++) {
+                if (target == numbers[i] + numbers[j]) {
+                    answer.push(i + 1)
+                    answer.push(j + 1)
+                    return answer
+                }
+            }
+        }
+    };
+    twoSum([2, 3, 4], 6)
+
+
+</script>
+
+<script>
+    var factorial = function (x) {
+        if (x == 0) return 1;
+        if (x > 0) return x * factorial(x - 1);
+    }
+</script>
+
+<script>
+    var fibb = function (x) {
+        if (x < 3) return 1;
+        if (x >= 3) return f(x - 1) + f(x - 2);
+    }
+</script>
+<script>
+    var inputAndReverse = function (n) {
+        var x = Number(prompt())
+        inputAndReverse(n - 1)
+        console.log(x)
+
+    }
+</script>
+<script>
+    //笨办法
+    function arrayToList(array) {
+        var nodes = []
+        for (let i = 0; i < array.length; i++) {
+            let node = {
+                val: array[i],
+                next: null,
+            }
+            nodes.push(node)
+
+        }
+        // for (let i = 0; i < nodes.length - 1; i++) {
+        //     nodes[i].next = nodes[i + 1]
+
+        // }
+        return nodes
+    }
+    arrayToList([1, 2, 3])
+</script>
+
+<script>
+    function arrayToList2(array) {
+        if (array.length == 0) return null;
+        let head = {
+            val: array[0],
+            next: null
+        }
+        //prev等于head的地址，相当于同一对象
+        let prev = head
+        for (let i = 1; i < array.length; i++) {
+            let node = {
+                val: array[i],
+                next: null
+            }
+            //上一个节点指向本次节点
+            prev.next = node
+            //把本次节点变为上一次节点
+            prev = node
+        }
+        return head.next
+
+    }
+    arrayToList2([1, 2, 3])
+</script>
+<script>
+    //从后往前创建链表
+    function arrayToList4(array) {
+        let prev = null
+        for (let i = array.length - 1; i > 0; i--) {
+            let node = {
+                val: array[i],
+                next: null
+            }
+            node.next = prev
+            prev = node
+        }
+    }
+</script>
+<script>
+    //递归创建链表
+    function arrayToList5(array, start = 0) {
+        if (start == array.length) return null;
+        let head = {
+            val: array[start],
+            next: null
+        }
+        let tail = arrayToList5(array, start + 1)
+        head.next = tail
+        return head
+    }
+    
+    function listToArray(head) {
+                if (head == null) { return [] }
+                let result = []
+                while (head) {
+                    result.push(head.val)
+                    head = head.next
+                }
+                return result
+            }
+  listToArray(arrayToList5([1, 2, 3, 4]))
+</script>
+
+<script>
+function listToArray(head){
+    if(head == null) {return []}
+    let ary = listToArray(head.next) 
+    return [head.val].concat(ary) 
+}
+</script>
+<script>
+    //创建节点放到链表前面
+    function prepend(val,head){
+        return{
+            val:val,
+            next:head
+        }
+    }
+</script>
+<script>
+    //创建节点放到链表后面
+    function append(val,head){
+        let node={
+            val:val,
+            next:null
+        }
+        if(head == null){
+            return node
+        }
+
+
+        var p = head
+        while(p.next){
+            p = p.next
+        }
+        p.next = node
+        return head
+
+    }
+</script>
+
+<script>
+    //返回链表第N项
+
+    function nth(list,n){
+        if(list == null) return undefined;
+        let p = list
+        let c = 0
+        while(p && c < n){
+            c++
+            p = p.next
+        }
+        if(p) return p.val;
+        else{
+            return undefined;
+        }  
+    }
+
+    
+</script>
+<script>
+    function nth(list,n){
+        if(list == null || n < 0){
+            return undefined;
+        }
+        if(n == 0){
+            return list.val
+        }
+        return nth(list.next,n-1) 
+    }
+
+
+</script>
+<script>
+    function insert(list,n,val){
+        let p = list
+        let c = 0
+        let node= {
+            val:val,
+            next:null
+        }
+        if(n == 0){
+            node.next = list
+            return node
+        }
+        while(p && c < n-1){
+            c++
+            p = p.next
+        }
+        node.next = p.next
+        p.next = node
+        return list
+    }
+
+</script>
+
+<script>
+
+
+
+
+</script>
