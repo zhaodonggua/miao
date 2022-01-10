@@ -21,6 +21,6 @@ var zhaodonggua = {
             if (array[i]) res.push(array[i]);
         }
         return res
-    }
+    },
 
 }
