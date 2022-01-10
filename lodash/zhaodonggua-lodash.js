@@ -13,6 +13,14 @@ var zhaodonggua = {
             }
         }
         return arr
+    },
+    compact: function compact(array) {
+        let length = array.length
+        let res = []
+        for (let i = 0; i < length; i++) {
+            if (array[i]) res.push(array[i]);
+        }
+        return res
     }
 
 }
