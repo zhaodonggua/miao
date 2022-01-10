@@ -40,12 +40,15 @@ var zhaodonggua = {
         }
         return res
     },
-    difference: function difference(array1, array2) {
+
+    difference: function difference(array1, ...array2) {
         let res = []
         for (let i = 0; i < array1.length; i++) {
             let flag = false
             for (let j = 0; j < array2.length; j++) {
-                if (array1[i] == array2[j]) flag = true
+                for (let q = 0; q < array2[j].length; q++) {
+                    if (array1[i] == array2[j][q]) flag = true;
+                }
             }
             if (!flag) res.push(array1[i])
         }
@@ -72,11 +75,20 @@ var zhaodonggua = {
         console.log(res[2])
         return res
     },
-    flattenDepth: function flattenDepth(array, depth = 1) {
-
+    flattenDepth: function flattenDeep(array) {
+        let res = []
+        function deep(array) {
+            for (let key of array) {
+                if (Array.isArray(key)) deep(key);
+                else res.push(key)
+            }
+        }
+        deep(array)
+        return res
     },
 
 
 
 
 }
+
