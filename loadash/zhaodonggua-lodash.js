@@ -12,7 +12,7 @@ var zhaodonggua = {
                 arr[i].push(array[num])
             }
         }
-        console.log(arr[0], arr[1], arr[2])
+        return arr
     }
 
 }
