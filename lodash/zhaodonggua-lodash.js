@@ -110,9 +110,61 @@ var zhaodonggua = {
         return res;
 
     },
+    fromPairs: function fromPairs(pairs) {
+        let obj = new Object();
+        for (let pair of pairs) {
+            obj[pair[0]] = pair[1]
+        }
+        return obj
+    },
 
+    head: function head(array, size = 1) {
+        return array[0];
+    },
 
+    indexOf: function indexOf(array, value, fromindex = 0) {
+        if (fromindex < 0) {
+            fromindex = array.length + fromindex;
+        }
+        for (let i = fromindex; i < array.length; i++) {
+            if (array[i] == value) {
+                return i;
+            }
+        }
+        return -1
+    },
+    initial: function initial(array) {
+        array.pop()
+        return array;
 
+    },
+    intersection: function intersection(...arrays) {
+        for (let i = 0; i < arrays.length; i++) {
+
+            for (let j = 0; j < arrays[i].length; i++) {
+
+            }
+        }
+    },
+    join: function join(array, separator = ',') {
+        let res = ''
+        for (let i = 0; i < array.length; i++) {
+            if (i < array.length - 1) res += array[i] + separator;
+            else res += array[i];
+        }
+
+        return res
+    },
+
+    last: function last(array) {
+        return array[array.length - 1]
+    },
+    lastIndexOf: function lastIndexOf(array, value, fromIndex = array.length - 1) {
+        for (let i = fromIndex; i >= 0; i--) {
+            if (array[i] == value) return i;
+        }
+        return -1;
+    },
 
 }
 

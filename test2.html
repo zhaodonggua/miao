@@ -424,9 +424,9 @@
                     continue
                 }
                 //当depth大于0时，递归
-
                 flattenDepth(array[i], depth - 1, res)
-                //当数组走完第一层循环后,depth--
+
+                //当走到最后一个数时,depth--
                 if (i == array.length - 1) {
                     depth--
                 }
@@ -440,7 +440,7 @@
 
     }
 
-    flattenDepth([1, [2, [3, [4]], 5], [1, 2, 3, 4]]);
+    flattenDepth([1, [2, [3, [4]], 5], [1, [2], [3], 4]], 2);
 
 </script>
 <script>
@@ -455,4 +455,29 @@
         deep(array)
         return res
     }
+</script>
+<script>
+    function flattenDepth(array, n = 1) {
+        let res = []
+        if (n == 0) return array;
+        for (let i = 0; i < array.length; i++) {
+            if (Array.isArray(array[i])) {
+                let temp = flattenDepth(array[i], n - 1)
+                for (let j = 0; j < temp.length; j++) {
+                    res.push(temp[j])
+                }
+            }
+            else {
+                res.push(array[i])
+            }
+
+        }
+
+        return res;
+
+
+
+    }
+
+    flattenDepth([1, [2, [3, [4]], 5], [1, [2], [3], 4]], 2);
 </script>
