@@ -66,6 +66,7 @@ var zhaodonggua = {
         for (let i = 0; i < array.length; i++) {
             //如果不是数组
             if (!Array.isArray(array[i])) res.push(array[i]);
+            //result.push(...item)
             else {
                 for (let j = 0; j < array[i].length; j++) {
                     res.push(array[i][j])
@@ -85,6 +86,29 @@ var zhaodonggua = {
         }
         deep(array)
         return res
+    },
+    flattenDepth: function flattenDepth(array, depth = 1, res = []) {
+        for (let i = 0; i < array.length; i++) {
+            if (Array.isArray(array[i])) {
+                //当depth为0时，直接将数组导入res
+                if (depth <= 0) {
+                    res.push(array[i])
+                    continue
+                }
+                //当depth大于0时，递归
+                flattenDepth(array[i], depth - 1, res)
+
+                //当走到最后一个数时,depth--
+                if (i == array.length - 1) {
+                    depth--
+                }
+            }
+            else {
+                res.push(array[i]);
+            }
+        }
+        return res;
+
     },
 
 

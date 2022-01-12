@@ -293,3 +293,166 @@
 
 
 </script>
+<script>
+    function quicksort(ary) {
+        if (ary.length < 2) return ary;
+        let pivot = ary[0]
+        //  let randomIndex = Math.floor(Math.random() * ary.length)
+        //  let pivot = ary[randomIndex]
+        let left = []
+        let right = []
+        let mid = []
+        for (let i = 0; i < ary.length; i++) {
+            if (ary[i] < pivot) left.push(ary[i]);
+            else if (ary[i] > pivot) {
+                right.push(ary[i])
+            } else {
+                mid.push(ary[i])
+            }
+        }
+        left = quicksort(left)
+        right = quicksort(right)
+        return [...left, ...mid, ...right]
+    }
+
+
+</script>
+<script>
+    function quickSort(ary, L = 0, R = ary.length - 1) {
+        if (L >= R) return;
+        let left = L
+        let right = R
+        let pivot = ary[left]
+        while (left < right) {
+            while (left < right && ary[right] >= pivot) {
+                right--
+            }
+            if (left < right) {
+                ary[left] = ary[right]
+            }
+            while (left < right && ary[left] <= pivot) {
+                left++
+            }
+            if (left < right) {
+                ary[right] = ary[left]
+            }
+            if (left >= right) {
+                ary[left] = pivot
+            }
+
+        }
+        quickSort(ary, L, right - 1)
+        quickSort(ary, right + 1, R)
+
+
+
+    }
+
+
+
+</script>
+<script>
+    function quickSort(nums, L = 0, R = nums.length - 1) {
+        if (L >= R) return;
+        let left = L
+        let right = R
+        let pivot = nums[left]
+        while (left < right) {
+            while (left < right && nums[right] >= pivot) {
+                right--
+            }
+            if (left < right) {
+                nums[left] = nums[right]
+            }
+            while (left < right && nums[left] <= pivot) {
+                left++
+            }
+            if (left < right) {
+                nums[right] = nums[left]
+            }
+            if (left >= right) {
+                nums[left] = pivot
+            }
+
+        }
+        quickSort(nums, L, left - 1)
+        quickSort(nums, left + 1, R)
+    }
+</script>
+<script>
+    function flatten(array) {
+        let res = []
+        for (let i = 0; i < array.length; i++) {
+            //如果不是数组
+            if (!Array.isArray(array[i])) res.push(array[i]);
+            //如果是数组
+            else res.push(...array[i]);
+        }
+        return res
+    }
+</script>
+<script>
+    function flatten(array) {
+        return [].concat(...array)
+    } 
+</script>
+
+<script>
+    debugger;
+    function flattenDeep(array, res = []) {
+        //let res = []
+        for (let i = 0; i < array.length; i++) {
+            //如果是数组
+            if (Array.isArray(array[i])) flattenDeep(array[i], res);
+            //如果不是数组
+            else {
+                res.push(array[i]);
+            }
+        }
+        return res;
+    }
+    flattenDeep([1, [2, [3, [4]], 5]]);
+</script>
+<script>
+
+    function flattenDepth(array, depth = 1, res = []) {
+        for (let i = 0; i < array.length; i++) {
+            if (Array.isArray(array[i])) {
+                //当depth为0时，直接将数组导入res
+                if (depth <= 0) {
+                    res.push(array[i])
+                    continue
+                }
+                //当depth大于0时，递归
+
+                flattenDepth(array[i], depth - 1, res)
+                //当数组走完第一层循环后,depth--
+                if (i == array.length - 1) {
+                    depth--
+                }
+            }
+            else {
+                res.push(array[i]);
+            }
+        }
+        return res;
+
+
+    }
+
+    flattenDepth([1, [2, [3, [4]], 5], [1, 2, 3, 4]]);
+
+</script>
+<script>
+    function flattenDeep(array) {
+        let res = []
+        function deep(array, n = 1) {
+            for (let key of array) {
+                if (Array.isArray(key)) deep(key);
+                else res.push(key)
+            }
+        }
+        deep(array)
+        return res
+    }
+</script>
