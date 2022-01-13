@@ -149,7 +149,7 @@ var zhaodonggua = {
     join: function join(array, separator = ',') {
         let res = ''
         for (let i = 0; i < array.length; i++) {
-            if (i < array.length - 1) res += array[i] + separator;
+            if (i < array.length - 1) res += '' + array[i] + separator;
             else res += array[i];
         }
 
@@ -165,6 +165,45 @@ var zhaodonggua = {
         }
         return -1;
     },
+    pull: function pull(array, ...values) {
+        for (let i = 0; i < array.length; i++) {
+            if (values.includes(array[i])) {
+                array.splice(i, 1)
+                i--
+            } else {
+                continue;
+            }
+        }
+        return array
+    },
+    reverse: function reverse(array) {
+        for (let i = 0, j = array.length - 1; i <= j; i++, j--) {
+            let temp = array[i]
+            array[i] = array[j]
+            array[j] = temp
+        }
+        return array
+    },
+    uniq: function uniq(array) {
+        let res = []
+        for (let i = 0; i < array.length; i++) {
+            if (!res.includes(array[i])) res.push(array[i]);
+            else continue;
+        }
+        return res;
+    },
+    without: function without(array, ...values) {
+        let res = []
+        for (let i = 0; i < array.length; i++) {
+            if (values.includes(array[i])) {
+                continue;
+            } else {
+                res.push(array[i])
+            }
+        }
+        return res
+
+    }
 
 }
 
