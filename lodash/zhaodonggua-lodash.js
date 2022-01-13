@@ -203,7 +203,35 @@ var zhaodonggua = {
         }
         return res
 
-    }
+    },
+    zip: function zip(...arrays) {
+        let res = []
+        //设置二维数组
+        for (let i = 0; i < arrays[0].length; i++) {
+            res[i] = new Array()
+        }
+        //将数字放入新的数组
+        for (let k = 0; k < arrays.length; k++) {
+            for (let j = 0; j < arrays[k].length; j++) {
+                res[j].push(arrays[k][j])
+            }
+        }
+        return res
+
+    },
+    size: function size(collection) {
+        let count = 0
+        //key of collection 无法通过
+        for (let key in collection) {
+            count++
+        }
+        return count
+    },
+    isBoolean: function isBoolean(value) {
+        let val = typeof (value)
+        if (value == null) return false;
+        return val == 'boolean' || val == 'object';
+    },
 
 }
 
