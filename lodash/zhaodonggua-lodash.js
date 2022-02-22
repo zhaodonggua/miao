@@ -240,7 +240,27 @@ var zhaodonggua = {
         if (value == null) return false;
         return val == 'boolean' || val == 'object';
     },
-
+    matches: function matches(target) {
+        return function (obj) {
+            for (let key in target) {
+                if (target[key] !== obj[key]) {
+                    return false
+                }
+            }
+            return true
+        }
+    },
+    isMatch: function isMatch(obj = { a: 1, b: 2, c: { x: 1, y: 2 } }, src = { b: 2, c: { y: 2 } }) {
+        for (let key in src) {
+            if (src[key] && typeof src[key] === 'object') {
+                isMatch(obj[key], src[key])
+            }
+            if (src[key] !== obj[key]) {
+                return false
+            }
+        }
+        return true
+    }
 
 }
 

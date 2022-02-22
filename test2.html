@@ -850,6 +850,7 @@
         for (let i = 0; i < comp.length; i++) {
             let flag = true
             for (let j = 1; j < arrays.length; j++) {
+                //存在不包含的数组，就是false
                 if (!(arrays[j].includes(comp[i]))) {
                     flag = false;
                     break
@@ -862,4 +863,83 @@
 
 
 
+</script>
+<script>
+    var users = [
+        { 'user': 'barney', 'age': 36, 'active': true },
+        { 'user': 'fred', 'age': 40, 'active': false },
+        { 'user': 'jim', 'age': 36, 'active': true },
+        { 'user': 'lily', 'age': 40, 'active': false },
+        { 'user': 'john', 'age': 37, 'active': true },
+        { 'user': 'fred', 'age': 49, 'active': false }
+    ];
+
+    function filter(ary, predicate) {
+        if (typeof predicate === 'string') {
+            predicate = property(predicate)
+        }
+        if (Array.isArray(predicate)) {
+            predicate = matchesProperty(...predicate)
+        }
+        if (predicate && typeof predicate === 'object') {
+            predicate = matches(predicate)
+        }
+        predicate = iteratee(predicate)
+    }
+
+
+</script>
+<script>
+    function property(name) {
+        return function (obj) {
+            return obj[name]
+        }
+    }
+    debugger;
+    //获取对象的属性
+    function get(obj, path) {
+        let names = path.split('.')
+        for (let name of names) {
+            obj = obj[name]
+            if (obj == null) {
+                return obj;
+            }
+        }
+        return obj
+    }
+    // obj = { a: { b: { c: 3 } } }
+    // get(obj, 'a.b.c')
+
+    function property(name) {
+        return function (obj) {
+            return get(obj, name)
+        }
+    }
+</script>
+<script>
+    function matches(target) {
+        return function (obj) {
+            for (key in target) {
+                if (target[key] !== obj[key]) {
+                    return false
+                }
+            }
+            return true
+        }
+    }
+
+    debugger;
+    isMatch()
+    function isMatch(obj = { a: 1, b: 2, c: { x: 1, y: 2 } }, src = { b: 2, c: { y: 2 } }) {
+        for (let key in src) {
+            if (src[key] && typeof src[key] === 'object') {
+                if (!isMatch(obj[key], src[key])) {
+                    return false
+                }
+            } else {
+                if (src[key] !== obj[key]) return false;
+            }
+        }
+        return true
+    }
 </script>
