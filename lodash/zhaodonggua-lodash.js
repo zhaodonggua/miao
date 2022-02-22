@@ -139,12 +139,20 @@ var zhaodonggua = {
 
     },
     intersection: function intersection(...arrays) {
-        for (let i = 0; i < arrays.length; i++) {
-
-            for (let j = 0; j < arrays[i].length; i++) {
-
+        let result = []
+        let comp = arrays[0]
+        for (let i = 0; i < comp.length; i++) {
+            let flag = true
+            for (let j = 1; j < arrays.length; j++) {
+                //存在不包含的数组，就是false
+                if (!(arrays[j].includes(comp[i]))) {
+                    flag = false;
+                    break
+                }
             }
+            if (flag === true) result.push(comp[i]);
         }
+        return result
     },
     join: function join(array, separator = ',') {
         let res = ''
@@ -233,5 +241,10 @@ var zhaodonggua = {
         return val == 'boolean' || val == 'object';
     },
 
+
 }
+
+
+
+
 

@@ -1,0 +1,42 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=Min, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/balloon-css@1.0.0/balloon.min.css">
+    <link rel="stylesheet" href="mini.css">
+    <script src="mini.js"></script>
+    <title>Mini Regex 101</title>
+
+</head>
+
+<body>
+    <div>Regular Expression</div>
+
+    <input type="text" id="reInput" value="f.." oninput="run()">
+    <!-- <button onclick="run()">Run</button> -->
+    <div>
+        <label>i<input type="checkbox" id="reFlagIgnorecase"></label>
+        <label>g<input type="checkbox" id="reFlagGlobal"></label>
+        <label>m<input type="checkbox" id="reFlagMultiline"></label>
+    </div>
+
+
+    <div>TEST STRING</div>
+
+    <div id="string">
+        <pre id="resultShow"></pre>
+        <textarea onscroll="scrollSync()" id="testStringInput" cols="30" rows="5" oninput="run()"></textarea>
+    </div>
+
+    <div>SUBSTITUTION</div>
+    <input type="text" id="reInput_sub" value="" oninput="">
+    <div id="string_sub">
+        <pre id="resultShow_sub"></pre>
+    </div>
+
+
+</body>
+
+</html>

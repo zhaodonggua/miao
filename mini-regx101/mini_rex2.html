@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet" />
+    <title>Document</title>
+    <style>
+        header {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input#inputStr {
+            font-family: "Source Code Pro", monospace;
+        }
+
+        div.flags {
+            float: right;
+        }
+
+        em {
+            font-style: normal;
+            background-color: #d5ebff;
+        }
+
+        em:nth-of-type(even) {
+            background-color: #9fcfff;
+        }
+
+        em:empty {
+            border-right: 1px dotted red;
+            margin-right: -1px;
+        }
+
+        textarea,
+        pre {
+            font-family: "Source Code Pro", monospace;
+        }
+
+        div.result {
+            position: relative;
+            overflow: hidden;
+        }
+
+        div.result textarea {
+            position: relative;
+            z-index: 2;
+            background-color: transparent;
+            overflow-y: scroll;
+        }
+
+        div.result textarea:focus {
+            background-color: transparent;
+        }
+
+        div.result pre {
+            color: transparent;
+            position: absolute;
+            top: 0;
+            border-color: transparent;
+            background-color: transparent;
+            /* 长单词折行 */
+            word-break: break-word;
+            /*  */
+            white-space: pre-wrap;
+            overflow-y: scroll;
+        }
+
+        div.replace-result pre {
+            height: 300px;
+            word-break: break-word;
+            white-space: pre-wrap;
+            overflow-y: scroll;
+        }
+
+        #message {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="container">
+        <h1>Mini-Regex101</h1>
+    </header>
+    <div class="container">
+        <label for="" class="form-label">Regular Expression</label>
+        <div class="flags">
+            <input type="checkbox" class="form-check-input" onclick="run()" name="g" id="g" checked />
+            <lable class="form-check-label" for="g">g</lable>
+
+            <input type="checkbox" class="form-check-input" onclick="run()" name="m" id="m" />
+            <lable class="form-check-label" for="m">m</lable>
+
+            <input type="checkbox" class="form-check-input" onclick="run()" name="i" id="i" />
+            <lable class="form-check-label" for="i">i</lable>
+            <input type="checkbox" class="form-check-input" onclick="run()" name="y" id="y" />
+            <lable class="form-check-label" for="y">y</lable>
+            <input type="checkbox" class="form-check-input" onclick="run()" name="u" id="u" />
+            <lable class="form-check-label" for="u">u</lable>
+            <input type="checkbox" class="form-check-input" onclick="run()" name="s" id="s" />
+            <lable class="form-check-label" for="s">s</lable>
+        </div>
+        <input type="text" class="form-control" id="inputStr" oninput="run()" value="fo." />
+        <div class="form-text" id="message"></div>
+        <label for="" class="form-label">Test String</label>
+        <div class="result">
+            <textarea class="form-control" id="testStr" oninput="run()" onscroll="setScroll()" cols="20" rows="10"
+                spellcheck="false">
+foofooofoooofoooooofoo
+oafobfocfod
+  forest gump</textarea>
+            <pre class="form-control" id="result" value=""></pre>
+        </div>
+        <div class="replace-result">
+            <label for="" class="form-label">Replace String</label>
+            <input type="text" class="form-control" id="replaceStr" oninput="run()" value="666" />
+            <label for="" class="form-label">Replace Result</label>
+            <pre class="form-control" id="replaced" value=""></pre>
+        </div>
+    </div>
+
+    <script>
+        run();
+        function run() {
+            let reStr = inputStr.value;
+            let test = testStr.value;
+            let replace = replaceStr.value;
+            if (!reStr.length) {
+                message.innerHTML = "";
+                result.innerHTML = "";
+                replace.innerHTML = "";
+                return;
+            }
+            // get flags
+            let flags = "";
+            if (g.checked) {
+                flags += "g";
+            }
+            if (m.checked) {
+                flags += "m";
+            }
+            if (i.checked) {
+                flags += "i";
+            }
+            if (y.checked) {
+                flags += "y";
+            }
+            if (u.checked) {
+                flags += "u";
+            }
+            if (s.checked) {
+                flags += "s";
+            }
+            let re;
+            try {
+                re = new RegExp(reStr, flags);
+                message.innerHTML = "";
+            } catch (e) {
+                message.innerHTML = e.message;
+            }
+
+            let displayResult = "";
+            let lastIndex = 0;
+            let match;
+            if (re.global) {
+                while ((match = re.exec(test))) {
+                    displayResult += test.slice(lastIndex, match.index);
+                    displayResult += "<em>" + match[0] + "</em>";
+                    lastIndex = re.lastIndex;
+                    if (!match[0].length) {
+                        re.lastIndex++;
+                    }
+                }
+                displayResult += test.slice(lastIndex);
+            } else {
+                match = re.exec(test);
+                if (match) {
+                    displayResult += test.slice(lastIndex, match.index);
+                    displayResult += "<em>" + match[0] + "</em>";
+                    displayResult += test.slice(match.index + match[0].length);
+                }
+            }
+            result.innerHTML = displayResult;
+            let replaceResult = test.replace(re, replaceStr.value);
+            replaced.innerHTML = replaceResult;
+        }
+
+        function setScroll() {
+            let scrollVal = testStr.scrollTop;
+            result.style.transform = `translateY(-${scrollVal}px)`;
+        }
+    </script>
+</body>
+
+</html>

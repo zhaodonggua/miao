@@ -1,0 +1,50 @@
+ strong:nth-child(odd) {
+     background-color: #d5ebff;
+ }
+
+ strong:nth-child(even) {
+     background-color: #9fcfff;
+ }
+
+ em {
+     font-style: normal;
+ }
+
+ em:nth-child(1) {
+     background-color: #c8ebac;
+ }
+
+ em:nth-child(2) {
+     background-color: #f8dfa6;
+ }
+
+ strong:empty {
+     display         : inline-block;
+     width           : 2px;
+     height          : 1.3em;
+     background-color: red;
+     margin-left     : -1px;
+     margin-right    : -1px;
+     vertical-align  : bottom;
+ }
+
+ textarea,
+ pre {
+     font-size       : 24px;
+     height          : 150px;
+     font-family     : consolas;
+     padding         : 10px;
+     border          : 1px solid;
+     width           : 100%;
+     overflow        : auto;
+     /* position     : absolute;
+            top      : 0;
+            margin   : 0; */
+     background-color: transparent;
+     line-height     : 1.3;
+ }
+
+ #string {
+     width   : 400px;
+     position: relative;
+ }

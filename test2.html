@@ -1,483 +1,865 @@
 <script>
-    var a = 10
-    var f1 = function () {
-        var x = "inside f1"
-        console.log(a)
-    }
-    f1();
+    class PriorityQueue {
+        constructor() {
+            this.elements = []
 
-
-</script>
-<script>
-    debugger
-    var c = prompt()
-    console.log(factorial(c))
-
-    function factorial(n) {
-        var sum = 0;
-        for (var i = 1; i <= n; i++) {
-            var num = 1;
-            for (var j = 1; j <= i; j++) {
-                num = num * j
-            }
-            sum += num
         }
-        return sum;
-    }
-</script>
-<script>
-    function isPrime(n) {
-        for (var i = 2; i < parseInt(n / 2); i++) {
-            if (n % i == 0) {
-                return false
-            }
+        #swap(i, j) {
+            var a = this.elements[i]
+            this.elements[i] = this.elements[j]
+            this.elements[j] = a
         }
-        return true;
-    }
-</script>
-<script>
-    function qiao7(n) {
-        if (n % 7 == 0) return true;
-        while (n > 0) {
-            var digit = n % 10;
-            if (digit == 7) return true;
-            n = (n - digit) / 10
-        }
-        return false;
-
-    }
-</script>
-<script>
-    function fibb(n) {
-        var n1 = 1
-        var n2 = 1
-        var num = 0
-        for (var i = 0; i < n; i++) {
-            num = n1 + n2
-            n1 = n2
-            n2 = num
-        }
-        return num;
-    }
-</script>
-<script>
-    var count = 0
-    var n = Number(prompt("n:"))
-    while (n > 0) {
-        n = n - n % 10
-        count++
-    }
-    console.log(count)
-</script>
-<script>
-    var a = sqrt(5)
-    console.log(a)
-    function sqrt(n) {
-        var left = 0
-        var right = n
-        do {
-            var mid = (left + right) / 2
-            if (mid * mid < n) {
-                left = mid
-            } else if (mid * mid > n) {
-                right = mid
-            } else {
-                return mid
-            }
-        } while (Math.abs(mid * mid - n > 0.0000001))
-
-
-    }
-</script>
-<script>
-    //某年某月多少天
-    function getMonthDay(month) {
-        switch (month) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12: return 31;
-            case 2:
-                if (isLeapYear(year)) {
-                    return 29;
+        push(val) {
+            //加进去数字的编号
+            let idx = this.elements.push(val) - 1
+            while (idx > 0) {
+                //获取当前元素的父元素编号
+                let pIdx = (idx - 1) >> 2
+                if (this.elements[idx] > this.elements[pIdx]) {
+                    this.#swap(idx, pIdx)
                 } else {
-                    return 28;
+                    break
                 }
-            default: return 30;
-        }
-    }
-
-    function isLeapYear(n) {
-        //400的倍数，4的倍数但不是100的倍数
-        //例如：2020年 有 505 - 20 + 5个闰年
-        if (n % 400 == 0) return true;
-        if (n % 100 == 0) return false;
-        if (n % 4 == 0) return true;
-        return false;
-    }
-
-    function weekday(year, month) {
-        var day = 0
-        for (var i = 1; i < year; i++) {
-            if (isLeapYear(i)) {
-                day += 366
-            } else {
-                day += 365
+                //继续和上层元素进行比较
+                idx = pIdx
             }
 
-        }
-        for (var i = 1; i < month; i++) {
-            day += getMonthDay(year, i)
-        }
-        day = (day + 1) % 7
-        return day
+            return this
 
-
-    }
-</script>
-<script>
-    debugger
-    var a = sqrt(5)
-    console.log(a)
-    function sqrt(n) {
-        var left = 0
-        var right = n
-        do {
-            var mid = (left + right) / 2
-            if (mid * mid > n) {
-                right = mid
-            } else if (mid * mid < n) {
-                left = mid
-            } else {
-                return mid
+        }
+        pop() {
+            if (this.elements.length == 1) return this.elements.pop();
+            if (this.elements.length > 1) {
+                let result = this.elements[0]
+                //把最后一项放到第一项 
+                this.elements[0] = this.elements.pop()
+                this.heapDown(0) //从根节点开始向下维护
+                return result
             }
-        } while (Math.abs(mid * mid - n) > 0.0000001)
-        return mid;
-    }
-
-</script>
-<script>
-    debugger
-    console.log(weekday(2021, 12))
-
-    function weekday(year, month) {
-        var day = 0;
-        for (var i = 1; i < year; i++) {
-            if (isLeapYear(i)) day += 366;
-            else day += 365;
         }
-        for (var j = 1; j < month; j++) {
-            day += getMonthDay(year, j);
-        }
-        day = (day + 1) % 7
-        return day
-    }
-    function isLeapYear(year) {
-        if (year % 400 == 0) return true;
-        if (year % 100 == 0) return false;
-        if (year % 4 == 0) return true;
-        return false;
-    }
-    function getMonthDay(year, month) {
-        switch (month) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                return 31;
-            case 2:
-                if (isLeapYear(year)) return 29;
-                else {
-                    return 28;
+        heapDown(idx) {
+            while (true) {
+                let maxIdx = idx
+                let leftIdx = (idx * 2) + 1
+                //如果子节点存在，才比较
+                if (leftIdx < this.elements.length && this.elements[leftIdx] > this.elements[maxIdx]) {
+                    maxIdx = leftIdx
                 }
-            default: return 30;
+                let rightIdx = leftIdx + 1
+                //如果子节点存在，才比较
+                if (rightIdx < this.elements.length && this.elements[rightIdx] > this.elements[maxIdx]) {
+                    maxIdx = rightIdx
+                }
+                if (maxIdx !== idx) {
+                    this.#swap(maxIdx, idx)
+                    idx = maxIdx
+                } else {
+                    return
+                }
+            }
+        }
+        peek() {
+            return this.elements[0]
+        }
+    }
+
+
+
+</script>
+
+<script>
+    let node = {
+        val: 2,
+        next: null
+    }
+    function arrayToList(array) {
+        if (array.length == 0) return null;
+        let nodes = []
+        for (let i = 0; i < array.length; i++) {
+            let node = {
+                val: array[i],
+                next: null
+            }
+            nodes.push(node)
+        }
+        for (let i = 0; i < nodes.length - 1; i++) {
+            nodes[i].next = nodes[i + 1]
+        }
+        return nodes[0]
+    }
+
+    function arrayToList2(array) {
+        let dummy = {
+            val: 0,
+            next: null
+        }
+        // prev = dummy
+
+        for (let i = 0; i < array.length; i++) {
+            let node = {
+                val: array[i],
+                next: null
+            }
+            prev.next = node
+            prev = node
+        }
+        return dummy.next
+    }
+
+    function arrayToList3(array) {
+        let prev = null
+        for (let i = array.length - 1; i >= 0; i--) {
+            let node = {
+                val: array[i],
+                next: null
+            }
+            node.next = prev
+            prev = node
+        }
+        return prev
+    }
+
+
+
+</script>
+<script>
+    var x = (5 + 8 * (9 + 2(4 + 5 * (2 * 5(3(4 + 0) * 7) % 2) / 2) * 4.5)) / 9
+    var y = 'foobar'
+    var fruit = 'apple'
+
+    for (var i = 0; i < 10; i++) {
+        console.log(i)
+    }
+
+    if (x >= 25) {
+        console.log(3)
+    } else if (x <= 30) {
+        console.log(2)
+    } else {
+        console.log(2)
+    }
+</script>
+
+<script>
+    function filter(array, f) {
+        var result = []
+        for (let i = 0; i < array.length; i++) {
+            let p = array[i]
+            if (f(p)) result.push(p);
+        }
+        return result;
+    }
+
+    let ancestry = [
+        {
+            "name": "Emma de Milliano", "sex": "f",
+            "born": 1876, "died": 1956,
+            "father": "Petrus de Milliano",
+            "mother": "Sophia van Damme"
+        },
+        {
+            "name": "Carolus Haverbeke", "sex": "m",
+            "born": 1832, "died": 1905,
+            "father": "Carel Haverbeke",
+            "mother": "Maria van Brussel"
+        }
+    ]
+
+    filter(ancestry, function (person) {
+        return person.born > 1000
+    })
+
+</script>
+<script>
+    //reduce函数，把每一项与初始值进行运算
+    function reduce(ary, compute, initial) {
+        for (let i = 0; i < ary.length; i++) {
+            initial = compute(initial, ary[i])
+        }
+        return initial
+    }
+
+    [1, 2, 3, 4, 5].reduce(function (a1, a2) {
+        return a1 + a2
+    }, 0)
+    [1, 2, 3, 4, 5].reduce(function (a1, a2) {
+        return a1 * a2
+    }, 1)
+    [1, 2, 3, 4, 5].reduce(function (a1, a2) {
+        return Math.max(a1, a2)
+    }, -Infinity)
+
+
+
+
+
+
+
+</script>
+<script>
+    function intersectionBy(array1, array2, predicate) {
+        let result = []
+        for (let i = 0; i < array.length; i++) {
+            for (let j = 0; j < array.length; j++) {
+                if (predicate(array1[i]) === predicate(array2[j])) {
+                    result.push(array1[i])
+                }
+            }
+        }
+        return result;
+
+
+    }
+    function intersectionWith(array1, array2, comparor) {
+        let result = []
+        for (let i = 0; i < array.length; i++) {
+            for (let j = 0; j < array.length; j++) {
+                if (comparor(array1[i], array2[j])) {
+                    result.push(array1[i])
+                }
+            }
+        }
+        return result;
+    }
+
+    function intersection(array1, array2) {
+        let result = []
+        let set = new Set(array2)
+        for (let i = 0; i < array1.length; i++) {
+            if (set.has(array1[i])) result.push(array1[i]);
+        }
+        return result;
+    }
+
+
+
+</script>
+<script>
+    var users = [
+        { 'user': 'barney', 'age': 36, 'active': true },
+        { 'user': 'jim', 'age': 40, 'active': false },
+        { 'user': 'lilly', 'age': 36, 'active': true },
+        { 'user': 'damiao', 'age': 40, 'active': false },
+        { 'user': 'john', 'age': 36, 'active': true },
+        { 'user': 'fred', 'age': 40, 'active': false }
+    ];
+
+    function filter(ary, predicate) {
+        if (typeof predicate === 'string') {
+            let result = []
+            ary.forEach(it => {
+                if (it[predicate]) {
+                    result.push(it)
+                }
+            });
+            return it
+        }
+        if (Array.isArray(predicate)) {
+            let result = []
+            ary.forEach(it => {
+                if (it[predicate[0]] == predicate[1]) {
+                    result.push(it)
+                }
+            })
+            return it
+        }
+
+    }
+    function property(name) {
+        return function (obj) {
+            return get(obj, name)
+        }
+    }
+    getFaterName = property('father.name')
+    getFaterName({ name: 'zhang', age: 8, father: { name: 'laozhang', age: 38 } })
+    function get(obj, path) {
+        let names = path.split('.')
+        for (let name of names) {
+            obj = obj[name]
+            if (obj == null) return obj;
+        }
+        return obj
+    }
+    get(obj, 'a.b.c')
+
+    function get(obj, path) {
+        let names = path.split('.')
+        return names.reduce((obj, name) => { return obj ?? obj[name] }, obj)
+    }
+
+
+
+    //get({ a: { b: { c: 3 } } }, 'a.b.c')
+
+
+    function toPath(path) {
+        if (typeof path == 'string') {
+            return path.split('[')
+                .flatMap(it => it.split(']'))
+                .flatMap(it => it.split('.'))
+                .flatMap(it => it)
+        }
+        return path
+    }
+
+
+    function negate(f) {
+        return function (...args) {
+            return !f(...args)
         }
     }
 
 </script>
 <script>
-    // 输入年份与月份，输出这个月的第一天是周几（视具体设定，周一可以用1或0表示）
+    function matches(target) {
+        return function (obj) {
 
-    // 判断是否是闰年
-    function isLeapYear(n) {
-        if (n % 400 == 0) {
-            return true
+
+
+
+
         }
-        if (n % 100 == 0) {
-            return false
+    }
+
+
+
+
+
+
+</script>
+<script>
+    function maskify(cc) {
+        let result = []
+        if (cc == "") return "";
+        if (cc.length <= 4) return cc;
+        for (let i = 0; i < cc.length; i++) {
+            if (i < cc.length - 4) result.push("#");
+            else {
+                result.push(cc[i])
+            }
         }
-        if (n % 4 == 0) {
-            return true
+        return result
+    }
+
+
+
+
+
+
+</script>
+<script>
+    function maskify(cc) {
+        let length = cc.length
+        if (length <= 4) return cc;
+        if (length > 4) {
+            //前面部分
+            let head = cc.substring(0, length - 4)
+            head = head.replace(/(.)/g, "#")
+            //最后4位
+            let tail = cc.substring(length - 4)
+            return head.concat(tail)
         }
+    }
+
+    maskify("4556364607935616")
+
+
+
+</script>
+<script>
+    var s = 'the cia and fbi'
+    console.log(s.replace(/\b(fbi|cia)\b/g, function (str) {
+        return str.toUpperCase();
+    }))
+
+    var stock = "1 lemon,2 cabbages,and 101 eggs"
+    function minusOne(match, amount, unit) {
+        amount = Number(amount) - 1
+        if (amount == 1) unit = unit.slice(0, unit.length - 1);
+        else if (amount == 0) amount = "no";
+        return amount + " " + unit;
+    }
+    console.log(stock.replace(/(\d+) (\w+)/g, minusOne))
+
+
+
+
+</script>
+<script>
+    var code =
+        //111111111111111111111
+        console.log(a * a)
+    /*22222222222222222222*/
+    console.log(a * a * a)
+
+
+
+
+    function decipherThis(str) {
+
+
+
+
+
+
+    };
+    function change() {
+
+
+
+
+    }
+    debugger;
+
+
+    debugger;
+    decipherThis('82yade 115te 103o')
+
+    decipherThis('72olle 103doo 100ya')
+
+    decipherThis('72eva 97 103o 97t 116sih 97dn 115ee 104wo 121uo 100o')
+    function decipherThis(str) {
+        //have fun!
+        let result = str.replace(/(\d+)(\w+)(\s*)/g, transfer)
+        result = result.substring(0, result.length - 1)
+        console.log(result)
+    };
+
+    function transfer(whole, numbers, letters, num1, num2) {
+        let letters_head = ''
+        let letters_body = ''
+        numbers = Number(numbers)
+        //数字转为字母
+        let word = String.fromCharCode(numbers)
+        if (letter.length == 0)
+
+            //获取最后那个字母
+            let letters_tail = letters[letters.length - 1]
+        if (letters.length > 1) {
+            //获取第一个字母
+            letters_head = letters[0];
+        }
+        if (letters.length > 2) {
+            //获取中间字母
+            letters_body = letters.substring(1, letters.length - 1)
+        }
+        let new_letters = word.concat(letters_tail)
+        new_letters = new_letters.concat(letters_body)
+        new_letters = new_letters.concat(letters_head)
+        return new_letters + ' '
+    }
+
+
+
+    function remove(string) {
+
+
+    }
+
+</script>
+<script>
+
+    使用正则的exec函数自行实现与正则相关的所有其它函数：
+    String.prototype.match2 = function () {
+
+    }
+    String.prototype.matchAll2 = function () {
+
+    }
+    String.prototype.replace2 = function () { }
+    String.prototype.replaceAll2 = function () { }
+    String.prototype.split2 = function () { }
+    String.prototype.search2 = function () { }
+    RegExp.prototype.test2 = function () { }
+
+
+    debugger;
+    remove("!!!Hi !!hi!!! !hi")
+    function remove(string) {
+        return string.replace(/(\w+)(!*)(\s*)/ig, transfer)
+    }
+    function transfer(whole, string1, string2, string3) {
+        return string1 + string3
+    }
+
+    debugger;
+
+    decipherThis('72eva 97 103o 97t 116sih 97dn 115ee 104wo 121uo 100o')
+
+    decipherThis('72olle 103doo 100ya')
+
+    decipherThis('82yade 115te 103o')
+    function decipherThis(str) {
+        //have fun!
+        let result = str.replace(/(\d+)(\w+)?(\s*)/g, transfer)
+        result = result.substring(0, result.length - 1)
+        return result
+    };
+
+    function transfer(whole, numbers, letters, num1, num2) {
+        let letters_head = ''
+        let letters_body = ''
+        let letters_tail = ''
+        let new_letters = ''
+        numbers = Number(numbers)
+        /*
+            1.只有数字
+            2.只有字母
+            3.字母个数为1个，2个，3个的不同情况
+        */
+
+        //数字转为字母
+        let word = String.fromCharCode(numbers)
+
+        //如果单词长度为0，那么直接返回第一个字母
+        if (letters == undefined) {
+            return word + ' ';
+        }
+
+        //单词长度为1，只获取尾部
+        if (letters.length == 1) {
+            letters_tail = letters[letters.length - 1]
+        }
+
+        //单词长度大于1，获取头部和尾部
+        if (letters.length > 1) {
+            //获取第一个字母
+            letters_head = letters[0];
+            //获取最后那个字母
+            letters_tail = letters[letters.length - 1]
+        }
+
+        //单词长度大于2，再获取中间部分
+        if (letters.length > 2) {
+            //获取中间字母
+            letters_body = letters.substring(1, letters.length - 1)
+        }
+
+        new_letters = word.concat(letters_tail)
+        new_letters = new_letters.concat(letters_body)
+        new_letters = new_letters.concat(letters_head)
+        return new_letters + ' '
+    }
+</script>
+<script>
+
+    String.prototype.trim2 = function (c = ' ') {
+        var str = this
+        var reg = new RegExp('^' + c + '*|' + c + '*$', 'ig')
+        return this.replace(reg, '')
+    }
+    debugger;
+    function kebabize(str) {
+        return str.replace(/\d/g, '').replace(/([A-Z])/g, transfer)
+    }
+    function transfer(_, str2) {
+        return '-' + str2.toLowerCase()
+    }
+
+    kebabize('camelsHaveThreeHumps')
+
+
+    var re = new RegExp(, flags)
+
+
+
+
+
+
+</script>
+<script>
+    function JSONParse(str) {
+        let result = {}
+        let startIndex = 0
+        let lastIndex
+        startIndex = str.indexOf('"', startIndex) + 1
+        lastIndex = str.indexOf('"', startIndex)
+        str1 = str.substring(startIndex, lastIndex)
+
+        startIndex = lastIndex + 2
+        lastIndex = str.indexOf(',', startIndex)
+        str2 = str.substring(startIndex, lastIndex)
+
+        result[str1] = str2
+        return result
+
+
+
+    }
+
+</script>
+<script>
+    String.prototype.match2 = function (re) {
+        var str = this
+        if (!re.global) return re.exec(str);
+        var result = []
+        re.exec(str)
+
+
+
+    }
+
+
+</script>
+<script>
+    obj = {
+        x: 1, y: 2, a: null, b: false, c: [1, 2, null, { a: 1, b: 2 }, true, [4, 5, 6]], d: { z: { y: 1, x: 33 } }
+    }
+
+    JSON.stringify(obj)
+    var str = '{"x":1,"y":2,"a":null,"b":false,"c":[1,2,null,{"a":1,"b":2},true,[4,5,6]],"d":{"z":{"y":1,"x":33}}}'
+    var i = 0
+
+
+    function parseObject() {
+        var obj = {}
+        i++
+        if (str[i] == '}') {
+            i++
+            return obj
+        }
+        while (true) {
+            var key = parseString()
+            i++
+            var val = parseValue()
+            obj[key] = val
+            if (str[i] == ',') {
+                i++
+                continue
+            }
+            if (str[i] == '}') {
+                i++
+                return obj
+            }
+        }
+    }
+
+    function parseValue() {
+        if (str[i] == '"') {
+            return parseString()
+        }
+        if (str[i] >= '0' && str[i] <= '9') {
+            return parseNumber()
+        }
+        if (str[i] == 't') {
+            return parseTrue()
+        }
+        if (str[i] == 'f') {
+            return parseFalse()
+        }
+        if (str[i] == 'n') {
+            return parseNull()
+        }
+        if (str[i] == '[') {
+            return parseArray()
+        }
+        if (str[i] == '{') {
+            return parseObject()
+        }
+    }
+
+
+    function parseArray() {
+        var ary = []
+        i++
+        if (str[i] == ']') {
+            return ary
+        }
+        while (true) {
+            var value = parseValue()
+            ary.push(value)
+            if (str[i] == ',') {
+                i++
+                continue
+            }
+            if (str[i] == ']') {
+                i++ // skip ]
+                return ary
+            }
+        }
+
+    }
+    function parseString() {
+        i++ //skip first "
+        var start = i
+        while (str[i] !== '"') {
+            i++ //此时i指向第二个双引号
+        }
+        var s = str.slice(start, i)
+        i++
+        return s
+    }
+
+    function parseNumber() {
+        let numStr = ''
+        while (str[i] >= '0' && str[i] <= '9') {
+            numStr += str[i++]
+        }
+        return parseInt(numStr, 10)
+    }
+
+    function parseTrue() {
+        i += 4
+        return true
+    }
+    function parseFalse() {
+        i += 5
         return false
     }
+    function parseNull() {
+        i += 4
+        return null
+    }
 
-    // 获取某年某月有多少天
-    function getMonthDay(year, month) {
-        switch (month) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                return 31
-            case 2:
-                if (isLeapYear(year)) {
-                    return 29
-                } else {
-                    return 28
+
+</script>
+<script>
+    /f../.exec('foo')
+    RegExp.prototype.test2 = function () {
+        return Boolean(this.exec(str))
+
+    }
+    'foooo11111222'.search(/fo./)
+    String.prototype.search2 = function (re) {
+        let oldLastIndex = re.lastIndex
+        re.lastIndex = 0
+        let match = re.exec(this)
+        re.lastIndex = oldLastIndex
+        if (match == null) return -1;
+        else {
+            return match.index
+        }
+    }
+    'fosapofjsdaojf'.match(/f../)
+    String.prototype.match2 = function (re) {
+        let str = this
+        if (!re.global) {
+            return re.exec(str)
+        }
+        let result = []
+        let oldLastIndex = re.lastIndex
+        re.lastIndex = 0
+        let match
+        while (match = re.exec(str)) {
+            result.push(match[0])
+        }
+        re.lastIndex = oldLastIndex
+        return result
+    }
+
+
+</script>
+<script>
+    //看对象是否匹配目标
+    function matches(target) {
+        return function (obj) {
+            for (let key in target) {
+                if (obj[key] !== target[key]) {
+                    return false;
                 }
-            default:
-                return 30
+            }
+            return true
         }
     }
-
-    function weekday(year, month) {
-        //判断年
-        let y = year - 1
-        let day = (y) * 365 + Math.floor((y) / 4) + Math.floor((y) / 100) + Math.floor((y) / 400)
-        // 一个公式替代下面的循环，最多只跑11次
-
-        /* let day = 0
-        for (let y = 1; y < year; y++) {
-          if (isLeapYear(y)) {
-            day += 366
-          } else {
-            day += 365
-          }
-        } */
-
-        //判断月
-        for (let m = 0; m < month; m++) {
-            day += getMonthDay(year, m)
+    //src的属性能在obj中找到且相同
+    function isMatch(obj = { a: 1, b: 2, c: { x: 1, y: 2 } }, src = { b: 2, c: { y: 2 } }) {
+        for (key in src) {
+            if (src[key] && typeof src[key] === 'object') {
+                if (!isMatch(obj[key], src[key])) {
+                    return false
+                }
+            }
+            else {
+                if (src[key] !== obj[key]) {
+                    return false
+                }
+            }
         }
+        return true
 
-        // 公元1年1月1日是星期六
-        day = (day + 1) % 7
-        return day
-    }
-</script>
 
-<script>
+    }
 
-    var a = []
-    var n = Number(prompt("n:"))
-    for (var i = 1; i < n; i++) {
-        var number = Number(prompt("n:"))
-        a.push(number)
-    }
-    for (var i = n - 1; i >= 0; i--) {
-        console.log(a[i])
-    }
-</script>
-<script>
-    var Pointer = 0
-    var nonIndex = 0
-    for (var i = 0; i < nums.length; i++) {
-        if (nums[nonIndex] != 0) {
-            nums[i] = nums[nonIndex]
-            nonIndex++
+    function matchesProperty(path, val) {
+        return function (obj) {
+            return obj[path] === val
         }
     }
-    for (var i = nonIndex; i < nums.length; i++) {
-        num[i] = 0
-    }
+    function filter(ary, predicate) {
+        // if (typeof predicate === 'string') {
+        //     predicate = property(predicate)
+        // }
+        // if (Array.isArray(predicate)) {
+        //     predicate = matchesProperty(...predicate)
+        // }
+        // if (predicate && typeof predicate === 'object') {
+        //     predicate = matches(predicate)
+        // }
+        predicate = iteratee(predicate)
 
-
-</script>
-<script>
-    function quicksort(ary) {
-        if (ary.length < 2) return ary;
-        let pivot = ary[0]
-        //  let randomIndex = Math.floor(Math.random() * ary.length)
-        //  let pivot = ary[randomIndex]
-        let left = []
-        let right = []
-        let mid = []
+        let result = []
         for (let i = 0; i < ary.length; i++) {
-            if (ary[i] < pivot) left.push(ary[i]);
-            else if (ary[i] > pivot) {
-                right.push(ary[i])
-            } else {
-                mid.push(ary[i])
+            if (predicate(ary[i], i)) {
+                result.push(ary[i])
             }
         }
-        left = quicksort(left)
-        right = quicksort(right)
-        return [...left, ...mid, ...right]
+        return result
+    }
+
+    function findKey(obj, predicate) {
+        // if (typeof predicate === 'string') {
+        //     predicate = property(predicate)
+        // }
+        // if (Array.isArray(predicate)) {
+        //     predicate = matchesProperty(...predicate)
+        // }
+        // if (predicate && typeof predicate === 'object') {
+        //     predicate = matches(predicate)
+        // }
+        predicate = iteratee(predicate)
+    }
+    function iteratee(predicate) {
+        if (typeof predicate === 'string') {
+            predicate = property(predicate)
+        }
+        if (Array.isArray(predicate)) {
+            predicate = matchesProperty(...predicate)
+        }
+        if (predicate && typeof predicate === 'object') {
+            predicate = matches(predicate)
+        }
+        return predicate
     }
 
 
 </script>
 <script>
-    function quickSort(ary, L = 0, R = ary.length - 1) {
-        if (L >= R) return;
-        let left = L
-        let right = R
-        let pivot = ary[left]
-        while (left < right) {
-            while (left < right && ary[right] >= pivot) {
-                right--
-            }
-            if (left < right) {
-                ary[left] = ary[right]
-            }
-            while (left < right && ary[left] <= pivot) {
-                left++
-            }
-            if (left < right) {
-                ary[right] = ary[left]
-            }
-            if (left >= right) {
-                ary[left] = pivot
-            }
-
-        }
-        quickSort(ary, L, right - 1)
-        quickSort(ary, right + 1, R)
-
-
-
-    }
-
-
-
-</script>
-<script>
-    function quickSort(nums, L = 0, R = nums.length - 1) {
-        if (L >= R) return;
-        let left = L
-        let right = R
-        let pivot = nums[left]
-        while (left < right) {
-            while (left < right && nums[right] >= pivot) {
-                right--
-            }
-            if (left < right) {
-                nums[left] = nums[right]
-            }
-            while (left < right && nums[left] <= pivot) {
-                left++
-            }
-            if (left < right) {
-                nums[right] = nums[left]
-            }
-            if (left >= right) {
-                nums[left] = pivot
-            }
-
-        }
-        quickSort(nums, L, left - 1)
-        quickSort(nums, left + 1, R)
-    }
-</script>
-<script>
-    function flatten(array) {
-        let res = []
-        for (let i = 0; i < array.length; i++) {
-            //如果不是数组
-            if (!Array.isArray(array[i])) res.push(array[i]);
-            //如果是数组
-            else res.push(...array[i]);
-        }
-        return res
-    }
-</script>
-<script>
-    function flatten(array) {
-        return [].concat(...array)
-    } 
-</script>
-
-<script>
-    debugger;
-    function flattenDeep(array, res = []) {
-        //let res = []
-        for (let i = 0; i < array.length; i++) {
-            //如果是数组
-            if (Array.isArray(array[i])) flattenDeep(array[i], res);
-            //如果不是数组
-            else {
-                res.push(array[i]);
+    function intersection(array1, array2) {
+        let result = []
+        for (let i = 0; i < array1.length; i++) {
+            if (array2.includes(array1[i])) {
+                result.push(array1[i])
             }
         }
-        return res;
+        return result
     }
-    flattenDeep([1, [2, [3, [4]], 5]]);
-</script>
-<script>
 
-    function flattenDepth(array, depth = 1, res = []) {
-        for (let i = 0; i < array.length; i++) {
-            if (Array.isArray(array[i])) {
-                //当depth为0时，直接将数组导入res
-                if (depth <= 0) {
-                    res.push(array[i])
-                    continue
-                }
-                //当depth大于0时，递归
-                flattenDepth(array[i], depth - 1, res)
-
-                //当走到最后一个数时,depth--
-                if (i == array.length - 1) {
-                    depth--
+    function intersection(...arrays) {
+        let result = []
+        let comp = arrays[0]
+        for (let i = 0; i < comp.length; i++) {
+            let flag = true
+            for (let j = 1; j < arrays.length; j++) {
+                if (!(arrays[j].includes(comp[i]))) {
+                    flag = false;
+                    break
                 }
             }
-            else {
-                res.push(array[i]);
-            }
+            if (flag === true) result.push(comp[i]);
         }
-        return res;
-
-
+        return result
     }
 
-    flattenDepth([1, [2, [3, [4]], 5], [1, [2], [3], 4]], 2);
-
-</script>
-<script>
-    function flattenDeep(array) {
-        let res = []
-        function deep(array, n = 1) {
-            for (let key of array) {
-                if (Array.isArray(key)) deep(key);
-                else res.push(key)
-            }
-        }
-        deep(array)
-        return res
-    }
-</script>
-<script>
-    function flattenDepth(array, n = 1) {
-        let res = []
-        if (n == 0) return array;
-        for (let i = 0; i < array.length; i++) {
-            if (Array.isArray(array[i])) {
-                let temp = flattenDepth(array[i], n - 1)
-                for (let j = 0; j < temp.length; j++) {
-                    res.push(temp[j])
-                }
-            }
-            else {
-                res.push(array[i])
-            }
-
-        }
-
-        return res;
 
 
-
-    }
-
-    flattenDepth([1, [2, [3, [4]], 5], [1, [2], [3], 4]], 2);
 </script>

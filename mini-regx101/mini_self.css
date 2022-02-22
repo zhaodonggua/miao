@@ -1,0 +1,90 @@
+        /* * {
+            box-shadow: inset 0 0 2px red;
+        } */
+
+        strong:nth-child(odd) {
+            background-color: #d5ebff;
+        }
+
+        strong:nth-child(even) {
+            background-color: #9fcfff;
+        }
+
+        strong:empty {
+            display         : inline-block;
+            width           : 2px;
+            height          : 1em;
+            background-color: red;
+        }
+
+        div.left_content {
+            width  : 60%;
+            float  : left;
+            margin : 0;
+            padding: 0;
+        }
+
+        div.right_content {
+            float     : right;
+            width     : 40%;
+            box-sizing: border-box;
+            margin    : 0;
+            padding   : 0;
+        }
+
+        div.result {
+            position     : relative;
+            margin-bottom: 250px;
+            box-sizing   : border-box;
+        }
+
+        div.result textarea {
+            font-size       : 24px;
+            font-family     : consolas;
+            border          : 1px solid;
+            width           : 100%;
+            height          : 250px;
+            overflow        : auto;
+            position        : absolute;
+            margin          : 0;
+            padding         : 0;
+            background-color: transparent;
+            white-space     : pre-wrap;
+            overflow-wrap   : break-word;
+            box-sizing      : border-box;
+        }
+
+        div.result pre {
+            font-size       : 24px;
+            font-family     : consolas;
+            border          : 1px solid;
+            width           : 100%;
+            height          : 250px;
+            overflow        : auto;
+            position        : absolute;
+            margin          : 0;
+            padding         : 0;
+            background-color: transparent;
+            white-space     : pre-wrap;
+            overflow-wrap   : break-word;
+            box-sizing      : border-box;
+        }
+
+        div.replace_result {
+            box-sizing: border-box;
+            width     : 100%;
+            height    : 280px;
+        }
+
+        div.replace_result pre {
+            width      : 100%;
+            border     : 1px solid;
+            height     : 250px;
+            font-size  : 24px;
+            font-family: consolas;
+        }
+
+        div.match_info {
+            height: 100%;
+            width : 100%;
+        }
