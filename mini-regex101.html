@@ -1,0 +1,71 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="mini_self.js"></script>
+    <link rel="stylesheet" href="mini_self.css">
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div class="left_content">
+            <label for="" class="form-label">Regular Expression</label>
+
+
+            <div class="flags">
+                <input type="checkbox" name="g" id="g" onclick="run()" checked>
+                <label for="g" class="form-check">g</label>
+
+                <input type="checkbox" name="m" id="m" onclick="run()">
+                <label for="m" class="form-checkk">m</label>
+
+                <input type="checkbox" name="i" id="i" onclick="run()">
+                <label for="i" class="form-checkk">i</label>
+            </div>
+
+            <!-- 正则部分 -->
+            <input type="text" class="form-control" id="inputStr" oninput="run()" value="f..">
+            <div class="form-text" id="message"></div>
+
+
+            <!-- 正则匹配部分 -->
+            <label for="" class="form-label">Test String</label>
+            <div class="result">
+                <pre class="form-control" id="resulted" onscroll="scrollSync()" value=""></pre>
+                <textarea class="form-control" id="testStr" oninput="run()" cols="20" rows="10" spellcheck="false"
+                    onscroll="scrollSync()">ffffffffffffffff</textarea>
+
+            </div>
+
+            <!-- 替换部分 -->
+            <div class="replace_result">
+                <label for="" class="form-label">Replace String</label>
+                <br>
+                <input type="text" class="form-control" id="replaceStr" oninput="replacement()" value="666">
+                <br>
+                <label for="" class="form-label">Replace Result</label>
+                <pre class="form-control" id="replaced" value=""></pre>
+            </div>
+        </div>
+
+        <!-- 右边栏 -->
+        <div class="right_content">
+            <div class="match_info">
+                <label for="" class="form-label">MATCH INFORMATION</label>
+                <pre class="form-control" id="matched" value=""></pre>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    </div>
+</body>
+
+</html>

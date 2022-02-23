@@ -943,3 +943,37 @@
         return true
     }
 </script>
+<script>
+    function getTextContent(node) {
+        //如果是文本节点
+        if (node.nodeType == document.TEXT_NODE) {
+            return node.nodeValue
+            //如果不是文本节点，那么拼接后返回
+        } else if (node.nodeType == document.ELEMENT_NODE) {
+            let result = ''
+            for (var i = 0; i < node.childNodes.length; i++) {
+                result += getTextContent(node.childNodes[i])
+            }
+            return result
+        }
+    }
+
+
+
+
+
+</script>
+<script>
+    function getElelementById(id) {
+
+
+
+
+
+
+    }
+
+
+
+
+</script>
