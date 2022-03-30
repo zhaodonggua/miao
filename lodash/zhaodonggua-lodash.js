@@ -250,13 +250,16 @@ var zhaodonggua = {
     //         return true
     //     }
     // },
-    isMatch: function isMatch(obj = { a: 1, b: 2, c: { x: 1, y: 2 } }, src = { b: 2, c: { y: 2 } }) {
+    isMatch: function isMatch(obj, src) {
         for (let key in src) {
-            if (src[key] && typeof src[key] === 'object') {
-                isMatch(obj[key], src[key])
-            }
-            if (src[key] !== obj[key]) {
-                return false
+            if (src[key] && typeof src[key] == 'object') {
+                if (!isMatch(obj[key], src[key])) {
+                    return false;
+                }
+            } else {
+                if (obj[key] !== src[key]) {
+                    return false;
+                }
             }
         }
         return true
