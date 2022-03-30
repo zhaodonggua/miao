@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Countdown Timer</title>
+  <link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="timer">
+    <div class="timer__controls">
+      <button data-time="20" class="timer__button">20 Secs</button>
+      <button data-time="300" class="timer__button">Work 5</button>
+      <button data-time="900" class="timer__button">Quick 15</button>
+      <button data-time="1200" class="timer__button">Snack 20</button>
+      <button data-time="3600" class="timer__button">Lunch Break</button>
+      <form name="customForm" id="custom">
+        <input type="text" name="minutes" placeholder="Enter Minutes">
+      </form>
+    </div>
+    <div class="display">
+      <h1 class="display__time-left"></h1>
+      <p class="display__end-time"></p>
+    </div>
+  </div>
+
+  <script>
+    //倒计时时间
+    const endTime = document.querySelector(".display__end-time");
+    //最终时间
+    const leftTime = document.querySelector(".display__time-left");
+    const buttons = document.querySelectorAll("button")
+    const date = new Date()
+    let left = 0
+    let end = 0
+    let timer;
+    leftTime.innerHTML = left
+
+    buttons.forEach(button => button.addEventListener('click', clickAction))
+
+    document.customForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      updateTime(this.minutes.value * 60);
+      updateTimer();
+    })
+
+    function clickAction(e) {
+      updateTime(this.dataset.time)
+      updateTimer()
+    }
+
+    //更新最终时间
+    function updateTime(delta) {
+      left = left + parseInt(delta)
+      end = date.getTime() + left * 1000;
+      leftTime.innerHTML = left;
+      endTime.innerHTML = new Date(end).toLocaleTimeString();
+
+
+    }
+    //每秒刷新时间
+    function updateTimer() {
+      //清除以前的timer
+      if (timer) {
+        clearInterval(timer);
+      }
+
+      // 设置新的Timer
+      timer = setInterval(function () {
+        if (left == 0) {
+          endTime.innerHTML = 'End';
+          clearInterval(timer);
+        } else {
+          left -= 1;
+          leftTime.innerHTML = left;
+        }
+      }, 1000);
+    }
+
+
+  </script>
+</body>
+
+</html>

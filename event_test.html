@@ -1,0 +1,98 @@
+<script>
+    // window.addEventListener('click', function () {
+    //     console.log('click!')
+    // })
+</script>
+
+<script>
+    // var button = document.querySelector('button')
+    // button.addEventListener('click', function () {
+    //     console.log(this)
+    // })
+</script>
+
+<!-- <button>Act - once button</button>
+<script>
+    var button = document.querySelector('button')
+    function once() {
+        console.log("Done.")
+        button.removeEventListener('click', once)
+    }
+    button.addEventListener('click', once)
+
+</script> -->
+<!-- <button>zzc</button>
+<script>
+    var button = document.querySelector('button')
+    button.addEventListener('mousedown', function (e) {
+        if (e.which == 1) console.log(1);
+        if (e.which == 2) console.log(2);
+        if (e.which == 3) console.log(3);
+    })
+</script> -->
+<!-- <p>Press Ctrl -Space to continue</p>
+<script>
+    addEventListener('keydown', function (e) {
+        if (e.keyCode == 32 && e.ctrlKey) {
+            console.log('continue!')
+        }
+    })
+</script> -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        span {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: violet;
+        }
+
+        body {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <span style="left:10;top:10"></span>
+</body>
+<script>
+    window.addEventListener('keydown', function (e) {
+        var span = document.querySelector('span')
+        if (e.code == 'ArrowUp') {
+            var top = parseInt(span.style.top)
+            top--
+            span.style.top = top
+            console.log(span.style.top)
+        }
+        if (e.code == 'ArrowDown') {
+            var down = parseInt(span.style.top)
+            down++
+            span.style.top = down
+            console.log(span.style.top)
+        }
+        if (e.code == 'ArrowRight') {
+            var right = parseInt(span.style.left)
+            right++
+            span.style.left = right
+            console.log(span.style.left)
+        }
+        if (e.code == 'ArrowLeft') {
+            var left = parseInt(span.style.left)
+            left--
+            span.style.left = left
+            console.log(span.style.right)
+        }
+    })
+
+
+
+</script>
+
+</html>

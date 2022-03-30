@@ -1,0 +1,512 @@
+<style>
+    svg {
+        border: 2px solid black;
+    }
+</style>
+
+<svg width="5000px" height="5000px"></svg>
+
+<script>
+
+    //为社么需要\\
+    var str = 'ab+[0-9]+?c|def|abc'
+    var i = 0
+    //根据遇到的不同符号，每次解析一部分
+    function parseOnePart() {
+        if (str[i] == '[') {
+            return parseCharacterClass()
+        }
+        if (str[i] == '(') {
+            return parseCaptureGroup()
+        }
+        if (str[i] == '\\') {
+            return parseEscape()
+        }
+        if (str[i] == '?' || str[i] == '+' || str[i] == '*' || str[i] == '{') {
+            return parseQuantifier()
+        }
+        //如果碰到一个符号
+        return parseCharacter()
+    }
+    //如果遇到一个普通字母
+    function parseCharacter() {
+        if (str[i] == '\\') {
+            return parseEscape()
+        }
+        var node = {
+            type: 'Character',
+            start: i,
+            end: i + 1,
+            raw: str.slice(i, i + 1),
+            value: str[i],
+        }
+        i++
+        return node
+    }
+    //遇到中括号
+    function parseCharacterClass() {
+        var node = {
+            type: 'CharacterClass',
+            start: i,
+            end: 0,
+            raw: '',
+            revert: false,
+            elements: [],
+        }
+        i++//跳过第一项
+        if (str[i] == '^') {
+            node.revert = true
+            i++ // skip ^
+        }
+        //只要没有遇到反中括号，就继续解析
+        while (str[i] !== ']') {
+            //解析一个字符，并将其传到elements里面
+            var character = parseCharacter()
+            //如果出现[-]，把0-9作为一部分
+            if (str[i] == '-') {
+                i++ //skip - ,
+                var character2 = parseCharacter()
+                var rangeNode = {
+                    type: 'CharacterRange',
+                    start: character.start,
+                    end: character2.end,
+                    raw: str.slice(character.start, character2.end),
+                    startCharacter: character,
+                    endCharacter: character2,
+                }
+                node.elements.push(rangeNode)
+            } else {
+                node.elements.push(character)
+            }
+
+        }
+        i++//skip ]
+        node.end = i
+        node.raw = str.slice(node.start, node.end)
+        return node
+    }
+    function parseQuantifier() {
+        var node = {
+            type: 'Quantifier',
+            start: i,
+            end: 0,
+            raw: '',
+            element: null,
+            min: 0,
+            max: Infinity,
+            greedy: true,
+        }
+        if (str[i] == '?') {
+            node.max = 1
+            i++
+        } else if (str[i] == '+') {
+            node.min = 1
+            i++
+        } else if (str[i] == '*') {
+            i++
+        } else { //如 果 为 {
+            i++ //skip {
+            skipSpace()
+            node.min = parseInteger()
+            skipSpace()
+            i++ //skip ,
+            skipSpace()
+            if (str[i] === '}') {
+                i++ //skip }
+            } else {
+                node.max = parseInteger()
+                skipSpace()
+                i++ //skip }
+            }
+
+
+        }
+        if (str[i] == '?') {
+            node.greedy = false
+            i++ // skip ?
+        }
+        node.end = i
+        node.raw = str.slice(node.start, node.end)
+        return node
+    }
+    function skipSpace() {
+        while (str[i] == ' ') {
+            i++
+        }
+    }
+    function parseInteger() {
+        var numStr = ''
+        while (str[i] >= '0' && str[i] <= '9') {
+            numStr += str[i]
+            i++
+        }
+        return parseInt(numStr)
+    }
+
+    function parseBranch() {
+        var node = {
+            type: 'Branch',
+            start: i,
+            end: 0,
+            raw: '',
+            elements: [],
+        }
+
+        while (str[i] !== '|' && str[i] !== ')' && i < str.length) {
+            var part = parseOnePart()
+            if (part.type == 'Quantifier') {
+                part.element = node.elements.pop()
+                part.start = part.element.start
+                part.raw = str.slice(part.start, part.end)
+            }
+            node.elements.push(part)
+        }
+
+        node.end = i
+        node.raw = str.slice(node.start, node.end)
+        return node
+    }
+
+    //每次循环取得一个branch
+    function parseBranches() {
+        var nodes = []
+
+        while (true) {
+            var branch = parseBranch()
+            nodes.push(branch)
+            if (str[i] == '|') {
+                i++ // skip |
+                continue
+            }
+            if (str[i] == ')' | i >= str.length) {
+                break
+            }
+        }
+
+        return nodes
+    }
+
+    //每次取得一个括号里的内容
+    //不考虑零宽断言
+    function parseCaptureGroup() {
+        var node = {
+            type: 'CaptureGroup',
+            start: i,
+            end: 0,
+            raw: '',
+            branches: null,
+            index: 0, // 分组的编号
+            name: '', // 分组的名称
+            assertion: false, // 是否是零宽断言
+            lookahead: true, // 预测断言，反之则是回顾断言
+            positive: true, //  断言类型，正断言还是反断言
+        }
+
+        i++
+        node.branches = parseBranches()
+        i++ // skip ")"
+        node.end = i
+        node.raw = str.slice(node.start, node.end)
+        return node
+
+    }
+    //转义符
+    function parseEscape() {
+        var node = {
+            type: 'Escape',
+            start: i,
+            end: 0,
+            raw: '',
+            value: ''
+        }
+        i++
+        node.value = str[i]
+        i++ // skip value
+        node.end = i
+        node.raw = str.slice(node.start, node.end)
+        return node
+
+    }
+    //整体是一个正则
+    function parsePattern() {
+        var node = {
+            type: 'RegularExpression',
+            branches: parseBranches()
+        }
+        return node
+    }
+
+    function parseRegularExpression(input) {
+        str = input
+        i = 0
+        groupIndex = 1
+        return parsePattern()
+    }
+
+    // 为正则语法树结点创建图形
+    function createGraph(node) {
+        if (node.type == 'Character') {
+            return createCharacterGraph(node)
+        }
+        if (node.type == 'CharacterClass') {
+            return createCharacterClassGraph(node)
+        }
+        if (node.type == 'Branch') {
+            return createBranchGraph(node)
+        }
+        if (node.type == 'Branches') {
+            return createBranchesGraph(node)
+        }
+        if (node.type == 'CaptureGroup') {
+            return createCaptureGroupGraph(node)
+        }
+        if (node.type == 'Quantifier') {
+            return createQuantifierGraph(node)
+        }
+        if (node.type == 'Escape') {
+            return createEscapeGraph(node)
+        }
+    }
+    var svg = document.querySelector('svg')
+    var gp = 10
+    //创建svg标签
+    function elt(tagName, attrs = {}, ...children) {
+        var el = document.createElementNS("http://www.w3.org/2000/svg", tagName)
+
+        for (var key in attrs) {
+            var val = attrs[key]
+            el.setAttribute(key, val)
+        }
+
+        for (var child of children) {
+            if (typeof child == 'string') {
+                child = document.createTextNode(child)
+            }
+            el.appendChild(child)
+        }
+
+        svg.appendChild(el)
+        return el
+    }
+
+    // function createCharacterGraph(node) {
+    //     //创建文字,并且文字居中
+    //     let text = elt('text', {
+    //         'dominant-baseline': 'text-before-edge',
+    //         x: 5, y: 5
+    //     }, node.value)
+    //     let textBox = text.getBBox()
+
+    //     text.textContent = node.value
+    //     //把svg里的标签设置到顶部
+    //     text.setAttribute('dominant-baseline', 'text-before-edge')
+    //     //rect在前,text在后
+    //     let g = elt('g', {}, rect, text)
+    //     // g.append(text)
+
+    //     //把g元素加到svg中才会有尺寸
+    //     //svg.appendChild(g)
+    //     var box = g.getBBox()
+
+    //     var rect = elt('rect', {
+    //         x: 0, y: 0, width: textBox.width + 10, height: textBox.height + 10,
+    //         fill: '#dae9e5',
+    //     })
+    //     // text.setAttribute('x', 5)
+    //     // text.setAttribute('y', 5)
+    //     g.appendChild(rect)
+
+
+
+    //     return {
+    //         g: g,
+    //         width: box.width,
+    //         height: box.height,
+    //     }
+    // }
+    //创建a在框子中间
+    function createCharacterGraph(node) {
+        var text = elt('text', {
+            'dominant-baseline': 'text-before-edge',
+            x: gp / 2,
+            y: gp / 2,
+        }, node.value)
+
+        var textBox = text.getBBox()
+
+        var rect = elt('rect', {
+            fill: '#dae9e5',
+            width: textBox.width + gp,
+            height: textBox.height + gp,
+            rx: '3',
+        })
+
+        var g = elt('g', {}, rect, text)
+
+        var box = g.getBBox()
+
+        return {
+            g: g,
+            width: box.width,
+            height: box.height,
+        }
+    }
+    function add(a, b) {
+        return a + b
+    }
+    function max(a, b) {
+        return Math.max(a, b)
+    }
+    function createCharacterClassGraph(node) {
+        //创建graph
+        var graphs = node.elements.map(createGraph)
+
+        var height = graphs.map(it => it.height).reduce(add) + (graphs.length + 1) * gp
+        var width = graphs.map(it => it.width).reduce(max) + 2 * gp
+        //图片底色
+        var fill = elt('rect', {
+            width: width,
+            height: height,
+            fill: '#cbcbba',
+            //设定底脚
+            rx: '3'
+        })
+        var g = elt('g')
+        g.appendChild(fill)
+
+        //每一个图片需要设定位置
+        var y = gp
+        for (let graph of graphs) {
+            graph.g.setAttribute('transform', `translate(${(width - graph.width) / 2}, ${y})`)
+            y += graph.height + gp
+            g.appendChild(graph.g)
+        }
+        var box = g.getBBox()
+
+        return {
+            g: g,
+            width: box.width,
+            height: box.height,
+        }
+    }
+
+
+
+    function createBranchGraph(node) {
+        var graphs = node.elements.map(createGraph)
+
+        var height = graphs.map(it => it.height).reduce(max) + 2 * gp
+        var width = graphs.map(it => it.width).reduce(add) + (graphs.length + 1) * gp
+
+        var fill = elt('rect', {
+            width: width,
+            height: height,
+            fill: 'none',
+            rx: '3'
+        })
+
+        var g = elt('g')
+
+        g.appendChild(fill)
+
+        var x = gp
+        for (var graph of graphs) {
+            var line = elt('line', {
+                x1: x,
+                y1: height / 2,
+                x2: x - gp,
+                y2: height / 2,
+                'stroke-width': 2,
+                stroke: 'black',
+            })
+            graph.g.setAttribute('transform', `translate(${x}, ${(height - graph.height) / 2})`)
+            x += graph.width + gp
+            g.appendChild(graph.g)
+            g.appendChild(line)
+        }
+
+        var line = elt('line', {
+            x1: x,
+            y1: height / 2,
+            x2: x - gp,
+            y2: height / 2,
+            'stroke-width': 2,
+            stroke: 'black',
+        })
+
+        g.appendChild(line)
+
+        var box = g.getBBox()
+
+        return {
+            g: g,
+            width: box.width,
+            height: box.height,
+        }
+    }
+
+    function createBranchesGraph(branches) {
+        var graphs = branches.map(createGraph)
+
+        var height = graphs.map(it => it.height).reduce(add) + (graphs.length + 1) * gp
+        var width = graphs.map(it => it.width).reduce(max) + 4 * gp
+
+        var fill = elt('rect', {
+            width: width,
+            height: height,
+            fill: 'none',
+            rx: '3'
+        })
+
+        var g = elt('g')
+        g.appendChild(fill)
+
+        var y = gp
+        for (var graph of graphs) {
+            var x = (width - graph.width) / 2
+            graph.g.setAttribute('transform', `translate(${x}, ${y})`)
+
+            var railway = elt('path', {
+                d: `
+            M ${x} ${y + graph.height / 2}
+            H ${gp * 2}
+            C ${gp} ${y + graph.height / 2} ${gp} ${height / 2} 0 ${height / 2}
+
+            M ${width - x} ${y + graph.height / 2}
+            H ${width - gp * 2}
+            C ${width - gp} ${y + graph.height / 2} ${width - gp} ${height / 2} ${width} ${height / 2}
+            `,
+                fill: 'none',
+                stroke: 'black',
+                'stroke-width': 2,
+            })
+
+            g.appendChild(railway)
+
+            y += graph.height + gp
+            g.appendChild(graph.g)
+        }
+
+        var box = g.getBBox()
+
+        return {
+            g: g,
+            width: box.width,
+            height: box.height,
+        }
+    }
+    function createCaptureGroupGraph(node) {
+        var branchesGraph = createBranchesGraph(node.branches)
+
+        var fill = elt('rect', {
+            width: branchesGraph.width,
+            height: branchesGraph.height + 4 * gp,
+            fill: 'none',
+            'stroke-width': 2,
+            rx: 3,
+        })
+        var g = elt('g')
+        g.appendChild(branchesGraph)
+    }
+
+</script>

@@ -1,0 +1,583 @@
+<!-- <html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=s, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    svg {
+        border: 2px solid black;
+    }
+</style>
+
+<body>
+
+</body>
+<script>
+
+    //一个/代表转义符，例如\n表示空行
+    var str = '4{3,5}4'
+    var i = 0
+    function parseOnePart() {
+        if (str[i] == '[') {
+            return parseCharacterClass()
+        }
+        else if (str[i] == '(') {
+            return parseCaptureGroup()
+
+        } else if (str[i] == '\\') {
+            return parseEscape()
+        } else if (str[i] == '?' || str[i] == '!' || str[i] == '+' || str[i] == '*' || str[i] == '{') {
+            return parseQuantifier()
+        } else {
+            return parseCharacter()
+        }
+    }
+    function parseCharacter() {
+        var node = {
+            type: 'Character',
+            start: i,
+            end: i + 1,
+            raw: str.slice(i, i + 1),
+            value: str[i],
+        }
+        i++
+        return node
+    }
+    function parseCharacterClass() {
+        var node = {
+            type: 'CharacterClass',
+            start: i,
+            end: 0,
+            raw: '',
+            revert: false,
+            elements: [],
+        }
+        i++
+        if (str[i] == '^') {
+            node.revert = true;
+            i++
+        }
+        //只要没有遇到]就可以继续解析
+        while (str[i] !== ']') {
+            var character = parseOnePart()
+            //如果读到-，则构造出一个character range
+            if (str[i] == '-') {
+                i++
+                var character2 = parseOnePart()
+                var rangeNode = {
+                    type: 'CharacterRange',
+                    start: character.start,
+                    end: character2.end,
+                    raw: str.slice(character.start, character2.end),
+                    startCharacter: character,
+                    endCharacter: character2,
+                }
+                node.elements.push(rangeNode)
+            } else {
+                node.elements.push(character)
+            }
+        }
+        i++
+        node.end = i
+        node.raw = str.slice(node.start, node.end)
+        return node
+    }
+
+
+
+
+    function parseQuantifier() {
+        var node = {
+            type: 'Quantifier',
+            start: i,
+            end: 0,
+            raw: '',
+            element: null,
+            min: 0,
+            max: Infinity,
+            greedy: true,
+        }
+
+        //判断条件+?*{3,5}
+        if (str[i] == '+') {
+            node.min = 1
+            i++
+        } else if (str[i] == '*') {
+            i++
+        } else if (str[i] == '?') {
+            node.max = 1
+            i++
+        } else { //{3,5}
+            i++ //skip{
+            node.min = parseNum()
+            //1.如果为,
+            //2.如果为}
+            if (str[i] == '}') {
+                node.max = node.min
+                i++
+            } else if (str[i] == ',') {
+                i++ //skip ,
+                if (str[i] == '}') {
+                    i++
+                } else {
+                    node.max = parseNum()
+                    i++ //skip }
+                }
+            }
+        }
+        node.end = i
+        node.raw = str.slice(node.start, node.end)
+        return node
+    }
+    function parseNum() {
+        var num = ''
+        while (str[i] >= '0' && str[i] <= '9') {
+            num += str[i]
+            i++
+        }
+        return parseInt(num)
+    }
+
+
+
+    function parseBranch() {
+        var node = {
+            type: 'Branch',
+            start: i,
+            end: 0,
+            raw: '',
+            elements: [],
+        }
+        while(str[i] !== '|' && str[i] !== ')' && i< str.length){
+            var part = parseOnePart()
+            if(part.type == 'Quantifier'){
+                part.element = node.elements.pop()
+
+
+            }
+            node.elements.push(part)
+        }
+
+
+    }
+
+
+</script>
+
+</html> -->
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        svg {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <svg width="5000px" height="5000px"></svg>
+</body>
+<script>
+
+    //一个/代表转义符，例如\n表示空行
+    var str = '(123|456|789)(123)'
+    var i = 0
+    function parseOnePart() {
+        if (str[i] == '[') {
+            return parseCharacterClass()
+        }
+        else if (str[i] == '(') {
+            return parseCaptureGroup()
+
+        } else if (str[i] == '\\') {
+            return parseEscape()
+        } else if (str[i] == '?' || str[i] == '!' || str[i] == '+' || str[i] == '*' || str[i] == '{') {
+            return parseQuantifier()
+        } else {
+            return parseCharacter()
+        }
+    }
+
+    function parseCharacter() {
+        if (str[i] == '') {
+            return null
+        }
+        var node = {
+            type: 'Character',
+            start: i,
+            end: i + 1,
+            raw: str.slice(i, i + 1),
+            value: str[i],
+        }
+        i++//i指向下一个元素
+        return node
+
+    }
+    function parseCharacterClass() {
+        var node = {
+            type: 'CharacterClass',
+            start: i,
+            end: 0,
+            raw: '',
+            revert: false,
+            elements: [],
+        }
+        if (str[i] == '^') {
+            node.revert = true
+            i++
+        }
+
+        while (str[i] !== ']') {
+            var character = parseCharacter()
+            if (character == '-') {
+                var character2 = parseCharacter()
+                var rangeNode = {
+                    type: 'CharacterRange',
+                    start: character.start,
+                    end: character2.end,
+                    raw: str.slice(character.start, character2.end),
+                    startCharacter: character,
+                    endCharacter: character2,
+                }
+                node.elements.push(rangeNode)
+            } else {
+                node.elements.push(character)
+            }
+        }
+        i++ //skip ]
+        node.end = i
+        node.raw = str.slice(node.start, node.end)
+        return node
+
+    }
+
+    function parseQuantifier() {
+        var node = {
+            type: 'Quantifier',
+            start: i,
+            end: 0,
+            raw: '',
+            element: null,
+            min: 0,
+            max: Infinity,
+            greedy: true
+        }
+        //(str[i] == '?'  || str[i] == '+' || str[i] == '*' || str[i] == '{')
+        if (str[i] == '?') {
+            node.max = 1
+            i++
+        } else if (str[i] == '+') {
+            node.min = 1
+            i++
+        } else if (str[i] == '*') {
+            i++
+        } else { //str[i] == '{'
+            i++//skip {
+            //{31,24}a
+            node.min = parseInteger()
+            if (str[i] == '}') {
+                node.max = node.min
+                i++
+            } else if (str[i] == ',') {
+                i++//skip ,
+                node.max = parseInteger()
+                i++ //skip }
+            }
+        }
+        if (str[i] == '?') {
+            node.greedy = false
+            i++
+        }
+        node.end = i
+        node.raw = str.slice(node.start, node.end)
+        return node
+
+
+    }
+    function parseInteger() {
+        var result = ''
+        while (str[i] >= '0' && str[i] <= '9') {
+            result += str[i]
+            i++
+        }
+        return parseInt(result)
+    }
+
+    function parseBranch() {
+        var node = {
+            type: 'Branch',
+            start: i,
+            end: 0,
+            raw: '',
+            elements: [],
+        }
+        //123|456
+        while (str[i] !== '|' && str[i] !== ')' && i < str.length) {
+            //遇到quantifier 和 普通情况放入elements
+            var part = parseOnePart()
+            if (part.type == 'Quantifier') {
+                //先把上一个元素取出来
+                part.element = node.elements.pop()
+                //6*
+                //part.start为6，part.end为*
+                part.start = part.element.start
+                part.raw = str.slice(part.start, part.end)
+                //然后再把这部分push到elements里面
+            }
+            node.elements.push(part)
+        }
+        //因为branch不包括|,所以不用+1
+        node.end = i
+        node.raw = str.slice(node.start, node.end)
+        return node
+    }
+
+    function parseBranches() {
+        var nodes = []
+        while (true) {
+            var branch = parseBranch()
+            nodes.push(branch)
+            if (str[i] == '|') {
+                i++//skip |
+                continue
+            }
+            //123|456
+            if (str[i] == ')' | i >= str.length) {
+                break
+            }
+        }
+
+        return nodes
+    }
+
+    // (foo|bar)
+    // (?:foo)
+    // (?=foo) 正预测
+    // (?!foo) 负预测
+    // (?<=foo) 正回顾
+    // (?<!foo) 负回顾
+    // (?<name>foo) 具名分组
+    var groupIndex = 1
+    function parseCaptureGroup() {
+        var node = {
+            type: 'CaptureGroup',
+            start: i,
+            end: 0,
+            raw: '',
+            branches: null,
+            index: 0, // 分组的编号
+            name: '', // 分组的名称
+            assertion: false, // 是否是零宽断言
+            lookahead: true, // 预测断言，反之则是回顾断言
+            positive: true, //  断言类型，正断言还是反断言
+        }
+        i++ // skip "("
+        if (str[i] == '?') {
+            i++ // skip "?"
+            if (str[i] == ':') { // 非捕获分组，不计数
+                i++ // skip ":"
+            } else if (str[i] == '=') { // 正预测断言
+                node.assertion = true
+                node.lookahead = true
+                node.positive = true
+                i++ // skip "="
+            } else if (str[i] == '!') { // 负预测断言
+                node.assertion = true
+                node.lookahead = true
+                node.positive = false
+                i++ // skip "!"
+            } else if (str[i] == '<') { // 回顾断言或者是具名分组
+                i++ // skip "<"
+                if (str[i] == '=') { // 正回顾断言
+                    node.assertion = true
+                    node.lookahead = false
+                    node.positive = true
+                    i++ // skip "="
+                } else if (str[i] == '!') { // 负回顾断言
+                    node.assertion = true
+                    node.lookahead = false
+                    node.positive = false
+                    i++ // skip "!"
+                } else { // 具名分组
+                    node.name = parseGroupName()
+                    node.index = groupIndex++ // 记录分组编号
+                    i++ // skip '>'
+                }
+            }
+        } else {
+            node.index = groupIndex++ // 记录分组编号
+        }
+
+
+        node.branches = parseBranches()//根据分组编号
+        i++//skip )
+        node.end = i
+        node.raw = str.slice(node.start, node.end)
+        return node
+    }
+
+    function parseGroupName() {
+        var name = ''
+        while (str[i] !== '>') {
+            name += str[i]
+            i++
+        }
+        return name
+    }
+    function parseEscape() {
+        var node = {
+            type: 'Escape',
+            start: i,
+            end: 0,
+            raw: '',
+            value: ''
+        }
+        i++ // skip "\"
+        node.value = str[i]
+        i++ // skip value
+
+        node.end = i
+        node.raw = str.slice(node.start, node.end)
+        return node
+    }
+    function parsePattern() {
+        var node = {
+            type: 'RegularExpression',
+            branches: parseBranches()
+        }
+        return node
+    }
+
+    function parseRegularExpression(input) {
+        str = input
+        i = 0
+        groupIndex = 1
+        return parsePattern()
+    }
+
+    // 为正则语法树结点创建图形
+    function createGraph(node) {
+        if (node.type == 'Character') {
+            return createCharacterGraph(node)
+        }
+        if (node.type == 'CharacterClass') {
+            return createCharacterClassGraph(node)
+        }
+        if (node.type == 'Branch') {
+            return createBranchGraph(node)
+        }
+        if (node.type == 'Branches') {
+            return createBranchesGraph(node)
+        }
+        if (node.type == 'CaptureGroup') {
+            return createCaptureGroupGraph(node)
+        }
+        if (node.type == 'Quantifier') {
+            return createQuantifierGraph(node)
+        }
+        if (node.type == 'Escape') {
+            return createEscapeGraph(node)
+        }
+    }
+    var svg = document.querySelector('svg')
+    function elt(tagName, attrs = {}, ...children) {
+        var el = document.createElementNS("http://www.w3.org/2000/svg", tagName)
+
+        for (var key in attrs) {
+            var val = attrs[key]
+            el.setAttribute(key, val)
+        }
+
+        for (var child of children) {
+            if (typeof child == 'string') {
+                child = document.createTextNode(child)
+            }
+            el.appendChild(child)
+        }
+
+        svg.appendChild(el)
+        return el
+    }
+
+    var gp = 10
+
+    function createCharacterGraph(node) {
+        var text = elt('text', {
+            'dominant-baseline': 'text-before-edge',
+            x: gp / 2,
+            y: gp / 2,
+        }, node.value)
+        var textBox = text.getBBox()
+
+        var rect = elt('rect', {
+            fill: '#dae9e5',
+            width: textBox.width + gp,
+            height: textBox.height + gp,
+        })
+
+        var g = elt('g', {}, rect, text)
+
+
+        var box = g.getBBox()
+
+
+
+        return {
+            g,
+            width: box.width,
+            height: box.height,
+        }
+    }
+    function add(a, b) {
+        return a + b
+    }
+    function max(a, b) {
+        return Math.max(a, b)
+    }
+    function createCharacterClassGraph(node) {
+        var graphs = node.elements.map(createGraph)
+
+        var height = graphs.map(it => it.height).reduce(add) + (graphs.length + 1) * gp
+        var width = graphs.map(it => it.width).reduce(max) + 2 * gp
+
+        var fill = elt('rect', {
+            width: width,
+            height: height,
+            fill: '#cbcbba',
+            rx: '3'
+        })
+
+        var g = elt('g')
+
+        g.appendChild(fill)
+
+        var y = gp
+        for (var graph of graphs) {
+            graph.g.setAttribute('transform', `translate(${(width - graph.width) / 2}, ${y})`)
+            y += graph.height + gp
+            g.appendChild(graph.g)
+        }
+
+        var box = g.getBBox()
+
+        return {
+            g: g,
+            width: box.width,
+            height: box.height,
+        }
+    }
+
+
+</script>
+
+</html>

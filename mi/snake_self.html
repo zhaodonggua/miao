@@ -1,0 +1,107 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="can" width="400" height="400" style="background:black;"></canvas>
+
+</body>
+<script>
+    const ctx = document.getElementById('can').getContext('2d')
+    //身体起始位置
+    let body = [
+        [3, 6],
+        [4, 6],
+        [5, 6]
+    ]
+    //食物起始位置
+    let food = [10, 10]
+    //右为[1,0]，左为[-1,0],上为[0,1],下为[0,-1]
+    let direction = [1, 0]
+    //网页刚加载时运行方法
+    window.onload = function () {
+        interval = setInterval(() => {
+            render()
+        }, 130);
+    }
+    function render() {
+        if (check()) {
+            alert('game over')
+            clearInterval(interval)
+        }
+        let length = body.length
+        //身体后部分位置转换为身体前一部分
+        for (let i = 0; i < length - 1; i++) {
+            body[i][0] = body[i + 1][0]
+            body[i][1] = body[i + 1][1]
+        }
+        //头部根据direction进行控制
+        body[length - 1][0] += direction[0]
+        body[length - 1][1] += direction[1]
+
+        ctx.clearRect(0, 0, 400, 400)
+        for (let i = 0; i < length; i++) {
+            draw(body[i][0], body[i][1], 'red')
+        }
+        draw(food[0], food[1], 'yellow')
+    }
+    function check() {
+        let header = body[body.length - 1]
+        if (header[0] < 0 || header[0] > 19 || header[1] < 0 || header[1] > 19) {
+            return true
+        }
+        if (header[0] == food[0] && header[1] == food[1]) {
+            body.unshift([0, 0])
+            food[0] = ~~(Math.random() * 20)
+            food[1] = ~~(Math.random() * 20)
+        }
+        //判断蛇是否咬到自己
+        for (let i = 0; i < body.length - 1; i++) {
+            if (header[0] == body[i][0] && header[1] == body[i][1]) {
+                return true
+            }
+        }
+        return false
+    }
+
+    window.onkeydown = function (e) {
+        switch (e.keyCode) {
+            //left
+            case 37:
+                direction = [0, 0]
+                direction[0] = -1
+                break
+            //up
+            case 38: {
+                direction = [0, 0]
+                direction[1] = -1
+                break
+            }
+            //right
+            case 39: {
+                direction = [0, 0]
+                direction[0] = 1
+                break
+            }
+            //down
+            case 40: {
+                direction = [0, 0]
+                direction[1] = 1
+                break
+            }
+        }
+    }
+
+    function draw(x, y, color) {
+        ctx.fillStyle = color
+        ctx.fillRect(x * 20 - 1, y * 20 - 1, 18, 18)
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,67 @@
+
+<style>
+  #sun, #earth, #moon {
+    position: fixed;
+    border-radius: 9999px;
+    text-align: center;
+    overflow: hidden;
+
+  }
+  #sun {
+    width: 50px;
+    height: 50px;
+    background-color: red;
+  }
+  #earth {
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+  }
+  #moon {
+    width: 10px;
+    height: 10px;
+    background-color: orange;
+  }
+</style>
+<span id="sun" style="left: 0; top: 0;">Sun</span>
+<span id="earth" style="left: 0; top: 0;">Earth</span>
+<span id="moon" style="left: 0; top: 0;">Moon</span>
+
+<script src="http://tweenjs.github.io/tween.js/dist/tween.umd.js"></script>
+<script>
+  var sun = document.querySelector('#sun')
+  var earth = document.querySelector('#earth')
+  var moon = document.querySelector('#moon')
+
+  var lastTime = null
+  var angle = 0
+
+  requestAnimationFrame(function animate(time) {
+    if (lastTime !== null) {
+      angle += (time - lastTime) * 0.0002
+    }
+    lastTime = time
+
+    var sunx = Math.cos(angle) * 100 + 500
+    var suny = Math.sin(angle) * 100 + 500
+    sun.style.left = sunx + 'px'
+    sun.style.top = suny + 'px'
+
+    var angle1 = angle * 5
+    var earthx = Math.cos(angle1) * 250 + sunx + 25 - 10
+    var earthy = Math.sin(angle1) * 250 + suny + 25 - 10
+    earth.style.left = earthx + 'px'
+    earth.style.top = earthy + 'px'
+
+    var angle2 = angle1 * 5
+    var moonx = Math.cos(angle2) * 50 + earthx + 10 - 5
+    var moony = Math.sin(angle2) * 50 + earthy + 10 - 5
+    moon.style.left = moonx + 'px'
+    moon.style.top = moony + 'px'
+
+    if (time < 10000) {
+      requestAnimationFrame(animate)
+    }
+  })
+
+</script>

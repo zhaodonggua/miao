@@ -1,0 +1,195 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 200px;
+            background-color: beige;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 9999px;
+            background-color: violet;
+            position: absolute;
+        }
+
+        html {
+            user-select: none;
+        }
+
+        .svg-wrapper {
+            width: 800px;
+            height: 800px;
+            border: 2px solid;
+            padding: 0;
+        }
+
+        .colors button {
+            width: 20px;
+            height: 20px;
+            border: 2px solid grey;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="colors">
+        <input type="color" id="colorSelect" value="#ff0000">
+        <input type="range" id="strokeSelect" value="3" min="1" max="9" step="2">
+
+        <button style="background-color:red ;" onclick="tool='line'">线</button>
+        <button style="background-color: orange;" onclick="tool='rect'">框</button>
+        <button style="background-color: orange;" onclick="tool='circle'">园</button>
+
+
+    </div>
+    <div class="svg-wrapper">
+        <svg width="800px" height="800px"></svg>
+    </div>
+</body>
+<script>
+    //使用path进行画图
+    var svg = document.querySelector('svg')
+    var colorSelect = document.querySelector('#colorSelect')
+    var strokeSelect = document.querySelector('#strokeSelect')
+
+    var lastX, lastY
+    var node
+    var tool = 'line'
+    var startPos
+
+    //svg和window的区别
+    svg.addEventListener('mousedown', function (e) {
+        if (e.which == 1) {
+            var pos = mouse(svg)
+            startPos = pos
+            if (tool == 'line') {
+                node = elt('path', {
+                    d: `M ${pos.x} ${pos.y} L ${pos.x} ${pos.y}`, stroke: colorSelect.value,
+                    'stroke-width': strokeSelect.value, 'stroke-linecap': 'round', fill: 'none'
+                })
+                svg.appendChild(node)
+            }
+            if (tool == 'rect') {
+                node = elt('rect', {
+                    x: pos.x, y: pos.y, width: 0, height: 0, stroke: colorSelect.value,
+                    'stroke-width': strokeSelect.value, 'stroke-linecap': 'round', fill: 'none'
+                })
+                svg.appendChild(node)
+            }
+            if (tool == 'circle') {
+                node = elt('ellipse', {
+                    cx: pos.x,
+                    cy: pos.y,
+                    rx: 0,
+                    ry: 0,
+                    stroke: colorSelect.value,
+                    fill: 'none',
+                    'stroke-width': strokeSelect.value,
+                    'stroke-linecap': 'round',
+                })
+                svg.appendChild(node)
+            }
+            window.addEventListener('mousemove', onMove)
+            // e.preventDefault()
+
+        }
+
+    })
+
+    window.addEventListener('keydown', function (e) {
+        console.log(e)
+        if (e.ctrlKey && e.key == 'z') {
+            svg.removeChild(svg.lastChild)
+        }
+    })
+    // //使线闭合
+    // svg.addEventListener('mouseup', function (e) {
+    //     if (e.which == 1) {
+    //         var d = node.getAttribute('d')
+    //         d += 'Z'
+    //         node.setAttribute('d', d)
+    //     }
+    // })
+
+
+
+    function buttonPressed(event) {
+        if (event.buttons == null) {
+            return event.which !== 0
+        } else {
+            return event.buttons !== 0
+        }
+    }
+
+
+    function onMove(e) {
+        //鼠标松手时解绑
+        if (!buttonPressed(e)) {
+            window.removeEventListener('mousemove', onMove)
+            return
+        }
+        var pos = mouse(svg)
+        if (tool == 'line') {
+            //? 为什么有x1,x2?
+            var d = node.getAttribute('d')
+            d += `L ${pos.x} ${pos.y}`
+            node.setAttribute('d', d)
+        }
+        if (tool == 'rect') {
+            var width = pos.x - startPos.x
+            var height = pos.y - startPos.y
+            node.setAttribute('width', width)
+            node.setAttribute('height', height)
+        }
+        if (tool == 'circle') {
+            var cx = (pos.x + startPos.x) / 2
+            var cy = (pos.y + startPos.y) / 2
+            var rx = pos.x - startPos.x
+            var ry = pos.y - startPos.y
+            node.setAttribute('cx', cx)
+            node.setAttribute('cy', cy)
+            node.setAttribute('rx', rx)
+            node.setAttribute('ry', ry)
+        }
+
+
+    }
+    //传哪个元素，返回鼠标在哪个元素的坐标
+    function mouse(node) {
+        var nodePos = node.getBoundingClientRect()
+        return {
+            x: window.event.clientX - nodePos.x,
+            y: window.event.clientY - nodePos.y,
+        }
+    }
+    function elt(tagName, attrs = {}, ...children) {
+        var el = document.createElementNS("http://www.w3.org/2000/svg", tagName)
+
+        for (var key in attrs) {
+            var val = attrs[key]
+            el.setAttribute(key, val)
+        }
+
+        for (var child of children) {
+            if (typeof child == 'string') {
+                child = document.createTextNode(child)
+            }
+            el.appendChild(child)
+        }
+
+        svg.appendChild(el)
+        return el
+    }
+
+
+</script>
+
+</html>

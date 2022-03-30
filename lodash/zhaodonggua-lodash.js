@@ -240,16 +240,16 @@ var zhaodonggua = {
         if (value == null) return false;
         return val == 'boolean' || val == 'object';
     },
-    matches: function matches(target) {
-        return function (obj) {
-            for (let key in target) {
-                if (target[key] !== obj[key]) {
-                    return false
-                }
-            }
-            return true
-        }
-    },
+    // matches: function matches(target) {
+    //     return function (obj) {
+    //         for (let key in target) {
+    //             if (target[key] !== obj[key]) {
+    //                 return false
+    //             }
+    //         }
+    //         return true
+    //     }
+    // },
     isMatch: function isMatch(obj = { a: 1, b: 2, c: { x: 1, y: 2 } }, src = { b: 2, c: { y: 2 } }) {
         for (let key in src) {
             if (src[key] && typeof src[key] === 'object') {
@@ -260,7 +260,32 @@ var zhaodonggua = {
             }
         }
         return true
+    },
+    property: function property(path) {
+        return function (obj) {
+            var items = toPath(path)
+            for (let item of items) {
+                obj = obj[item]
+                if (!obj) return obj;
+            }
+            return obj
+        }
+    },
+    toPath: function toPath(value) {
+        if (typeof value == 'string') {
+            return value.match(/\w+/g)
+        } else {
+            return value
+        }
+    },
+    matches: function matches(source) {
+        return function (obj) {
+            return isMatch(obj, source)
+        }
+
     }
+
+
 
 }
 

@@ -1,0 +1,206 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-shadow: inset 0 0 3px red;
+        }
+
+        body {
+            background-color: #6b6659;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+        }
+
+        .title {
+            background-color: #abcd4f;
+            height: 80px;
+            padding: 0 50px;
+            font-size: 3em;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-style: italic;
+        }
+
+        .title #info {
+            margin: 20px 50px;
+            height: 50px;
+            vertical-align: middle;
+            background-color: rgb(0, 0, 0);
+            color: #adcb4f;
+            padding: 0 10px;
+            font-size: 20px;
+            font-style: normal;
+        }
+
+        .userInput {
+            margin: 0 50px;
+            height: 100px;
+            vertical-align: middle;
+        }
+
+        .userInput #regInput {
+            width: 100%;
+            height: 50%;
+            background-color: #cbcbba;
+            display: block;
+        }
+
+        #regInputButton,
+        #downloadButton {
+            margin-top: 10px;
+            background-color: #adcb4f;
+        }
+
+        .resultPre {
+            margin: 0 50px;
+            background-color: #fff;
+            text-align: center;
+            overflow-x: scroll;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">
+        <span id="title">Regexper</span>
+        <span id="info"></span>
+    </div>
+
+    <div class="userInput">
+        <label><input type="text" id="regInput" placeholder="请输入正则表达式 例如“^[a-zA-Z0-9]{4,16}$" value="">
+        </label>
+        <button id="regInputButton">绘制铁路图</button>
+        <button id="downloadButton">下载SVG图片</button>
+    </div>
+
+    <div class="resultPre">
+        <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+</body>
+
+<script>
+    regInput.addEventListener('input', draw)
+    regInputButton.addEventListener('click', draw)
+    window.addEventListener('load', draw)
+
+
+    // 下载
+    downloadButton.addEventListener('click', e => {
+        let blob = new Blob(
+            [svg.outerHTML],
+            { type: 'image/svg+xml' }
+        )
+        let anchor = document.createElement('a')
+        let href = URL.createObjectURL(blob)
+        anchor.setAttribute('href', href)
+        anchor.download = '正则铁路图'
+        anchor.click()
+    })
+
+    //画图
+    let gp = 10
+    let svg = document.querySelector('svg')
+    let keyword
+
+    function draw() {
+
+        svg.innerHTML = ''
+        //拿到输入的str
+        let input = regInput.value
+        if (input == '') {
+            return
+        }
+        try {
+            let regNode = parseRegularExpression(input)
+            let graph = createRegularExpressionGraph(regNode)
+            svg.setAttribute('width', graph.width)
+            svg.setAttribute('height', graph.height)
+            info.innerHTML = ''
+        } catch (e) {
+            if (e instanceof TypeError) {
+                svg.innerHTML = ''
+                info.innerHTML = '请输入正确的正则表达式~'
+            } else {
+                info.innerHTML = ''
+                throw e
+            }
+        }
+    }
+    function elt(tagName, attrs = {}, ...children) {
+        let el = document.createElementNS("http://www.w3.org/2000/svg", tagName)
+        for (let key in attrs) {
+            el.setAttribute(key, attrs[key])
+        }
+        for (let child of children) {
+            if (typeof child == 'string') {
+                child = document.createTextNode(child)
+            }
+            el.appendChild(child)
+        }
+        svg.appendChild(el)
+        return el
+    }
+    function add(x, y) {
+        return x + y
+    }
+    function max(x, y) {
+        return Math.max(x, y)
+    }
+    function createGraph(node) {
+        if (node.type == 'Character') {
+            return createCharacterGraph(node)
+        }
+        if (node.type == 'CharacterClass') {
+            return createCharacterClassGraph(node)
+        }
+        if (node.type == 'CharacterRange') {
+            return createCharacterRangeGraph(node)
+        }
+        if (node.type == 'Branch') {
+            return createBranchGraph(node)
+        }
+        if (node.type == 'CaptureGroup') {
+            return createCaptureGroupGraph(node)
+        }
+        if (node.type == 'Quantifier') {
+            return createQuantifierGraph(node)
+        }
+        if (node.type == 'Regular Expresstion') {
+            return createRegularExpressionGraph(node)
+        }
+        if (node.type == 'Escape') {
+            return createExcapeGraph(node)
+        }
+        if (node.type == 'Dot') {
+            return createDotGraph(node)
+        }
+        return createBranchesGraph(node)
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>

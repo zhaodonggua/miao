@@ -1,0 +1,54 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <style>
+        button.active {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div data-tabname="About">1111</div>
+    <div data-tabname="详情">2222</div>
+    <div data-tabname="关于">33333</div>
+
+</body>
+<script>
+
+</script>
+<script>
+    // $($0).children().map(function () {
+    //     return $('<button></button>')
+    //         .text(this.dataset.tabname)
+    //         .click(() => {
+    //             $(this).show()
+    //         })[0]
+    // }).prependTo($0)
+
+    // $($0).children().hide().map(function () {
+    //     var div = this
+
+    //     return $('<button></button>')
+    //         .text(this.dataset.tabname)
+    //         .click(function () {
+    //             console.log(this)
+    //             $(this).css('color', 'red').siblings('button').css('color', 'black')
+    //             $(div).show().siblings('div').hide()
+    //         })[0]
+    // }).prependTo($0)
+
+    $($0).children().hide().map(function () {
+        return $('<button></button>').text(this.dataset.tabname)[0]
+    }).prependTo($0).click(function () {
+        $(this).addClass('active').siblings().removeClass('active')
+    }).first().click()
+</script>
+
+</html>

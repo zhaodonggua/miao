@@ -1,0 +1,109 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 200px;
+            background-color: beige;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 9999px;
+            background-color: violet;
+            position: absolute;
+        }
+
+        html {
+            user-select: none;
+        }
+
+        svg-wrapper {
+            border: 2px solid;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="svg-wrapper">
+        <svg width="800px" height="800px"></svg>
+    </div>
+</body>
+<script>
+    var svg = document.querySelector('svg')
+    var lastX, lastY
+
+
+    //svg和window的区别
+    svg.addEventListener('mousedown', function (e) {
+        if (e.which == 1) {
+            var pos = mouse(svg)
+            lastX = pos.x
+            lastY = pos.y
+
+            svg.addEventListener('mousemove', onMove)
+            // e.preventDefault()
+        }
+    })
+
+    function buttonPressed(event) {
+        if (event.buttons == null) {
+            return event.which !== 0
+        } else {
+            return event.buttons !== 0
+        }
+    }
+
+
+    function onMove(e) {
+        //鼠标松手时解绑
+        if (!buttonPressed(e)) {
+            svg.removeEventListener('mousemove', onMove)
+            return
+        }
+        var pos = mouse(svg)
+        //? 为什么有x1,x2?
+        var line = elt('line', {
+            x1: lastX, y1: lastY, x2: pos.x, y2: pos.y, stroke: 'black',
+            'stroke-width': 2, 'stroke-linecap': 'round',
+        })
+        svg.append(line)
+        lastX = pos.x
+        lastY = pos.y
+    }
+    //传哪个元素，返回鼠标在哪个元素的坐标
+    function mouse(node) {
+        var nodePos = node.getBoundingClientRect()
+        return {
+            x: window.event.clientX - nodePos.x,
+            y: window.event.clientY - nodePos.y,
+        }
+    }
+    function elt(tagName, attrs = {}, ...children) {
+        var el = document.createElementNS("http://www.w3.org/2000/svg", tagName)
+
+        for (var key in attrs) {
+            var val = attrs[key]
+            el.setAttribute(key, val)
+        }
+
+        for (var child of children) {
+            if (typeof child == 'string') {
+                child = document.createTextNode(child)
+            }
+            el.appendChild(child)
+        }
+
+        svg.appendChild(el)
+        return el
+    }
+
+
+</script>
+
+</html>

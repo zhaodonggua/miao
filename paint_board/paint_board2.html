@@ -1,0 +1,281 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        height: 200px;
+        background-color: beige;
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 9999px;
+        background-color: violet;
+        position: absolute;
+    }
+
+    html {
+        user-select: none;
+    }
+
+    .svg-wrapper {
+        border: 5px solid;
+        display: inline-block;
+    }
+
+    .svg-wrapper svg {
+        display: block;
+    }
+
+    .colors button {
+        width: 20px;
+        height: 20px;
+        border: 2px solid grey;
+        border-radius: 5px;
+    }
+
+    .colors button.selected {
+        outline: 2px solid;
+    }
+
+    .selected-colors.selected {
+        outline: 2px solid;
+    }
+</style>
+
+<body>
+
+    <div class="colors">
+        <button class="color" style="background-color: transparent"></button>
+        <button class="color" style="background-color: aquamarine"></button>
+        <button class="color" style="background-color: brown"></button>
+        <button class="color" style="background-color: yellowgreen"></button>
+        <button class="color" style="background-color: violet"></button>
+        <button class="color" style="background-color: tomato"></button>
+        <span id="color1" class="selected-colors selected" style="background-color:black">颜色1</span>
+        <span id="color2" class="selected-colors" style="background-color:white">颜色2</span>
+    </div>
+
+
+    <input type="color" id="colorSelect" value="#ff0000">
+    <input type="range" id="strokeWidthSelect" value="3" min="1" max="20" step="1">
+    <button onclick="tool='line'">线</button>
+    <button onclick="tool='rect'">框</button>
+    <button onclick="tool='circle'">〇</button>
+    <button id="save-file">保存</button>
+    <hr>
+    <div class="svg-wrapper">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="1800px" height="1800px"></svg>
+    </div>
+
+</body>
+<script>
+    var config = {
+        color1: 'black',
+        color2: 'white',
+        setColor: 'color1', //是设置从color1还是color2上面选择颜色
+        tool: 'line'
+    }
+
+
+    var svg = document.querySelector('svg')
+    var pos
+    var node
+    var tool = 'line'
+    var startPos
+    var saved = true
+    var color1Show = document.querySelector('#color1')
+    var color2Show = document.querySelector('#color2')
+    var colorsDiv = document.querySelector('.colors')
+    var saveFile = document.querySelector('#save-file')
+
+    colorSelect.addEventListener('change', function (e) {
+        setColor(config.setColor, e.target.value)
+        //消除其他按钮框框
+        var colorButtons = document.querySelectorAll('.colors button.color')
+        for (var btn of colorButtons) {
+            btn.classList.remove('selected')
+        }
+    })
+
+    color1Show.addEventListener('click', function (e) {
+        config.setColor = 'color1'
+
+        color1Show.classList.add('selected')
+        color2Show.classList.remove('selected')
+    })
+    color2Show.addEventListener('click', function (e) {
+        config.setColor = 'color2'
+        color2Show.classList.add('selected')
+        color1Show.classList.remove('selected')
+    })
+    colorsDiv.addEventListener('click', function (e) {
+        if (e.target.matches('button.color')) {
+            var colorButtons = document.querySelectorAll('.colors button.color')
+            for (var btn of colorButtons) {
+                btn.classList.remove('selected')
+            }
+
+            e.target.classList.add('selected')
+            setColor(config.setColor, e.target.style.backgroundColor)
+
+        }
+
+    })
+
+
+    function setColor(colorName, value) {
+        config[colorName] = value
+        document.querySelector('#' + colorName).style.backgroundColor = value
+        //   color1Show.style.backgroundColor = color1
+    }
+
+    window.addEventListener('beforeunload', function (e) {
+        if (!saved) {
+            e.returnValue = '作品未保存，真的退出吗？'
+        }
+    })
+
+    saveFile.addEventListener('click', function (e) {
+        var blob = new Blob([svg.outerHTML], { type: 'img/svg+xml' })
+        var link = URL.createObjectURL(blob)
+        var anchor = document.createElement('a')
+        anchor.href = link
+        anchor.download = 'your_work.svg'
+        anchor.click()
+        saved = true
+    })
+
+    //回退
+    window.addEventListener('keydown', function (e) {
+        if (e.ctrlKey && e.key == 'z') {
+            svg.removeChild(svg.lastChild)
+        }
+    })
+
+
+    window.addEventListener('mousedown', function (e) {
+        saved = false
+        pos = mouse(svg)
+        startPos = pos
+        if (tool == 'line') {
+            node = elt('path', {
+                d: `M ${pos.x} ${pos.y} L ${pos.x} ${pos.y}`,
+                'stroke-width': strokeWidthSelect.value,
+                // stroke: colorSelect.value,
+                stroke: config.color1,
+                'stroke-linecap': 'round',
+                // fill: 'none'
+                fill: config.color2
+            })
+            svg.appendChild(node)
+        }
+        if (tool == 'rect') {
+            node = elt('rect', {
+                x: pos.x,
+                y: pos.y,
+                width: 0,
+                height: 0,
+                stroke: colorSelect.value,
+                fill: 'none',
+                'stroke-width': strokeWidthSelect.value,
+                'stroke-linecap': 'round',
+            })
+            svg.appendChild(node)
+        }
+        if (tool == 'circle') {
+            node = elt('ellipse', {
+                cx: pos.x,
+                cy: pos.y,
+                rx: 0,
+                ry: 0,
+                stroke: colorSelect.value,
+                fill: 'none',
+                'stroke-width': strokeWidthSelect.value,
+                'stroke-linecap': 'round',
+            })
+        }
+
+        window.addEventListener('mousemove', onMove)
+    })
+
+
+    function onMove(e) {
+        if (!buttonPressed(e)) {
+            //   svg.removeEventListener('mousedown', onMove)
+            return
+        }
+        pos = mouse(svg)
+
+        if (tool == 'line') {
+            var d = node.getAttribute('d')
+            d += `L ${pos.x} ${pos.y}`
+            node.setAttribute('d', d)
+        }
+        if (tool == 'rect') {
+            var width = pos.x - startPos.x
+            var height = pos.y - startPos.y
+            node.setAttribute('width', width)
+            node.setAttribute('height', height)
+        }
+        if (tool == 'circle') {
+            var cx = (pos.x + startPos.x) / 2
+            var cy = (pos.y + startPos.y) / 2
+            var rx = pos.x - startPos.x
+            var ry = pos.y - startPos.y
+            node.setAttribute('cx', cx)
+            node.setAttribute('cy', cy)
+            node.setAttribute('rx', rx)
+            node.setAttribute('ry', ry)
+        }
+
+    }
+
+    //鼠标相对于元素的位置，传入节点
+    function mouse(node) {
+        //元素相对于窗口距离
+        var nodePos = node.getBoundingClientRect()
+        return {
+            //鼠标相对于窗口 - 元素相对于窗口的
+            x: window.event.clientX - nodePos.x,
+            y: window.event.clientY - nodePos.y,
+        }
+    }
+
+    //创建新的svg标签
+    function elt(tagName, attrs = {}, ...children) {
+        var el = document.createElementNS("http://www.w3.org/2000/svg", tagName)
+
+        for (var key in attrs) {
+            var val = attrs[key]
+            el.setAttribute(key, val)
+        }
+
+        for (var child of children) {
+            if (typeof child == 'string') {
+                child = document.createTextNode(child)
+            }
+            el.appendChild(child)
+        }
+
+        svg.appendChild(el)
+        return el
+    }
+
+    //判断鼠标是否有按下
+    function buttonPressed(event) {
+        if (event.buttons == null) {
+            return event.which !== 0
+        } else {
+            return event.buttons !== 0
+        }
+    }
+</script>
+
+</html>
