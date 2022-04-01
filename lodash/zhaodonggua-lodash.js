@@ -13,9 +13,6 @@ var zhaodonggua = {
         }
         return arr
     },
-
-
-
     compact: function compact(array) {
         let length = array.length
         let res = []
