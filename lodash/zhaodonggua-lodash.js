@@ -37,6 +37,13 @@ var zhaodonggua = {
         // 啥都不是的时候,返回自身
         return param => param
     },
+    toPath: function toPath(value) {
+        if (typeof value == 'string') {
+            return value.match(/\w+/g)
+        } else {
+            return value
+        }
+    },
 
     compact: function compact(array) {
         let length = array.length
@@ -299,13 +306,7 @@ var zhaodonggua = {
             return obj
         }
     },
-    toPath: function toPath(value) {
-        if (typeof value == 'string') {
-            return value.match(/\w+/g)
-        } else {
-            return value
-        }
-    },
+
     matches: function matches(source) {
         return function (obj) {
             return isMatch(obj, source)
@@ -341,7 +342,7 @@ var zhaodonggua = {
         return true
     },
     filter: function filter(collection, predicate = identity) {
-        predicate = iteratee(predicate)
+        let predicate = iteratee(predicate)
         let res = []
         for (let key in collection) {
             if (predicate(collection[key])) {
@@ -352,7 +353,7 @@ var zhaodonggua = {
 
     },
     map: function map(collection, identity) {
-        identity = iteratee(identity)
+        let identity = iteratee(identity)
         let res = []
         for (let key in collection) {
             res.push(identity(collection[key]))
@@ -360,7 +361,7 @@ var zhaodonggua = {
         return res
     },
     every: function every(collection, predicate = identity) {
-        predicate = iteratee(predicate)
+        let predicate = iteratee(predicate)
         for (let key in collection) {
             if (!predicate(collection[key], key, collection)) {
                 return false
@@ -369,7 +370,7 @@ var zhaodonggua = {
         return true
     },
     mapValues: function mapValues(object, iteratee2 = identity) {
-        predicate = iteratee(iteratee2)
+        let predicate = iteratee(iteratee2)
         let res = {}
         for (let key in object) {
             res[key] = predicate(object[key], key, object)
@@ -378,7 +379,7 @@ var zhaodonggua = {
     },
     reject: function reject(collection, predicate = identity) {
         let res = []
-        func = iteratee(predicate)
+        let func = iteratee(predicate)
         for (let key in collection) {
             if (!func(collection[key])) {
                 res.push(collection[key])
@@ -387,7 +388,7 @@ var zhaodonggua = {
         return res
     },
     some: function some(collection, predicate = identity) {
-        func = iteratee(predicate)
+        let func = iteratee(predicate)
         for (let key in collection) {
             if (func(collection[key])) {
                 return true
@@ -443,7 +444,7 @@ var zhaodonggua = {
     },
 
     uniqBy: function uniqBy(array, iteratee2) {
-        predicate = iteratee(iteratee2)
+        let predicate = iteratee(iteratee2)
         let res = []
         let map = {}
         array.forEach((it, idx) => {
