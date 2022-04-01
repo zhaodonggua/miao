@@ -5,14 +5,17 @@ function iteratee(param) {
         return param
     }
     // 参数为字符串
+    //如果参数为属性名，则返回属性值
     if (typeof param === 'string') {
         return property(param)
     }
     // 参数为数组
+    // 包含参数则return true,否则为false
     if (isArray(param)) {
         return matchesProperty(param)
     }
     // 参数为对象
+    //包含这个对象则return true,否则return false
     if (isObject(param)) {
         return matches(param)
     }
@@ -109,9 +112,35 @@ function matchesProperty(array) {
     }
 }
 
+function matchesProperty(path, value) {
+    return function (obj) {
+        return obj[path] === value
+    }
+}
 
+function isEqual(value, other) {
+    // 判断是不是两个对象是不是引用数据类型,不是的话直接比较值
+    if (!isObject(value) || !isObject(other)) {
+        return value === other
+    }
 
+    // 比较是否为同一个内存地址
+    if (value === other) {
+        return true
+    }
 
+    // 比较 key 的数量
+    let obj1KeysLen = Object.keys(value).length
+    let obj2KeysLen = Object.keys(other).length
+    if (obj1KeysLen !== obj2KeysLen) return false
+
+    // 递归的比较 value 
+    for (let key in value) {
+        let res = isEqual(value[key], other[key]);
+        if (!res) return false      // 递归遍历的时候如果遇到不等,直接返回false
+    }
+    return true
+}
 
 
 //判断对象是否满足source特性
@@ -216,4 +245,201 @@ function isEqual(value, other) {
         if (!res) return false      // 递归遍历的时候如果遇到不等,直接返回false
     }
     return true
+}
+
+function filter(collection, predicate = identity) {
+    predicate = iteratee(predicate)
+    let res = []
+    for (let key in collection) {
+        if (predicate(collection[key])) {
+            res.push(collection[key])
+        }
+    }
+    return res
+
+}
+
+//_.every, _.filter, _.map, _.mapValues, _.reject, and _.some.
+//iteratee函数训练
+function map(collection, identity) {
+    identity = iteratee(identity)
+    let res = []
+    for (let key in collection) {
+        res.push(identity(collection[key]))
+    }
+    return res
+}
+
+function filter(collection, predicate = identity) {
+    predicate = iteratee(predicate)
+    let res = []
+    for (let key in collection) {
+        if (predicate(collection[key], key, collection)) {
+            res.push(collection[key])
+        }
+    }
+}
+
+function every(collection, predicate = identity) {
+    predicate = iteratee(predicate)
+    for (let key in collection) {
+        if (!predicate(collection[key], key, collection)) {
+            return false
+        }
+    }
+    return true
+}
+function mapValues(object, iteratee2 = identity) {
+    predicate = iteratee(iteratee2)
+    let res = {}
+    for (let key in object) {
+        res[key] = predicate(object[key], key, object)
+    }
+    return res
+}
+// 将传入的参数转化成一个回调函数,用于其他高阶函数的调用
+function iteratee(param) {
+    // 参数本身就是函数
+    if (typeof param === 'function') {
+        return param
+    }
+    // 参数为字符串
+    //如果参数为属性名，则返回属性值
+    if (typeof param === 'string') {
+        return property(param)
+    }
+    // 参数为数组
+    // 包含参数则return true,否则为false
+    if (isArray(param)) {
+        return matchesProperty(param)
+    }
+    // 参数为对象
+    //包含这个对象则return true,否则return false
+    if (isObject(param)) {
+        return matches(param)
+    }
+    // 啥都不是的时候,返回自身
+    return param => param
+}
+function property(path) {
+    return function (obj) {
+        for (let item of toPath(path)) {
+            obj = obj[item]
+            if (!obj) return obj    // 错误处理: 当访问的对象不存在时直接返回
+        }
+        return obj;
+    }
+}
+function reject(collection, predicate = identity) {
+    let res = []
+    func = iteratee(predicate)
+    for (let key in collection) {
+        if (!func(collection[key])) {
+            res.push(collection[key])
+        }
+    }
+    return res
+}
+function some(collection, predicate = identity) {
+    func = iteratee(predicate)
+    for (let key in collection) {
+        if (func(collection[key])) {
+            return true
+        }
+    }
+    return false
+}
+
+function sortedIndex(array, value) {
+    var left = 0
+    var right = array.length - 1
+    while (right - left > 1) {
+        var mid = Math.ceil((right + left) / 2)
+        if (array[mid] < value) {
+            left = mid
+        } else {
+            right = mid
+        }
+    }
+    return right
+}
+function union(...arrays) {
+    let res = arrays.reduce((a, b) => {
+        return a.concat(b)
+    }, [])
+    return Array.from(new Set(res))
+}
+
+function unionBy(...arrays) {
+    let args = Array.from(arrays)
+    let res = []
+    let map = {}
+    predicate = iteratee(args.pop())
+    args.reduce((a, b) => a.concat(b)).forEach(it => {
+        if (!map[predicate(it)]) {
+            map[predicate(it)] = 1
+            res.push(it)
+        }
+    })
+    return res
+}
+
+function uniq(arys) {
+    let res = []
+    let map = {}
+    arys.forEach((it, idx) => {
+        if (!map[it]) {
+            map[it] = 1
+            res.push(it)
+        }
+    })
+    return res
+
+}
+
+function uniqBy(array, iteratee2) {
+    predicate = iteratee(iteratee2)
+    let res = []
+    let map = {}
+    array.forEach((it, idx) => {
+        if (!(iteratee(it) in map)) {
+            map[iteratee(it)] = idx
+            res.push(it)
+        }
+    })
+}
+function unzip(array) {
+    var res = []
+    for (var i = 0; i < array[0].length; i++) {
+        var temp = []
+        for (var j = 0; j < array.length; j++) {
+            temp.push(array[j][i])
+        }
+        res.push(temp)
+    }
+    return res
+}
+
+function zip() {
+    var res = []
+    for (var i = 0; i < arguments[0].length; i++) {
+        res[i] = []
+        for (var j = 0; j < arguments.length; j++) {
+            res[i][j] = arguments[j][i]
+        }
+    }
+    return res
+}
+
+function without(array) {
+    var map = {}
+    var res = []
+    for (var i = 1; i < arguments.length; i++) {
+        map[arguments[i]] = 1
+    }
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] in map) continue
+        res.push(array[i])
+    }
+    return res
 }
