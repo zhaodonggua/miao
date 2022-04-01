@@ -14,36 +14,7 @@ var zhaodonggua = {
         return arr
     },
 
-    iteratee: function iteratee(param) {
-        // 参数本身就是函数
-        if (typeof param === 'function') {
-            return param
-        }
-        // 参数为字符串
-        //如果参数为属性名，则返回属性值
-        if (typeof param === 'string') {
-            return property(param)
-        }
-        // 参数为数组
-        // 包含参数则return true,否则为false
-        if (isArray(param)) {
-            return matchesProperty(param)
-        }
-        // 参数为对象
-        //包含这个对象则return true,否则return false
-        if (isObject(param)) {
-            return matches(param)
-        }
-        // 啥都不是的时候,返回自身
-        return param => param
-    },
-    toPath: function toPath(value) {
-        if (typeof value == 'string') {
-            return value.match(/\w+/g)
-        } else {
-            return value
-        }
-    },
+
 
     compact: function compact(array) {
         let length = array.length
@@ -340,6 +311,37 @@ var zhaodonggua = {
             if (!res) return false      // 递归遍历的时候如果遇到不等,直接返回false
         }
         return true
+    },
+    iteratee: function iteratee(param) {
+        // 参数本身就是函数
+        if (typeof param === 'function') {
+            return param
+        }
+        // 参数为字符串
+        //如果参数为属性名，则返回属性值
+        if (typeof param === 'string') {
+            return property(param)
+        }
+        // 参数为数组
+        // 包含参数则return true,否则为false
+        if (isArray(param)) {
+            return matchesProperty(param)
+        }
+        // 参数为对象
+        //包含这个对象则return true,否则return false
+        if (isObject(param)) {
+            return matches(param)
+        }
+        // 啥都不是的时候,返回自身
+        return param => param
+    },
+
+    toPath: function toPath(value) {
+        if (typeof value == 'string') {
+            return value.match(/\w+/g)
+        } else {
+            return value
+        }
     },
     filter: function filter(collection, predicate = identity) {
         let predicate = iteratee(predicate)
