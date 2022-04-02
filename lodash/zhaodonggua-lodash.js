@@ -1,5 +1,5 @@
-var zhaodonggua = {
-    chunk: function chunk(array, size) {
+var zhaodonggua = function () {
+    function chunk(array, size) {
         let arr = []
         let length = Math.ceil(array.length / size)
         //外围数组个数
@@ -12,19 +12,17 @@ var zhaodonggua = {
             }
         }
         return arr
-    },
+    }
 
-
-
-    compact: function compact(array) {
+    function compact(array) {
         let length = array.length
         let res = []
         for (let i = 0; i < length; i++) {
             if (array[i]) res.push(array[i]);
         }
         return res
-    },
-    drop: function drop(array, n = 1) {
+    }
+    function drop(array, n = 1) {
         let length = array.length
         let res = []
         if (n > length) return res;
@@ -33,8 +31,8 @@ var zhaodonggua = {
         }
         return res
 
-    },
-    dropRight: function dropRight(array, n = 1) {
+    }
+    function dropRight(array, n = 1) {
         let length = array.length
         let res = []
         if (n > length) return res;
@@ -42,9 +40,9 @@ var zhaodonggua = {
             res.push(array[i])
         }
         return res
-    },
+    }
 
-    difference: function difference(array1, ...array2) {
+    function difference(array1, ...array2) {
         let res = []
         for (let i = 0; i < array1.length; i++) {
             let flag = false
@@ -57,14 +55,14 @@ var zhaodonggua = {
         }
         return res
 
-    },
-    fill: function fill(array, value, start = 0, end = array.length) {
+    }
+    function fill(array, value, start = 0, end = array.length) {
         for (let i = start; i < end; i++) {
             array[i] = value;
         }
         return array
-    },
-    flatten: function flatten(array) {
+    }
+    function flatten(array) {
         let res = []
         for (let i = 0; i < array.length; i++) {
             //如果不是数组
@@ -78,8 +76,8 @@ var zhaodonggua = {
         }
         console.log(res[2])
         return res
-    },
-    flattenDeep: function flattenDeep(array) {
+    }
+    function flattenDeep(array) {
         let res = []
         function deep(array) {
             for (let key of array) {
@@ -89,8 +87,8 @@ var zhaodonggua = {
         }
         deep(array)
         return res
-    },
-    flattenDepth: function flattenDepth(array, depth = 1, res = []) {
+    }
+    function flattenDepth(array, depth = 1, res = []) {
         for (let i = 0; i < array.length; i++) {
             if (Array.isArray(array[i])) {
                 //当depth为0时，直接将数组导入res
@@ -112,20 +110,20 @@ var zhaodonggua = {
         }
         return res;
 
-    },
-    fromPairs: function fromPairs(pairs) {
+    }
+    function fromPairs(pairs) {
         let obj = new Object();
         for (let pair of pairs) {
             obj[pair[0]] = pair[1]
         }
         return obj
-    },
+    }
 
     head: function head(array, size = 1) {
         return array[0];
-    },
+    }
 
-    indexOf: function indexOf(array, value, fromindex = 0) {
+    function indexOf(array, value, fromindex = 0) {
         if (fromindex < 0) {
             fromindex = array.length + fromindex;
         }
@@ -135,13 +133,13 @@ var zhaodonggua = {
             }
         }
         return -1
-    },
-    initial: function initial(array) {
+    }
+    function initial(array) {
         array.pop()
         return array;
 
-    },
-    intersection: function intersection(...arrays) {
+    }
+    function intersection(...arrays) {
         let result = []
         let comp = arrays[0]
         for (let i = 0; i < comp.length; i++) {
@@ -156,8 +154,8 @@ var zhaodonggua = {
             if (flag === true) result.push(comp[i]);
         }
         return result
-    },
-    join: function join(array, separator = ',') {
+    }
+    function join(array, separator = ',') {
         let res = ''
         for (let i = 0; i < array.length; i++) {
             if (i < array.length - 1) res += '' + array[i] + separator;
@@ -165,18 +163,18 @@ var zhaodonggua = {
         }
 
         return res
-    },
+    }
 
-    last: function last(array) {
+    function last(array) {
         return array[array.length - 1]
-    },
+    }
     lastIndexOf: function lastIndexOf(array, value, fromIndex = array.length - 1) {
         for (let i = fromIndex; i >= 0; i--) {
             if (array[i] == value) return i;
         }
         return -1;
-    },
-    pull: function pull(array, ...values) {
+    }
+    function pull(array, ...values) {
         for (let i = 0; i < array.length; i++) {
             if (values.includes(array[i])) {
                 array.splice(i, 1)
@@ -186,24 +184,24 @@ var zhaodonggua = {
             }
         }
         return array
-    },
-    reverse: function reverse(array) {
+    }
+    function reverse(array) {
         for (let i = 0, j = array.length - 1; i <= j; i++, j--) {
             let temp = array[i]
             array[i] = array[j]
             array[j] = temp
         }
         return array
-    },
-    uniq: function uniq(array) {
+    }
+    function uniq(array) {
         let res = []
         for (let i = 0; i < array.length; i++) {
             if (!res.includes(array[i])) res.push(array[i]);
             else continue;
         }
         return res;
-    },
-    without: function without(array, ...values) {
+    }
+    function without(array, ...values) {
         let res = []
         for (let i = 0; i < array.length; i++) {
             if (values.includes(array[i])) {
@@ -214,8 +212,8 @@ var zhaodonggua = {
         }
         return res
 
-    },
-    zip: function zip(...arrays) {
+    }
+    function zip(...arrays) {
         let res = []
         //设置二维数组
         for (let i = 0; i < arrays[0].length; i++) {
@@ -229,20 +227,20 @@ var zhaodonggua = {
         }
         return res
 
-    },
-    size: function size(collection) {
+    }
+    function size(collection) {
         let count = 0
         //key of collection 无法通过
         for (let key in collection) {
             count++
         }
         return count
-    },
-    isBoolean: function isBoolean(value) {
+    }
+    function isBoolean(value) {
         let val = typeof (value)
         if (value == null) return false;
         return val == 'boolean' || val == 'object';
-    },
+    }
     // matches: function matches(target) {
     //     return function (obj) {
     //         for (let key in target) {
@@ -253,7 +251,7 @@ var zhaodonggua = {
     //         return true
     //     }
     // },
-    isMatch: function isMatch(obj, src) {
+    function isMatch(obj, src) {
         for (let key in src) {
             if (src[key] && typeof src[key] == 'object') {
                 if (!isMatch(obj[key], src[key])) {
@@ -266,8 +264,8 @@ var zhaodonggua = {
             }
         }
         return true
-    },
-    property: function property(path) {
+    }
+    function property(path) {
         return function (obj) {
             var items = toPath(path)
             for (let item of items) {
@@ -276,20 +274,20 @@ var zhaodonggua = {
             }
             return obj
         }
-    },
+    }
 
-    matches: function matches(source) {
+    function matches(source) {
         return function (obj) {
             return isMatch(obj, source)
         }
 
-    },
-    matchesProperty: function matchesProperty(array) {
+    }
+    function matchesProperty(array) {
         return function (obj) {
             return isEqual(obj[array[0]], array[1])
         }
-    },
-    isEqual: function isEqual(value, other) {
+    }
+    function isEqual(value, other) {
         // 判断是不是两个对象是不是引用数据类型,不是的话直接比较值
         if (!isObject(value) || !isObject(other)) {
             return value === other
@@ -311,8 +309,8 @@ var zhaodonggua = {
             if (!res) return false      // 递归遍历的时候如果遇到不等,直接返回false
         }
         return true
-    },
-    iteratee: function iteratee(param) {
+    }
+    function iteratee(param) {
         // 参数本身就是函数
         if (typeof param === 'function') {
             return param
@@ -334,16 +332,16 @@ var zhaodonggua = {
         }
         // 啥都不是的时候,返回自身
         return param => param
-    },
+    }
 
-    toPath: function toPath(value) {
+    function toPath(value) {
         if (typeof value == 'string') {
             return value.match(/\w+/g)
         } else {
             return value
         }
-    },
-    filter: function filter(collection, predicate = identity) {
+    }
+    function filter(collection, predicate = identity) {
         let predicate = iteratee(predicate)
         let res = []
         for (let key in collection) {
@@ -353,16 +351,16 @@ var zhaodonggua = {
         }
         return res
 
-    },
-    map: function map(collection, identity) {
+    }
+    function map(collection, identity) {
         let identity = iteratee(identity)
         let res = []
         for (let key in collection) {
             res.push(identity(collection[key]))
         }
         return res
-    },
-    every: function every(collection, predicate = identity) {
+    }
+    function every(collection, predicate = identity) {
         let predicate = iteratee(predicate)
         for (let key in collection) {
             if (!predicate(collection[key], key, collection)) {
@@ -370,16 +368,16 @@ var zhaodonggua = {
             }
         }
         return true
-    },
-    mapValues: function mapValues(object, iteratee2 = identity) {
+    }
+    function mapValues(object, iteratee2 = identity) {
         let predicate = iteratee(iteratee2)
         let res = {}
         for (let key in object) {
             res[key] = predicate(object[key], key, object)
         }
         return res
-    },
-    reject: function reject(collection, predicate = identity) {
+    }
+    function reject(collection, predicate = identity) {
         let res = []
         let func = iteratee(predicate)
         for (let key in collection) {
@@ -388,8 +386,8 @@ var zhaodonggua = {
             }
         }
         return res
-    },
-    some: function some(collection, predicate = identity) {
+    }
+    function some(collection, predicate = identity) {
         let func = iteratee(predicate)
         for (let key in collection) {
             if (func(collection[key])) {
@@ -397,8 +395,8 @@ var zhaodonggua = {
             }
         }
         return false
-    },
-    sortedIndex: function sortedIndex(array, value) {
+    }
+    function sortedIndex(array, value) {
         var left = 0
         var right = array.length - 1
         while (right - left > 1) {
@@ -410,15 +408,15 @@ var zhaodonggua = {
             }
         }
         return right
-    },
-    union: function union(...arrays) {
+    }
+    function union(...arrays) {
         let res = arrays.reduce((a, b) => {
             return a.concat(b)
         }, [])
         return Array.from(new Set(res))
-    },
+    }
 
-    unionBy: function unionBy(...arrays) {
+    function unionBy(...arrays) {
         let args = Array.from(arrays)
         let res = []
         let map = {}
@@ -430,9 +428,9 @@ var zhaodonggua = {
             }
         })
         return res
-    },
+    }
 
-    uniq: function uniq(arys) {
+    function uniq(arys) {
         let res = []
         let map = {}
         arys.forEach((it, idx) => {
@@ -443,9 +441,9 @@ var zhaodonggua = {
         })
         return res
 
-    },
+    }
 
-    uniqBy: function uniqBy(array, iteratee2) {
+    function uniqBy(array, iteratee2) {
         let predicate = iteratee(iteratee2)
         let res = []
         let map = {}
@@ -455,8 +453,8 @@ var zhaodonggua = {
                 res.push(it)
             }
         })
-    },
-    unzip: function unzip(array) {
+    }
+    function unzip(array) {
         var res = []
         for (var i = 0; i < array[0].length; i++) {
             var temp = []
@@ -466,9 +464,9 @@ var zhaodonggua = {
             res.push(temp)
         }
         return res
-    },
+    }
 
-    zip: function zip() {
+    function zip() {
         var res = []
         for (var i = 0; i < arguments[0].length; i++) {
             res[i] = []
@@ -477,9 +475,8 @@ var zhaodonggua = {
             }
         }
         return res
-    },
-
-    without: function without(array) {
+    }
+    function without(array) {
         var map = {}
         var res = []
         for (var i = 1; i < arguments.length; i++) {
