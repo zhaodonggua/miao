@@ -105,7 +105,17 @@ function flatMap(collection, identity) {
     return res
 }
 
-
+function flattenDeep(array) {
+    let res = []
+    function deep(array) {
+        for (let key of array) {
+            if (Array.isArray(key)) deep(key);
+            else res.push(key)
+        }
+    }
+    deep(array)
+    return res
+}
 
 function flatMapDeep(collection, identity) {
     let func = iteratee(identity)

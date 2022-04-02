@@ -10,7 +10,7 @@ function iteratee(param) {
         return property(param)
     }
     // 参数为数组
-    // 包含参数则return true,否则为false
+    // 包含属性和参数则return true,否则为false
     if (isArray(param)) {
         return matchesProperty(param)
     }
@@ -21,8 +21,26 @@ function iteratee(param) {
     }
     // 啥都不是的时候,返回自身
     return param => param
+
+}
+function isArguments(value) {
+    return Object.prototype.toString.call(value) == '[object Arguments]'
 }
 
+function isArray(value) {
+    return Object.prototype.toString.call(value) == '[object Array]'
+}
+
+function isArrayLike(value) {
+    return value.length ? true : false
+}
+
+function isArrayLikeObject(value) {
+    if (typeof (value) == 'object' && value.length) {
+        return true
+    }
+    return false
+}
 /**
  * 创建一个返回给定对象的 path 的值的函数。
  *
@@ -441,5 +459,75 @@ function without(array) {
         if (array[i] in map) continue
         res.push(array[i])
     }
+    return res
+}
+
+function findLast(collection, predicate = identity, fromIndex = collection.length - 1) {
+    let func = iteratee(predicate)
+    for (let i = fromIndex; i >= 0; i--) {
+        if (func(collection[i])) {
+            return collection[i]
+        }
+    }
+}
+function findIndex(array, predicate = identity, fromIndex = array.length - 1) {
+    predicate = iteratee(predicate)
+    for (let i = fromIndex; i >= 0; i--) {
+        if (predicate(array[i])) {
+            return i
+        }
+    }
+}
+
+function flatMap(collection, identity) {
+    let res = []
+    let func = iteratee(identity)
+    for (let key in collection) {
+        res.push(...func(collection[key], key, collection))
+    }
+    return res
+}
+function flattenDeep(array) {
+    let res = []
+    function deep(array) {
+        for (let key of array) {
+            if (Array.isArray(key)) deep(key);
+            else res.push(key)
+        }
+    }
+    deep(array)
+    return res
+}
+
+function flatMapDeep(collection, identity) {
+    let res = []
+    let func = iteratee(identity)
+    for (let key in collection) {
+        res.push(flattenDeep(func(collection[key], key, collection)))
+    }
+    return res
+}
+
+function dropWhile(array, identity) {
+    let res = []
+    let func = iteratee(identity)
+    array.forEach((item, idx) => {
+        if (!func(array[idx], idx, array)) res.push(item);
+    })
+    return res
+}
+
+function unionBy(...arys) {
+    let func = iteratee(arys.pop())
+    let arrays = Array.from(arys).flat()
+    let res = []
+    let map = {}
+    for (let key in arrays) {
+        if (!map[func(arrays[key])]) {
+            res.push(arrays[key])
+            map[func(arrays[key])] = 1
+        }
+    }
+    console.log(map)
     return res
 }

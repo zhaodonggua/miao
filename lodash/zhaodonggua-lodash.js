@@ -353,15 +353,15 @@ var zhaodonggua = {
     },
 
     map: function map(collection, identity) {
-        identity = iteratee(identity)
+        identity = this.iteratee(identity)
         let res = []
         for (let key in collection) {
             res.push(identity(collection[key]))
         }
         return res
     },
-    every: function every(collection, predicate = identity) {
-        predicate = iteratee(predicate)
+    every: function every(collection, identity) {
+        predicate = this.iteratee(identity)
         for (let key in collection) {
             if (!predicate(collection[key], key, collection)) {
                 return false
@@ -369,17 +369,17 @@ var zhaodonggua = {
         }
         return true
     },
-    mapValues: function mapValues(object, iteratee2 = identity) {
-        predicate = iteratee(iteratee2)
+    mapValues: function mapValues(object, identity) {
+        predicate = this.iteratee(identity)
         let res = {}
         for (let key in object) {
             res[key] = predicate(object[key], key, object)
         }
         return res
     },
-    reject: function reject(collection, predicate = identity) {
+    reject: function reject(collection, identity) {
         let res = []
-        func = iteratee(predicate)
+        func = iteratee(identity)
         for (let key in collection) {
             if (!func(collection[key])) {
                 res.push(collection[key])
@@ -387,8 +387,8 @@ var zhaodonggua = {
         }
         return res
     },
-    some: function some(collection, predicate = identity) {
-        func = iteratee(predicate)
+    some: function some(collection, identity) {
+        func = iteratee(identity)
         for (let key in collection) {
             if (func(collection[key])) {
                 return true
@@ -496,7 +496,6 @@ var zhaodonggua = {
 
 
 }
-
 
 
 
