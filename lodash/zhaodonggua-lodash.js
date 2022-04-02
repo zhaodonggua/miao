@@ -1,506 +1,1327 @@
-var zhaodonggua = function () {
-    function chunk(array, size) {
-        let arr = []
-        let length = Math.ceil(array.length / size)
-        //外围数组个数
-        for (let i = 0; i < length; i++) {
-            arr[i] = new Array()
-            //内部数组个数
-            for (let j = 0; j < size; j++) {
-                if (array.length) arr[i].push(array.shift());
-                else break;
+var nj_uzi = {
+    //*************************************************************** */
+    chunk: function chunk(array, size) {
+        let leng = array.length
+        var res = []
+        var temp = Math.ceil(leng / size)
+        var x = 0
+        var y = size
+        for (var i = 0; i < temp; i++) {
+            res[i] = new Array()
+            for (var j = x; j < y && j < leng; j++) {
+                res[i].push(array[j])
             }
-        }
-        return arr
-    }
-
-    function compact(array) {
-        let length = array.length
-        let res = []
-        for (let i = 0; i < length; i++) {
-            if (array[i]) res.push(array[i]);
+            x += size
+            y += size
         }
         return res
-    }
-    function drop(array, n = 1) {
-        let length = array.length
-        let res = []
-        if (n > length) return res;
-        for (let i = n; i < length; i++) {
-            res.push(array[i])
-        }
-        return res
+    },
 
-    }
-    function dropRight(array, n = 1) {
-        let length = array.length
-        let res = []
-        if (n > length) return res;
-        for (let i = 0; i < length - n; i++) {
-            res.push(array[i])
-        }
-        return res
-    }
-
-    function difference(array1, ...array2) {
-        let res = []
-        for (let i = 0; i < array1.length; i++) {
-            let flag = false
-            for (let j = 0; j < array2.length; j++) {
-                for (let q = 0; q < array2[j].length; q++) {
-                    if (array1[i] == array2[j][q]) flag = true;
-                }
-            }
-            if (!flag) res.push(array1[i])
-        }
-        return res
-
-    }
-    function fill(array, value, start = 0, end = array.length) {
-        for (let i = start; i < end; i++) {
-            array[i] = value;
-        }
-        return array
-    }
-    function flatten(array) {
-        let res = []
+    compact: function compact(array) {
+        var res = []
         for (let i = 0; i < array.length; i++) {
-            //如果不是数组
-            if (!Array.isArray(array[i])) res.push(array[i]);
-            //result.push(...item)
-            else {
-                for (let j = 0; j < array[i].length; j++) {
-                    res.push(array[i][j])
-                }
-            }
-        }
-        console.log(res[2])
-        return res
-    }
-    function flattenDeep(array) {
-        let res = []
-        function deep(array) {
-            for (let key of array) {
-                if (Array.isArray(key)) deep(key);
-                else res.push(key)
-            }
-        }
-        deep(array)
-        return res
-    }
-    function flattenDepth(array, depth = 1, res = []) {
-        for (let i = 0; i < array.length; i++) {
-            if (Array.isArray(array[i])) {
-                //当depth为0时，直接将数组导入res
-                if (depth <= 0) {
-                    res.push(array[i])
-                    continue
-                }
-                //当depth大于0时，递归
-                flattenDepth(array[i], depth - 1, res)
-
-                //当走到最后一个数时,depth--
-                if (i == array.length - 1) {
-                    depth--
-                }
-            }
-            else {
-                res.push(array[i]);
-            }
-        }
-        return res;
-
-    }
-    function fromPairs(pairs) {
-        let obj = new Object();
-        for (let pair of pairs) {
-            obj[pair[0]] = pair[1]
-        }
-        return obj
-    }
-
-    head: function head(array, size = 1) {
-        return array[0];
-    }
-
-    function indexOf(array, value, fromindex = 0) {
-        if (fromindex < 0) {
-            fromindex = array.length + fromindex;
-        }
-        for (let i = fromindex; i < array.length; i++) {
-            if (array[i] == value) {
-                return i;
-            }
-        }
-        return -1
-    }
-    function initial(array) {
-        array.pop()
-        return array;
-
-    }
-    function intersection(...arrays) {
-        let result = []
-        let comp = arrays[0]
-        for (let i = 0; i < comp.length; i++) {
-            let flag = true
-            for (let j = 1; j < arrays.length; j++) {
-                //存在不包含的数组，就是false
-                if (!(arrays[j].includes(comp[i]))) {
-                    flag = false;
-                    break
-                }
-            }
-            if (flag === true) result.push(comp[i]);
-        }
-        return result
-    }
-    function join(array, separator = ',') {
-        let res = ''
-        for (let i = 0; i < array.length; i++) {
-            if (i < array.length - 1) res += '' + array[i] + separator;
-            else res += array[i];
-        }
-
-        return res
-    }
-
-    function last(array) {
-        return array[array.length - 1]
-    }
-    lastIndexOf: function lastIndexOf(array, value, fromIndex = array.length - 1) {
-        for (let i = fromIndex; i >= 0; i--) {
-            if (array[i] == value) return i;
-        }
-        return -1;
-    }
-    function pull(array, ...values) {
-        for (let i = 0; i < array.length; i++) {
-            if (values.includes(array[i])) {
-                array.splice(i, 1)
-                i--
-            } else {
-                continue;
-            }
-        }
-        return array
-    }
-    function reverse(array) {
-        for (let i = 0, j = array.length - 1; i <= j; i++, j--) {
-            let temp = array[i]
-            array[i] = array[j]
-            array[j] = temp
-        }
-        return array
-    }
-    function uniq(array) {
-        let res = []
-        for (let i = 0; i < array.length; i++) {
-            if (!res.includes(array[i])) res.push(array[i]);
-            else continue;
-        }
-        return res;
-    }
-    function without(array, ...values) {
-        let res = []
-        for (let i = 0; i < array.length; i++) {
-            if (values.includes(array[i])) {
-                continue;
-            } else {
+            if (array[i]) {
                 res.push(array[i])
             }
         }
         return res
+    },
 
-    }
-    function zip(...arrays) {
-        let res = []
-        //设置二维数组
-        for (let i = 0; i < arrays[0].length; i++) {
-            res[i] = new Array()
-        }
-        //将数字放入新的数组
-        for (let k = 0; k < arrays.length; k++) {
-            for (let j = 0; j < arrays[k].length; j++) {
-                res[j].push(arrays[k][j])
+    //把第一个数组里的元素和后续数组中的元素对比，没有出现过的元素放进新数组
+    difference: function difference(ary, ...values) {
+        var result = []
+        var valuesAry = flattenDeep(values) //把后续的数组放在一个大数组values里 然后在数组里展开，变成一个一维数组
+        for (let i = 0; i < ary.length; i++) {
+            if (!valuesAry.includes(ary[i])) {//如果后续数组的元素没有被目标数组包含，则记录
+                result.push(ary[i])
             }
         }
-        return res
+    },
 
-    }
-    function size(collection) {
-        let count = 0
-        //key of collection 无法通过
-        for (let key in collection) {
-            count++
-        }
-        return count
-    }
-    function isBoolean(value) {
-        let val = typeof (value)
-        if (value == null) return false;
-        return val == 'boolean' || val == 'object';
-    }
-    // matches: function matches(target) {
-    //     return function (obj) {
-    //         for (let key in target) {
-    //             if (target[key] !== obj[key]) {
-    //                 return false
-    //             }
-    //         }
-    //         return true
-    //     }
-    // },
-    function isMatch(obj, src) {
-        for (let key in src) {
-            if (src[key] && typeof src[key] == 'object') {
-                if (!isMatch(obj[key], src[key])) {
-                    return false;
-                }
-            } else {
-                if (obj[key] !== src[key]) {
-                    return false;
-                }
-            }
-        }
-        return true
-    }
-    function property(path) {
-        return function (obj) {
-            var items = toPath(path)
-            for (let item of items) {
-                obj = obj[item]
-                if (!obj) return obj;
-            }
-            return obj
-        }
-    }
+    differenceBy: function differenceBy(ary, ...values) {
 
-    function matches(source) {
-        return function (obj) {
-            return isMatch(obj, source)
-        }
 
-    }
-    function matchesProperty(array) {
-        return function (obj) {
-            return isEqual(obj[array[0]], array[1])
-        }
-    }
-    function isEqual(value, other) {
-        // 判断是不是两个对象是不是引用数据类型,不是的话直接比较值
-        if (!isObject(value) || !isObject(other)) {
-            return value === other
-        }
+    },
 
-        // 比较是否为同一个内存地址
-        if (value === other) {
-            return true
-        }
+    differenceWith: function differenceWith() {
 
-        // 比较 key 的数量
-        let obj1KeysLen = Object.keys(value).length
-        let obj2KeysLen = Object.keys(other).length
-        if (obj1KeysLen !== obj2KeysLen) return false
+    },
 
-        // 递归的比较 value 
-        for (let key in value) {
-            let res = isEqual(value[key], other[key]);
-            if (!res) return false      // 递归遍历的时候如果遇到不等,直接返回false
-        }
-        return true
-    }
-    function iteratee(param) {
-        // 参数本身就是函数
-        if (typeof param === 'function') {
-            return param
-        }
-        // 参数为字符串
-        //如果参数为属性名，则返回属性值
-        if (typeof param === 'string') {
-            return property(param)
-        }
-        // 参数为数组
-        // 包含参数则return true,否则为false
-        if (isArray(param)) {
-            return matchesProperty(param)
-        }
-        // 参数为对象
-        //包含这个对象则return true,否则return false
-        if (isObject(param)) {
-            return matches(param)
-        }
-        // 啥都不是的时候,返回自身
-        return param => param
-    }
-
-    function toPath(value) {
-        if (typeof value == 'string') {
-            return value.match(/\w+/g)
-        } else {
-            return value
-        }
-    }
-    function filter(collection, predicate = identity) {
-        let predicate = iteratee(predicate)
-        let res = []
-        for (let key in collection) {
-            if (predicate(collection[key])) {
-                res.push(collection[key])
-            }
-        }
-        return res
-
-    }
-    function map(collection, identity) {
-        let identity = iteratee(identity)
-        let res = []
-        for (let key in collection) {
-            res.push(identity(collection[key]))
-        }
-        return res
-    }
-    function every(collection, predicate = identity) {
-        let predicate = iteratee(predicate)
-        for (let key in collection) {
-            if (!predicate(collection[key], key, collection)) {
-                return false
-            }
-        }
-        return true
-    }
-    function mapValues(object, iteratee2 = identity) {
-        let predicate = iteratee(iteratee2)
-        let res = {}
-        for (let key in object) {
-            res[key] = predicate(object[key], key, object)
-        }
-        return res
-    }
-    function reject(collection, predicate = identity) {
-        let res = []
-        let func = iteratee(predicate)
-        for (let key in collection) {
-            if (!func(collection[key])) {
-                res.push(collection[key])
-            }
-        }
-        return res
-    }
-    function some(collection, predicate = identity) {
-        let func = iteratee(predicate)
-        for (let key in collection) {
-            if (func(collection[key])) {
-                return true
-            }
-        }
-        return false
-    }
-    function sortedIndex(array, value) {
-        var left = 0
-        var right = array.length - 1
-        while (right - left > 1) {
-            var mid = Math.ceil((right + left) / 2)
-            if (array[mid] < value) {
-                left = mid
-            } else {
-                right = mid
-            }
-        }
-        return right
-    }
-    function union(...arrays) {
-        let res = arrays.reduce((a, b) => {
-            return a.concat(b)
-        }, [])
-        return Array.from(new Set(res))
-    }
-
-    function unionBy(...arrays) {
-        let args = Array.from(arrays)
-        let res = []
-        let map = {}
-        predicate = iteratee(args.pop())
-        args.reduce((a, b) => a.concat(b)).forEach(it => {
-            if (!map[predicate(it)]) {
-                map[predicate(it)] = 1
-                res.push(it)
-            }
-        })
-        return res
-    }
-
-    function uniq(arys) {
-        let res = []
-        let map = {}
-        arys.forEach((it, idx) => {
-            if (!map[it]) {
-                map[it] = 1
-                res.push(it)
-            }
-        })
-        return res
-
-    }
-
-    function uniqBy(array, iteratee2) {
-        let predicate = iteratee(iteratee2)
-        let res = []
-        let map = {}
-        array.forEach((it, idx) => {
-            if (!(iteratee(it) in map)) {
-                map[iteratee(it)] = idx
-                res.push(it)
-            }
-        })
-    }
-    function unzip(array) {
+    drop: function drop(array, n = 1) {
         var res = []
-        for (var i = 0; i < array[0].length; i++) {
-            var temp = []
-            for (var j = 0; j < array.length; j++) {
-                temp.push(array[j][i])
-            }
-            res.push(temp)
+        if (!n) {
+            return array
         }
-        return res
-    }
-
-    function zip() {
-        var res = []
-        for (var i = 0; i < arguments[0].length; i++) {
-            res[i] = []
-            for (var j = 0; j < arguments.length; j++) {
-                res[i][j] = arguments[j][i]
-            }
-        }
-        return res
-    }
-    function without(array) {
-        var map = {}
-        var res = []
-        for (var i = 1; i < arguments.length; i++) {
-            map[arguments[i]] = 1
-        }
-        for (var i = 0; i < array.length; i++) {
-            if (array[i] in map) continue
+        for (let i = n; i < array.length; i++) {
             res.push(array[i])
         }
         return res
-    }
+    },
+
+    dropRight: function dropRight(array, num) {
+        var res = []
+        var leng = array.length
+        if (!num) {
+            num = num == 0 ? 0 : 1
+        }
+        for (let i = 0; i < leng - num; i++) {
+            res.push(array[i])
+        }
+        return res
+    },
+
+    dropRightWhile: function dropRightWhile() {
+
+    },
+
+    dropWhile: function dropWhile() {
+
+    },
+
+    fill: function fill(array, value, start = 0, end = array.length) {
+        for (let i = start; i < end; i++) {
+            array[i] = value
+        }
+        return array
+    },
+
+    findIndex: function findIndex() {
+
+    },
+
+    indLastIndex: function indLastIndex() {
+
+    },
+
+    findLastIndex: function findLastIndex() {
+
+    },
+
+    flatten: function flatten(ary) {
+        var res = []
+        for (var i = 0; i < ary.length; i++) {
+            var item = ary[i]
+            if (Array.isArray(item)) { //直接判断是否是数组
+                for (var j = 0; j < item.length; j++) {
+                    res.push(item[j])
+                }
+            } else {
+                res.push(item)
+            }
+        }
+        return res
+    },
+
+    flattenDeep: function flattenDeep(array) {
+        var result = []
+        for (var i = 0; i < array.length; i++) {
+            var item = array[i]
+            if (Array.isArray(array[i])) {
+                item = flattenDeep(array[i])
+                for (var j = 0; j < item.length; j++) {
+                    result.push(item[j])
+                }
+            } else {
+                result.push(item)
+            }
+        }
+        return result
+    },
+
+    //根据depth递归减少ary的层级
+    flattenDepth: function flattenDepth(ary, depth = 1) {
+        if (depth == 0) {
+            return ary.slice()
+        }
+
+        let res = []
+        for (let i = 0; i < ary.length; i++) {
+            if (Array.isArray(ary[i])) {
+                let item = flattenDepth(ary[i], depth - 1)
+                for (let j = 0; j < item.length; j++) {
+                    res.push(item[j])
+                }
+            } else {
+                res.push(ary[i])
+            }
+        }
+        return res
+    },
+
+    head: function head(array) {
+        if (!array) {
+            return undefined
+        }
+        return array[0]
+    },
+
+    indexOf: function indexOf(array, value, fromIndex = 0) {
+        for (let i = fromIndex; i < array.length; i++) {
+            if (array[i] === value) {
+                return i
+            }
+        }
+        return -1
+    },
+
+    initial: function initial(array) {
+        var res = []
+        for (let i = 0; i < array.length - 1; i++) {
+            res.push(array[i])
+        }
+        return res
+    },
+
+    intersection: function (...arrays) {
+        var res = []
+        for (let num of arguments[0]) {
+            for (let i = 1; i < arguments.length; i++) {
+                if (arguments[i].includes(num))
+                    res.push(num)
+            }
+        }
+        return res
+    },
+
+    intersectionBy: function () {
+
+    },
+
+    intersectionWith: function () {
+
+    },
+
+    join: function join(array, separator = ',') {
+        var str = ''
+        for (let i = 0; i < array.length; i++) {
+            if (i == array.length - 1) {
+                str += array[i]
+            } else {
+                str += array[i] + '' + separator
+            }
+        }
+        return str
+    },
+
+    last: function last(array) {
+        if (!array) {
+            return undefined
+        }
+        return array[array.length - 1]
+    },
+
+    lastIndexOf: function lastIndexOf(array, value, fromIndex = array.length - 1) {
+        for (let i = fromIndex; i >= 0; i--) {
+            if (value === array[i]) {
+                return i
+            }
+        }
+        return -1
+    },
+
+    nth: function (array, n = 0) {
+        if (n >= 0) {
+            return array[n]
+        } else {
+            return array[array.length + n]
+        }
+    },
+
+    pull: function () {
+
+    },
+
+    pullAll: function () {
+
+    },
+
+    pullAllBy: function () {
+
+    },
+
+    pullAllWith: function () {
+
+    },
+
+    remove: function () {
+
+    },
+
+    reverse: function reverse(array) {
+        var leng = array.length
+        var right = leng - 1
+        var mid = 0
+        for (let left = 0; left < right; left++) {
+            mid = array[left]
+            array[left] = array[right]
+            array[right] = mid
+            right--
+        }
+        return array
+    },
+
+    slice: function () {
+
+    },
+
+    //把val 插入有序数组 返回下标
+    sortedIndex: function (ary, val) {
+        if (!Array.isArray(ary) && typeof ary !== 'string') {
+            return NaN
+        }
+
+        let start = 0
+        let end = ary.length
+        while (start < end) {
+            let mid = (start + end) >> 1
+            if (val < ary[mid]) {
+                mid = end
+            } else if (val > ary[mid]) {
+                start = mid + 1
+            } else if (val == ary[mid]) {
+                if (ary[mid - 1] !== val) {
+                    return mid
+                } else {
+                    end = mid
+                }
+            }
+        }
+        return start
+    },
+
+    sortedIndexBy: function () {
+
+    },
+
+    sortedIndexOf: function () {
+
+    },
+
+    sortedLastIndex: function () {
+
+    },
+
+    sortedLastIndexBy: function () {
+
+    },
+
+    sortedLastIndexOf: function () {
+
+    },
+
+    sortedUniq: function () {
+
+    },
+
+    sortedUniqBy: function () {
+
+    },
+
+    tail: function () {
+
+    },
+
+    take: function () {
+
+    },
+
+    takeRight: function () {
+
+    },
+
+    takeRightWhile: function () {
+
+    },
+
+    takeWhile: function () {
+
+    },
+
+    //多个数组去重，返回新数组
+    union: function (...args) {
+        let res = []
+        args.forEach(ary => {
+            ary.forEach(val => {
+                if (!res.includes(val)) {
+                    res.push(val)
+                }
+            })
+        })
+        return res
+    },
+
+    unionBy: function () {
+
+    },
+
+    unionWith: function () {
+
+    },
+
+    uniqWith: function () {
+
+    },
+
+    uniq: function uniq(array) {
+        var res = []
+        var map = {}
+        for (let i = 0; i < array.length; i++) {
+            if (array[i] in map) {  //利用对象的key来判断元素是否出现过，出现过的跳过，没出现过的push进res
+                continue
+            } else {
+                map[array[i]] = 1
+                res.push(array[i])
+            }
+        }
+        return res
+    },
+
+    uniqBy: function (ary, predicate = identity) {
+
+    },
+    unzip: function () {
+
+    },
+    unzipWith: function () {
+
+    },
+
+    without: function without(array, values) {
+        var res = []
+        for (let i = 0; i < array.length; i++) {
+            if (!(array[i] == values)) {
+                res.push(array[i])
+            }
+        }
+        return res
+    },
+
+    xor: function () {
+
+    },
+    xorBy: function () {
+
+    },
+    xorWith: function () {
+
+    },
+    zipObject: function () {
+
+    },
+    zipObjectDeep: function () {
+
+    },
+    zipWith: function () {
+
+    },
+
+    zip: function zip(...array) {
+        var res = []
+        for (let i = 0; i < array[0].length; i++) {
+            var ary = []
+            for (let j = 0; j < array.length; j++) {
+                ary.push(array[j][i])
+            }
+            res.push(ary)
+        }
+        return res
+    },
+
+    countBy: function () {
+
+    },
+    every: function () {
+
+    },
+    filter: function () {
+
+    },
+    find: function () {
+
+    },
+    findLast: function () {
+
+    },
+    flatMap: function () {
+
+    },
+    flatMapDeep: function () {
+
+    },
+    flatMapDepth: function () {
+
+    },
+    forEach: function () {
+
+    },
+    forEachRight: function () {
+
+    },
+    groupBy: function () {
+
+    },
+    includes: function () {
+
+    },
+    invokeMap: function () {
+
+    },
+    keyBy: function () {
+
+    },
+    map: function () {
+
+    },
+    orderBy: function () {
+
+    },
+    partition: function () {
+
+    },
+    reduce: function () {
+
+    },
+    reduceRight: function () {
+
+    },
+    reject: function () {
+
+    },
+    sample: function () {
+
+    },
+    sampleSize: function () {
+
+    },
+    shuffle: function () {
+
+    },
+
+    size: function size(collection) {
+        var leng = 0
+        for (var key in collection) {
+            leng++
+        }
+        return leng
+    },
+
+    some: function () {
+
+    },
+    sortBy: function () {
+
+    },
+    defer: function () {
+
+    },
+    delay: function () {
+
+    },
+    castArray: function () {
+
+    },
+    conformsTo: function () {
+
+    },
+    eq: function () {
+
+    },
+    gt: function () {
+
+    },
+    gte: function () {
+
+    },
+    isArguments: function () {
+
+    },
+    isArray: function () {
+
+    },
+    isArrayBuffer: function () {
+
+    },
+
+    isArrayLike: function () {
+
+    },
+    isArrayLikeObject: function () {
+
+    },
+
+    isBoolean: function isBoolean(value) {
+        value === false || value === true ? true : false
+    },
+
+    isDate: function () {
+
+    },
+    isElement: function () {
+
+    },
+
+    isEmpty: function isEmpty(value) {
+        for (var key in value) {
+            return false
+        }
+        return true
+    },
+
+    isEqual: function isEqual(a, b) {
+        if (a === b) {
+            return true
+        }
+        if (a !== a && b !== b) {
+            return true
+        }
+        // 两个都是数组
+        if (Array.isArray(a) && Array.isArray(b)) {
+            if (a.length !== b.length) {
+                return false
+            } else {
+                for (var i = 0; i < a.length; i++) {
+                    if (!deepEqual(a[i], b[i])) {
+                        return false
+                    }
+                }
+                return true
+            }
+        }
+        // 两个都是对象
+        if (!Array.isArray(a) && !Array.isArray(b) && typeof a === 'object' && typeof b === 'object') {
+            for (var key in a) {
+                // a的每个属性都要在b里
+                // 一旦不在，就返回false
+                if (!(key in b)) {
+                    return false
+                }
+            }
+            for (var key in b) {
+                // b的每个属性都要在a里
+                // 一旦不在，就返回false
+                if (!(key in a)) {
+                    return false
+                }
+            }
+            for (var key in a) {
+                if (!deepEqual(a[key], b[key])) {
+                    return false
+                }
+            }
+            return true
+        }
+        return false
+    },
+
+    isEqualWith: function () {
+
+    },
+    isError: function () {
+
+    },
+    isFunction: function () {
+
+    },
+    isInteger: function () {
+
+    },
+    isLength: function () {
+
+    },
+    isMap: function () {
+
+    },
+    //判断obj是否全包含src，src的每个属性及值都在obj上找到并相等.支持深层
+    //测试用例 isMatch({a:1,b:2,c:3,d:{x:1,y:2}}, {b:2,d:{x:1}})
+    isMatch: function isMatch(obj, src) {
+        if (obj === src) {
+            return true
+        }
+        if ((typeof obj == 'object') + (typeof src == 'object') == 1) { //不是都为对象
+            return false
+            //lodash规则奇怪，src可以不是对象，也返回true
+        }
+        for (var key in src) {
+            if (src.hasOwnProperty(key)) {
+                if (typeof src[key] !== 'object') {
+                    if (!obj.hasOwnProperty(key) || obj[key] !== src[key]) {
+                        return false
+                    }
+                } else { //src[key]是Object，深层判断
+                    if (src[key] === null && obj[key] !== null) {
+                        return false
+                    } else if (!isMatch(obj[key], src[key])) {
+                        return false
+                    }
+                }
+            }
+        }
+        return true
+    },
+
+    isMatchWith: function isMatchWith(obj, src, customizer = function () { }) {
+        if (customizer(obj, src) || obj === src) {
+            return true
+        }
+        if ((typeof obj == 'object') + (typeof src == 'object') == 1) {
+            return false
+        }
+        for (let key in src) {
+            if (src.hasOwnProperty(key)) {
+                if (!obj.hasOwnProperty(key)) {
+                    return false
+                } else {
+                    if (customizer(obj[key], src[key], key, obj, src)) {
+                        continue
+                    }
+                    if (typeof src[key] != 'object') {
+                        return src[key] === obj[key]
+                    } else {
+                        if ((src[key] === null) + (obj[key] === null) === 1) {
+                            return false
+                        } else
+                            if (!isMatchWith(obj[key], src[key], customizer)) {
+                                return false
+                            }
+                    }
+                }
+            }
+        }
+        return true
+    },
+
+    isNaN: function () {
+
+    },
+
+    isNil: function () {
+
+    },
+    isNative: function () {
+
+    },
+
+    isNull: function isNull(value) {
+        return value === null
+    },
+
+    isNumber: function isNumber(value) {
+        return typeof (value) === typeof (0)
+    },
+
+    isObject: function () {
+
+    },
+    isObjectLike: function () {
+
+    },
+    isPlainObject: function () {
+
+    },
+
+    isRegExp: function () {
+
+    },
+    isSafeInteger: function () {
+
+    },
+    isSet: function () {
+
+    },
+    isString: function () {
+
+    },
+    isSymbol: function () {
+
+    },
+    isTypedArray: function () {
+
+    },
+    isUndefined: function () {
+
+    },
+    isWeakMap: function () {
+
+    },
+    isWeakSet: function () {
+
+    },
+    lt: function () {
+
+    },
+    lte: function () {
+
+    },
+
+    toArray: function toArray(value) {
+        if (typeof (value) === 'number' || !value) {
+            return []
+        }
+
+        var res = []
+        if (typeof (value) === 'string' || Array.isArray(value)) {
+            for (let i = 0; i < value.length; i++) {
+                res.push(array[i])
+            }
+            return res
+        }
+
+        for (let key of value) {
+            res.push(value[key])
+        }
+        return res
+    },
+
+    toFinite: function () {
+
+    },
+
+    toInteger: function () {
+
+    },
+    toLength: function () {
+
+    },
+    toNumber: function () {
+
+    },
+    assign: function () {
+
+    },
+    toSafeInteger: function () {
+
+    },
+
+    add: function add(augend, addend) {
+        return augend + addend
+    },
+
+    ceil: function () {
+
+    },
+    divide: function () {
+
+    },
+    floor: function () {
+
+    },
+
+    max: function max(array) {
+        if (!array.length) {
+            return undefined
+        }
+        var M = -Infinity
+        for (let key of array) {
+            key > M ? M = key : M
+        }
+        return M
+    },
+
+    maxBy: function () {
+
+    },
+    mean: function () {
+
+    },
+    meanBy: function () {
+
+    },
+
+    min: function min(array) {
+        if (!array.length) {
+            return undefined
+        }
+        var M = Infinity
+        for (let key of array) {
+            key < M ? M = key : M
+        }
+        return M
+    },
+
+    minBy: function () {
+
+    },
+    multiply: function () {
+
+    },
+    round: function () {
+
+    },
+    subtract: function () {
+
+    },
+
+
+    sum: function sum(array) {
+        // var res = 0
+        // for (let key of array) {
+        //   res += key
+        // }
+        // return res
+        return array.reduce((a, b) => a + b)
+    },
+
+    sumBy: function () {
+
+    },
+    clamp: function () {
+
+    },
+    inRange: function () {
+
+    },
+    random: function () {
+
+    },
+    assignIn: function () {
+
+    },
+    at: function () {
+
+    },
+    defaults: function () {
+
+    },
+    defaultsDeep: function () {
+
+    },
+    findKey: function () {
+
+    },
+    findLastKey: function () {
+
+    },
+    forIn: function () {
+
+    },
+    forInRight: function () {
+
+    },
+    forOwn: function () {
+
+    },
+    forOwnRight: function () {
+
+    },
+    functions: function () {
+
+    },
+    functionsIn: function () {
+
+    },
+    get: function () {
+
+    },
+    has: function () {
+
+    },
+    hasIn: function () {
+
+    },
+    invert: function () {
+
+    },
+    invertBy: function () {
+
+    },
+    keys: function () {
+
+    },
+    keysIn: function () {
+
+    },
+    mapKeys: function () {
+
+    },
+    mapValues: function () {
+
+    },
+    merge: function () {
+
+    },
+
+    mergeWith: function () {
+
+    },
+    omit: function () {
+
+    },
+    omitBy: function () {
+
+    },
+
+    pick: function () {
+
+    },
+    pickBy: function () {
+
+    },
+    result: function () {
+
+    },
+    set: function () {
+
+    },
+    setWith: function () {
+
+    },
+    toPairs: function () {
+
+    },
+    toPairsIn: function () {
+
+    },
+    transform: function () {
+
+    },
+    unset: function () {
+
+    },
+    update: function () {
+
+    },
+    updateWith: function () {
+
+    },
+    values: function () {
+
+    },
+    valuesIn: function () {
+
+    },
+    camelCase: function () {
+
+    },
+
+    capitalize: function () {
+
+    },
+    deburr: function () {
+
+    },
+    endsWith: function () {
+
+    },
+    deburr: function () {
+
+    },
+    escape: function () {
+
+    },
+    escapeRegExp: function () {
+
+    },
+    kebabCase: function () {
+
+    },
+    lowerCase: function () {
+
+    },
+    pad: function () {
+
+    },
+    padEnd: function () {
+
+    },
+    padStart: function () {
+
+    },
+
+    repeat: function repeat(string = '', n = 1) {
+        if (!n) {
+            return ''
+        }
+
+        var res = ''
+        for (let i = 0; i < n; i++) {
+            res += string
+        }
+        return res
+    },
+
+    replace: function () {
+
+    },
+    snakeCase: function () {
+
+    },
+    split: function () {
+
+    },
+    startCase: function () {
+
+    },
+    startsWith: function () {
+
+    },
+    toLower: function () {
+
+    },
+    toUpper: function () {
+
+    },
+    trim: function () {
+
+    },
+    trimEnd: function () {
+
+    },
+    trimStart: function () {
+
+    },
+    truncate: function () {
+
+    },
+    unescape: function () {
+
+    },
+    upperCase: function () {
+
+    },
+    upperFirst: function () {
+
+    },
+    words: function () {
+
+    },
+
+    //可跳跃绑定的bind  
+
+    bind: function bind(f, thisArg, ...fixedArgs) { //bind(f, {}, 1, 2, _, 3, _, 4)
+        return function (...args) { // 5,8, 9,10
+            var parameters = fixedArgs.slice()
+            var j = 0
+            for (var i = 0; i < parameters.length; i++) {
+                if (Object.is(parameters[i], bind.placeholder)) { //Object.is()能够做到NaN===NaN
+                    if (j < args.length) {
+                        parameters[i] = args[j++]
+                    } else {
+                        parameters[i] = undefined
+                    }
+                }
+            }
+            while (j < args.length) {
+                parameters.push(args[j++])
+            }
+            return f.apply(thisArg, parameters)
+        }
+    },
+
+    bindAll: function () {
+
+    },
+    defaultTo: function () {
+
+    },
+    /*-----------------------------------
+     *              Util
+     *------------------------------------
+     */
+
+    //根据不同类型生成不同的断言函数
+    iteratee: function iteratee(predicate) {
+        if (typeof predicate === 'function') {
+            return predicate
+        } else if (typeof predicate === 'string') {
+            predicate = property(predicate) //输入属性，返回属性值
+        } else if (Array.isArray(predicate)) {
+            predicate = matchesProperty(...predicate) // 输入...[key,val]，返回断言是否其超集
+        } else if (typeof predicate === 'object') {
+            predicate = matches(predicate) //输入对象，返回断言是否其超集
+        }
+        return predicate
+    },
+
+
+    //传入什么属性名，它返回的函数就用来获取对象的属性值
+    property: function property(prop) {
+        // return bind(get,null, _, prop) //当一个函数调用另一个函数，传入的参数不变的情况下，永远可以被优化为bind写法
+        return function (obj) {
+            // return obj[prop]
+            return get(obj, prop) //get(obj, path)得到深层路径下的属性值
+        }
+    },
+
+    //_.map(['a[2]', 'c[0]'], _.propertyOf(object));
+    // => [2, 0]
+    propertyOf: function propertyOf(obj) {
+        return function (...args) {
+            let valPath = args[0]
+            return get(obj, valPath)
+        }
+    },
 
 
 
+    //将String的路径转为数组 
+    //假设路径合法， 'a[0].b.c[0][3][4].foo.bar[2]'  ---> ['a','0','b','c','0','3','4','foo','bar']  右括号必须遇到左括号或者.，单独的左括号和单独的.
+    toPath: function toPath(val) {
+        if (Array.isArray(val)) {
+            return val
+        } else {
+            var res = val.split(/\]\[|\]\.|\.|\[|\]/)
+            if (res[0] === '') {
+                res.shift()
+            }
+            if (res[res.length - 1] === '') {
+                res.pop()
+            }
+            return res
+        }
+    },
+
+    toPath2: function toPath2(val) {
+        if (Array.isArray(val)) {
+            return val
+        } else {
+            var result = val.split('][')
+                .reduce((res, it) => res.concat(it.split('].')), [])
+                .reduce((res, it) => res.concat(it.split('[')), [])
+                .reduce((res, it) => res.concat(it.split('.')), [])
+            var item = result[result.length - 1]
+            if (item[item.length - 1] === ']') { //val最后属性为[2]时，该项为2]，需要把]去掉
+                result[result.length - 1] = item.slice(0, item.length - 1)
+            }
+            return result
+        }
+    },
 
 
+    //src为filter接收的对象，判断src是否是obj的子集.没有考虑深层次嵌套
+    //函数构造器matches，返回的函数传入的参数应是传入matches里的超集。不支持深层
+    matches2: function matches2(src) {
+        return function (obj) {
+            if (obj === src) {
+                return true
+            }
+            for (var key in src) {
+                if (!obj.hasOwnProperty(key) || obj[key] !== src[key]) {
+                    return false
+                }
+            }
+            return true
+        }
+    },
+    //对matches的优化改进，支持了深层比较
+    matches: function matches(src) {
+        // return bind(isMatch, null, window, src)
+        return function (obj) {
+            return isMatch(obj, src)
+        }
+    },
 
-}
+
+    //判断obj在path路径下的属性值与val是否深度相等
+    matchesProperty: function matchesProperty(path, val) {
+        return function (obj) {
+            return isEqual(get(obj, path), val)
+        }
+    },
+
+    //返回它自己
+    identity: function identity(val) {
+        return val
+    },
+
+    //常量函数，创建一个返回val的函数
+    constant: function constant(val) {
+        return function () {
+            return val
+        }
+    },
+
+    range: function range(start = 0, end, step = 1) {
+        var res = []
+        if (arguments.length == 1) {
+            end = start
+            start = 0
+        }
+        while (start < end) {
+            res.push(start)
+            start += step
+        }
+        while (start > end) {
+            res.push(start)
+            start += -step
+        }
+        return res
+    },
+
+    rangeRight: function () {
+
+    },
+    mixin: function () {
+
+    },
+    times: function () {
+
+    },
+
+    uniqueId: function () {
+
+    },
+    cloneDeep: function () {
+
+    },
+    uniqueId: function () {
+
+    },
 
 
+    concat: function () {
+
+    },
+    pullAt: function () {
+
+    },
 
 
+    ary: function () {
 
+    },
+    unary: function () {
 
+    },
+    negate: function () {
 
+    },
+    once: function () {
 
+    },
+    spread: function () {
 
+    },
+    curry: function () {
+
+    },
+    memoize: function () {
+
+    },
+    flip: function () {
+
+    },
+    conforms: function () {
+
+    },
+
+    flow: function () {
+
+    },
+    method: function () {
+
+    },
+    methodOf: function () {
+
+    },
+    nthArg: function () {
+
+    },
+
+    parseJson: function () {
+
+    },
+    stringifyJson: function () {
+
+    },
+
+};
