@@ -318,7 +318,7 @@ var zhaodonggua = {
         return true
     },
     filter: function filter(collection, identity) {
-        predicate = iteratee(identity)
+        predicate = this.iteratee(identity)
         let res = []
         for (let key in collection) {
             if (predicate(collection[key])) {
@@ -336,17 +336,17 @@ var zhaodonggua = {
         // 参数为字符串
         //如果参数为属性名，则返回属性值
         if (typeof param === 'string') {
-            return property(param)
+            return this.property(param)
         }
         // 参数为数组
         // 包含参数则return true,否则为false
         if (this.isArray(param)) {
-            return matchesProperty(param)
+            return this.matchesProperty(param)
         }
         // 参数为对象
         //包含这个对象则return true,否则return false
         if (this.isObject(param)) {
-            return matches(param)
+            return this.matches(param)
         }
         // 啥都不是的时候,返回自身
         return param => param
@@ -503,7 +503,7 @@ var zhaodonggua = {
         return res
     },
     findLast: function findLast(collection, predicate = identity, fromIndex = collection.length - 1) {
-        let func = iteratee(predicate)
+        let func = this.iteratee(predicate)
         for (let i = fromIndex; i >= 0; i--) {
             if (func(collection[i])) {
                 return collection[i]
@@ -511,7 +511,7 @@ var zhaodonggua = {
         }
     },
     findIndex: function findIndex(array, predicate = identity, fromIndex = array.length - 1) {
-        predicate = iteratee(predicate)
+        predicate = this.iteratee(predicate)
         for (let i = fromIndex; i >= 0; i--) {
             if (predicate(array[i])) {
                 return i
@@ -520,7 +520,7 @@ var zhaodonggua = {
     },
     flatMap: function flatMap(collection, identity) {
         let res = []
-        let func = iteratee(identity)
+        let func = this.iteratee(identity)
         for (let key in collection) {
             res.push(...func(collection[key], key, collection))
         }
@@ -528,7 +528,7 @@ var zhaodonggua = {
     },
     flatMapDeep: function flatMapDeep(collection, identity) {
         let res = []
-        let func = iteratee(identity)
+        let func = this.iteratee(identity)
         for (let key in collection) {
             res.push(flattenDeep(func(collection[key], key, collection)))
         }
@@ -536,7 +536,7 @@ var zhaodonggua = {
     },
     dropWhile: function dropWhile(array, identity) {
         let res = []
-        let func = iteratee(identity)
+        let func = this.iteratee(identity)
         array.forEach((item, idx) => {
             if (!func(array[idx], idx, array)) res.push(item);
         })
