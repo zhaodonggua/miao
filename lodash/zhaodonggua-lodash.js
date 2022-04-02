@@ -13,6 +13,7 @@ var zhaodonggua = function () {
         }
         return arr
     }
+
     function compact(array) {
         let length = array.length
         let res = []
@@ -20,7 +21,7 @@ var zhaodonggua = function () {
             if (array[i]) res.push(array[i]);
         }
         return res
-    },
+    }
     function drop(array, n = 1) {
         let length = array.length
         let res = []
@@ -116,7 +117,7 @@ var zhaodonggua = function () {
             obj[pair[0]] = pair[1]
         }
         return obj
-    },
+    }
 
     head: function head(array, size = 1) {
         return array[0];
@@ -239,7 +240,7 @@ var zhaodonggua = function () {
         let val = typeof (value)
         if (value == null) return false;
         return val == 'boolean' || val == 'object';
-    },
+    }
     // matches: function matches(target) {
     //     return function (obj) {
     //         for (let key in target) {
