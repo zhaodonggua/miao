@@ -1,4 +1,4 @@
-var nj_uzi = {
+var zhaodonggua = {
     //*************************************************************** */
     chunk: function chunk(array, size) {
         let leng = array.length
