@@ -317,8 +317,8 @@ var zhaodonggua = {
         }
         return true
     },
-    filter: function filter(collection, predicate = identity) {
-        predicate = iteratee(predicate)
+    filter: function filter(collection, identity) {
+        predicate = iteratee(identity)
         let res = []
         for (let key in collection) {
             if (predicate(collection[key])) {
@@ -340,18 +340,31 @@ var zhaodonggua = {
         }
         // 参数为数组
         // 包含参数则return true,否则为false
-        if (isArray(param)) {
+        if (this.isArray(param)) {
             return matchesProperty(param)
         }
         // 参数为对象
         //包含这个对象则return true,否则return false
-        if (isObject(param)) {
+        if (this.isObject(param)) {
             return matches(param)
         }
         // 啥都不是的时候,返回自身
         return param => param
     },
-
+    isObject: function isObject(value) {
+        if (isNil(value) ||
+            isBoolean(value) ||
+            isString(value) ||
+            isNumber(value) ||
+            isSymbol(value)) {
+            return false
+        } else {
+            return true
+        }
+    },
+    isArray: function isArray(value) {
+        return Object.prototype.toString.call(value) == '[object Array]'
+    },
     map: function map(collection, identity) {
         identity = this.iteratee(identity)
         let res = []
@@ -420,7 +433,7 @@ var zhaodonggua = {
         let args = Array.from(arrays)
         let res = []
         let map = {}
-        predicate = iteratee(args.pop())
+        predicate = this.iteratee(args.pop())
         args.reduce((a, b) => a.concat(b)).forEach(it => {
             if (!map[predicate(it)]) {
                 map[predicate(it)] = 1
@@ -488,7 +501,49 @@ var zhaodonggua = {
             res.push(array[i])
         }
         return res
-    }
+    },
+    findLast: function findLast(collection, predicate = identity, fromIndex = collection.length - 1) {
+        let func = iteratee(predicate)
+        for (let i = fromIndex; i >= 0; i--) {
+            if (func(collection[i])) {
+                return collection[i]
+            }
+        }
+    },
+    findIndex: function findIndex(array, predicate = identity, fromIndex = array.length - 1) {
+        predicate = iteratee(predicate)
+        for (let i = fromIndex; i >= 0; i--) {
+            if (predicate(array[i])) {
+                return i
+            }
+        }
+    },
+    flatMap: function flatMap(collection, identity) {
+        let res = []
+        let func = iteratee(identity)
+        for (let key in collection) {
+            res.push(...func(collection[key], key, collection))
+        }
+        return res
+    },
+    flatMapDeep: function flatMapDeep(collection, identity) {
+        let res = []
+        let func = iteratee(identity)
+        for (let key in collection) {
+            res.push(flattenDeep(func(collection[key], key, collection)))
+        }
+        return res
+    },
+    dropWhile: function dropWhile(array, identity) {
+        let res = []
+        let func = iteratee(identity)
+        array.forEach((item, idx) => {
+            if (!func(array[idx], idx, array)) res.push(item);
+        })
+        return res
+    },
+
+
 
 
 
